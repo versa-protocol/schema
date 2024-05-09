@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Receipt",
+  "description": "A Versa itemized receipt",
+  "type": "object",
+  "required": ["sender_id", "version", "header", "itemization"],
+  "properties": {
+    "sender_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 14,
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$"
+    },
+    "header": {
+      "type": "object",
+      "required": [
+        "receipt_id",
+        "currency",
+        "amount",
+        "date_time",
+        "mcc",
+        "third_party",
+        "customer",
+        "location"
+      ],
+      "properties": {
+        "receipt_id": { "type": "string" },
+        "currency": {
+          "description": "ISO 4217 currency code",
+          "type": "string",
+          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cnh"]
+        },
+        "amount": { "type": "integer" },
+        "subtotal": { "type": "integer" },
+        "datetime": { "type": "integer" },
+        "mcc": { "type": ["string", "null"] },
+        "third_party": { "type": ["object", "null"] },
+        "customer": { "type": ["object", "null"] },
+        "location": { "type": ["object", "null"] }
+      }
+    },
+    "itemization": {
+      "type": "object",
+      "required": [
+        "general",
+        "lodging",
+        "ecommerce",
+        "car_rental",
+        "transit_route",
+        "subscription",
+        "flight"
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "general": {
+              "type": "array"
+            }
+          }
+        },
+        {
+          "properties": {
+            "lodging": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "properties": {
+            "ecommerce": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "properties": {
+            "car_rental": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "properties": {
+            "transit_route": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "properties": {
+            "subscription": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "properties": {
+            "flight": {
+              "type": "object"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
