@@ -38,9 +38,48 @@
         "subtotal": { "type": "integer" },
         "datetime": { "type": "integer" },
         "mcc": { "type": ["string", "null"] },
-        "third_party": { "type": ["object", "null"] },
-        "customer": { "type": ["object", "null"] },
-        "location": { "type": ["object", "null"] }
+        "third_party": {
+          "type": ["object", "null"],
+          "required": ["first_party_relation", "make_primary", "merchant"],
+          "properties": {
+            "first_party_relation": {
+              "type": "string",
+              "enum": [
+                "bnpl",
+                "delivery_service",
+                "marketplace",
+                "payment_processor",
+                "platform",
+                "point_of_sale"
+              ]
+            },
+            "make_primary": {
+              "description": "Determines whether the merchant or third party gets top billing on the receipt",
+              "type": "boolean"
+            },
+            "merchant": { "$ref": "#/$defs/merchant" }
+          }
+        },
+        "customer": {
+          "type": ["object", "null"],
+          "required": ["name", "email", "address", "phone"],
+          "properties": {
+            "name": { "type": "string" },
+            "email": {
+              "type": ["string", "null"],
+              "format": "email",
+              "minLength": 6,
+              "maxLength": 127
+            },
+            "address": {
+              "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+            },
+            "phone": { "type": ["string", "null"] }
+          }
+        },
+        "location": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/place" }]
+        }
       }
     },
     "itemization": {
@@ -105,6 +144,78 @@
           }
         }
       ]
+    }
+  },
+  "$defs": {
+    "merchant": {
+      "type": "object",
+      "required": ["id", "name", "brand_color", "logo", "website"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "brand_color": {
+          "description": "Hex color",
+          "type": "string",
+          "pattern": "^#?([a-f0-9]{6}|[a-f0-9]{3})$"
+        },
+        "logo": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "website": {
+          "type": ["string", "null"],
+          "format": "uri"
+        }
+      }
+    },
+    "address": {
+      "type": "object",
+      "required": [
+        "street_address",
+        "city",
+        "region",
+        "country",
+        "postal_code",
+        "lat",
+        "lon"
+      ],
+      "properties": {
+        "street_address": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "region": {
+          "type": ["string", "null"],
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "country": { "type": "string", "minLength": 2, "maxLength": 2 },
+        "postal_code": { "type": ["string", "null"] },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    },
+    "place": {
+      "type": "object",
+      "required": ["name", "address", "phone", "url", "google_place_id"],
+      "properties": {
+        "name": { "type": ["string", "null"] },
+        "address": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+        },
+        "phone": { "type": ["string", "null"] },
+        "url": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "google_place_id": { "type": ["string", "null"] }
+      }
     }
   }
 }
