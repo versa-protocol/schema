@@ -266,7 +266,6 @@
       "type": "object",
       "required": ["id", "name", "brand_color", "logo", "website"],
       "properties": {
-        "id": { "type": "string" },
         "name": { "type": "string" },
         "brand_color": {
           "description": "Hex color",
