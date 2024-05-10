@@ -4,7 +4,7 @@
   "title": "Receipt",
   "description": "A Versa itemized receipt",
   "type": "object",
-  "required": ["sender_id", "version", "header", "itemization"],
+  "required": ["sender_id", "version", "header", "itemization", "actions"],
   "properties": {
     "sender_id": {
       "type": "string"
@@ -97,7 +97,8 @@
         {
           "properties": {
             "general": {
-              "type": "array"
+              "type": "array",
+              "minItems": 1
             }
           }
         },
@@ -132,7 +133,93 @@
         {
           "properties": {
             "subscription": {
-              "type": "object"
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "description",
+                  "interval",
+                  "interval_count",
+                  "current_period_start",
+                  "current_period_end",
+                  "quantity",
+                  "unit_cost",
+                  "taxes",
+                  "metadata",
+                  "discounts"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["one_time", "recurring"]
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "string",
+                        "enum": ["day", "week", "month", "year"]
+                      }
+                    ]
+                  },
+                  "interval_count": {
+                    "type": ["integer", "null"]
+                  },
+                  "current_period_start": {
+                    "type": ["integer", "null"]
+                  },
+                  "current_period_end": {
+                    "type": ["integer", "null"]
+                  },
+                  "quantity": {
+                    "type": ["number", "null"]
+                  },
+                  "unit_cost": {
+                    "type": ["number", "null"]
+                  },
+                  "taxes": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "$ref": "#/$defs/tax"
+                        }
+                      }
+                    ]
+                  },
+                  "metadata": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "$ref": "#/$defs/item_metadata"
+                        }
+                      }
+                    ]
+                  },
+                  "discounts": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "$ref": "#/$defs/discount"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
             }
           }
         },
@@ -140,6 +227,34 @@
           "properties": {
             "flight": {
               "type": "object"
+            }
+          }
+        }
+      ]
+    },
+    "actions": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "array",
+
+          "items": {
+            "type": "object",
+            "required": ["name", "url", "type"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "type": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "type": "string", "enum": ["rebuy"] }
+                ]
+              }
             }
           }
         }
@@ -164,7 +279,7 @@
         },
         "website": {
           "type": ["string", "null"],
-          "format": "uri"
+          "format": "hostname"
         }
       }
     },
@@ -215,6 +330,74 @@
           "format": "uri"
         },
         "google_place_id": { "type": ["string", "null"] }
+      }
+    },
+    "item_metadata": {
+      "type": "object",
+      "required": ["name", "type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["sku", "unspsc", "asin", "other"]
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "discount": {
+      "type": "object",
+      "required": ["amount", "name", "type", "rate"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["fixed", "percentage"]
+        }
+      },
+      "if": {
+        "properties": {
+          "type": {
+            "const": "fixed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "rate": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "rate": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "tax": {
+      "type": "object",
+      "required": ["amount", "rate", "name"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "rate": {
+          "type": ["number", "null"]
+        },
+        "name": {
+          "type": "string"
+        }
       }
     }
   }
