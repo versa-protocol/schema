@@ -1,0 +1,20 @@
+name: Build
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Receipt Schema
+        uses: thomasmost/quicktype-gha@0.1.1
+        with:
+          source-file: data_objects/receipt.schema.json
+          out-langs: ts,rs
+      - name: Upload files
+        uses: actions/upload-artifact@v4
+        with:
+          name: bindings
+          path: |
+            ./receipt.ts
+            ./receipt.rs
