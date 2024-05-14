@@ -7,7 +7,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Receipt Schema
-        uses: thomasmost/quicktype-gha@0.1.2
+        uses: thomasmost/quicktype-gha@0.2.0
         with:
           source-file: data_objects/receipt.schema.json
           out-dir: src
@@ -17,5 +17,5 @@ jobs:
         with:
           name: bindings
           path: |
-            ./receipt.ts
-            ./receipt.rs
+            ./src/receipt.ts
+            ./src/receipt.rs
