@@ -130,90 +130,96 @@
         {
           "properties": {
             "subscription": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "object",
-                "required": [
-                  "type",
-                  "description",
-                  "interval",
-                  "interval_count",
-                  "current_period_start",
-                  "current_period_end",
-                  "quantity",
-                  "unit_cost",
-                  "taxes",
-                  "metadata",
-                  "discounts"
-                ],
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": ["one_time", "recurring"]
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "interval": {
-                    "oneOf": [
-                      { "type": "null" },
-                      {
+              "type": "object",
+              "required": ["subscription_items", "invoice_level_discounts"],
+              "properties": {
+                "subscription_items": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "description",
+                      "interval",
+                      "interval_count",
+                      "current_period_start",
+                      "current_period_end",
+                      "quantity",
+                      "unit_cost",
+                      "taxes",
+                      "metadata",
+                      "discounts"
+                    ],
+                    "properties": {
+                      "type": {
                         "type": "string",
-                        "enum": ["day", "week", "month", "year"]
+                        "enum": ["one_time", "recurring"]
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "interval": {
+                        "oneOf": [
+                          { "type": "null" },
+                          {
+                            "type": "string",
+                            "enum": ["day", "week", "month", "year"]
+                          }
+                        ]
+                      },
+                      "interval_count": {
+                        "type": ["integer", "null"]
+                      },
+                      "current_period_start": {
+                        "type": ["integer", "null"]
+                      },
+                      "current_period_end": {
+                        "type": ["integer", "null"]
+                      },
+                      "quantity": {
+                        "type": ["number", "null"]
+                      },
+                      "unit_cost": {
+                        "type": ["number", "null"]
+                      },
+                      "taxes": {
+                        "oneOf": [
+                          { "type": "null" },
+                          {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+                              "$ref": "#/$defs/tax"
+                            }
+                          }
+                        ]
+                      },
+                      "metadata": {
+                        "oneOf": [
+                          { "type": "null" },
+                          {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+                              "$ref": "#/$defs/item_metadata"
+                            }
+                          }
+                        ]
+                      },
+                      "discounts": {
+                        "oneOf": [
+                          { "type": "null" },
+                          {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+                              "$ref": "#/$defs/discount"
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  },
-                  "interval_count": {
-                    "type": ["integer", "null"]
-                  },
-                  "current_period_start": {
-                    "type": ["integer", "null"]
-                  },
-                  "current_period_end": {
-                    "type": ["integer", "null"]
-                  },
-                  "quantity": {
-                    "type": ["number", "null"]
-                  },
-                  "unit_cost": {
-                    "type": ["number", "null"]
-                  },
-                  "taxes": {
-                    "oneOf": [
-                      { "type": "null" },
-                      {
-                        "type": "array",
-                        "minItems": 1,
-                        "items": {
-                          "$ref": "#/$defs/tax"
-                        }
-                      }
-                    ]
-                  },
-                  "metadata": {
-                    "oneOf": [
-                      { "type": "null" },
-                      {
-                        "type": "array",
-                        "minItems": 1,
-                        "items": {
-                          "$ref": "#/$defs/item_metadata"
-                        }
-                      }
-                    ]
-                  },
-                  "discounts": {
-                    "oneOf": [
-                      { "type": "null" },
-                      {
-                        "type": "array",
-                        "minItems": 1,
-                        "items": {
-                          "$ref": "#/$defs/discount"
-                        }
-                      }
-                    ]
+                    }
                   }
                 }
               }
