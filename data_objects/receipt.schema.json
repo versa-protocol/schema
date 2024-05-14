@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/versa-protocol/schema/data_objects/receipt.schema.json",
+  "id": "https://raw.githubusercontent.com/versa-protocol/schema/data_objects/receipt.schema.json",
   "title": "Receipt",
   "description": "A Versa itemized receipt",
   "type": "object",
