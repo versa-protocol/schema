@@ -1,7 +1,8 @@
 name: Build
 on: push
 jobs:
-  test:
+  build:
+    name: Generate Quicktypes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
