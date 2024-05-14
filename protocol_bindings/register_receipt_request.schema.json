@@ -1,12 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "$ref": "#/definitions/RegisterTransactionRequest",
+    "$ref": "#/definitions/RegisterReceiptRequest",
     "definitions": {
-        "RegisterTransactionRequest": {
+        "RegisterReceiptRequest": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "transaction_hash": {
+                "receipt_hash": {
                     "type": "integer"
                 },
                 "authorization_bin": {
@@ -15,15 +15,12 @@
                 },
                 "customer_email": {
                     "type": "string"
-                },
-                "customer_id": {
-                    "type": "string"
                 }
             },
             "required": [
-                "transaction_hash"
+                "receipt_hash"
             ],
-            "title": "RegisterTransactionRequest"
+            "title": "RegisterReceiptRequest"
         }
     }
 }

@@ -1,2 +1,8 @@
 *.ts
 *.rs
+
+!src/lib.rs
+
+# Added by cargo
+
+/target

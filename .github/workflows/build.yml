@@ -7,9 +7,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Receipt Schema
-        uses: thomasmost/quicktype-gha@0.1.1
+        uses: thomasmost/quicktype-gha@0.1.2
         with:
           source-file: data_objects/receipt.schema.json
+          out-dir: src
           out-langs: ts,rs
       - name: Upload files
         uses: actions/upload-artifact@v4
