@@ -17,5 +17,5 @@ jobs:
         with:
           name: bindings
           path: |
-            ./src/receipt.ts
-            ./src/receipt.rs
+            ./receipt.ts
+            ./receipt.rs
