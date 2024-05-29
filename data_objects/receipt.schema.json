@@ -428,7 +428,7 @@
     },
     "discount": {
       "type": "object",
-      "required": ["amount", "name", "rate"],
+      "required": ["amount", "name", "discount_type", "rate"],
       "properties": {
         "amount": {
           "type": "integer"

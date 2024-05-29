@@ -153,7 +153,7 @@ pub struct SubscriptionItem {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DiscountElement {
     pub amount: i64,
-    pub discount_type: Option<DiscountType>,
+    pub discount_type: DiscountType,
     pub name: String,
     pub rate: Option<serde_json::Value>,
 }
