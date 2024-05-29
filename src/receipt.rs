@@ -11,7 +11,7 @@
 //     let model: receipt = serde_json::from_str(&json).unwrap();
 // }
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 /// A Versa itemized receipt
