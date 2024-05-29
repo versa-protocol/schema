@@ -139,7 +139,7 @@
                   "items": {
                     "type": "object",
                     "required": [
-                      "type",
+                      "subscription_type",
                       "description",
                       "interval",
                       "interval_count",
@@ -152,7 +152,7 @@
                       "discounts"
                     ],
                     "properties": {
-                      "type": {
+                      "subscription_type": {
                         "type": "string",
                         "enum": ["one_time", "recurring"]
                       },
@@ -266,7 +266,7 @@
             "paid_at": {
               "type": "integer"
             },
-            "type": {
+            "payment_type": {
               "type": "string",
               "enum": ["card", "ach"]
             }
@@ -275,7 +275,7 @@
             {
               "if": {
                 "properties": {
-                  "type": {
+                  "payment_type": {
                     "const": "card"
                   }
                 }
@@ -313,7 +313,7 @@
             {
               "if": {
                 "properties": {
-                  "type": {
+                  "payment_type": {
                     "const": "ach"
                   }
                 }
@@ -414,7 +414,7 @@
       "type": "object",
       "required": ["name", "type", "value"],
       "properties": {
-        "type": {
+        "metadata_type": {
           "type": "string",
           "enum": ["sku", "unspsc", "asin", "other"]
         },
@@ -436,14 +436,14 @@
         "name": {
           "type": "string"
         },
-        "type": {
+        "discount_type": {
           "type": "string",
           "enum": ["fixed", "percentage"]
         }
       },
       "if": {
         "properties": {
-          "type": {
+          "discount_type": {
             "const": "fixed"
           }
         }

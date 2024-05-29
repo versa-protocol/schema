@@ -145,18 +145,18 @@ pub struct SubscriptionItem {
     pub interval_count: Option<i64>,
     pub metadata: Option<Vec<MetadatumElement>>,
     pub quantity: Option<f64>,
+    pub subscription_type: SubscriptionType,
     pub taxes: Option<Vec<TaxElement>>,
-    #[serde(rename = "type")]
-    pub subscription_item_type: SubscriptionItemType,
     pub unit_cost: Option<f64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DiscountElement {
     pub amount: i64,
+    pub discount_type: Option<DiscountType>,
     pub name: String,
     #[serde(rename = "type")]
-    pub receipt_schema_type: DiscountType,
+    pub receipt_schema_type: Option<serde_json::Value>,
     pub rate: Option<serde_json::Value>,
 }
 
@@ -178,15 +178,16 @@ pub enum Interval {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MetadatumElement {
+    pub metadata_type: Option<MetadataType>,
     pub name: String,
-    #[serde(rename = "type")]
-    pub receipt_schema_type: MetadatumType,
     pub value: String,
+    #[serde(rename = "type")]
+    pub receipt_schema_type: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum MetadatumType {
+pub enum MetadataType {
     Asin,
     Other,
     Sku,
@@ -195,7 +196,7 @@ pub enum MetadatumType {
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum SubscriptionItemType {
+pub enum SubscriptionType {
     #[serde(rename = "one_time")]
     OneTime,
     Recurring,
@@ -211,8 +212,9 @@ pub struct TaxElement {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Payment {
     pub paid_at: i64,
+    pub payment_type: Option<PaymentType>,
     #[serde(rename = "type")]
-    pub payment_type: PaymentType,
+    pub purple_type: Option<serde_json::Value>,
     pub card_payment: Option<serde_json::Value>,
     pub ach_payment: Option<serde_json::Value>,
 }
