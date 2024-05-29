@@ -261,7 +261,7 @@
         { "type": "null" },
         {
           "type": "object",
-          "required": ["paid_at", "type", "card_payment", "ach_payment"],
+          "required": ["paid_at", "payment_type", "card_payment", "ach_payment"],
           "properties": {
             "paid_at": {
               "type": "integer"
@@ -412,7 +412,7 @@
     },
     "item_metadata": {
       "type": "object",
-      "required": ["name", "type", "value"],
+      "required": ["name", "metadata_type", "value"],
       "properties": {
         "metadata_type": {
           "type": "string",
@@ -428,7 +428,7 @@
     },
     "discount": {
       "type": "object",
-      "required": ["amount", "name", "type", "rate"],
+      "required": ["amount", "name", "rate"],
       "properties": {
         "amount": {
           "type": "integer"

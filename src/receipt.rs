@@ -155,8 +155,6 @@ pub struct DiscountElement {
     pub amount: i64,
     pub discount_type: Option<DiscountType>,
     pub name: String,
-    #[serde(rename = "type")]
-    pub receipt_schema_type: Option<serde_json::Value>,
     pub rate: Option<serde_json::Value>,
 }
 
@@ -178,11 +176,9 @@ pub enum Interval {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MetadatumElement {
-    pub metadata_type: Option<MetadataType>,
+    pub metadata_type: MetadataType,
     pub name: String,
     pub value: String,
-    #[serde(rename = "type")]
-    pub receipt_schema_type: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -212,9 +208,7 @@ pub struct TaxElement {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Payment {
     pub paid_at: i64,
-    pub payment_type: Option<PaymentType>,
-    #[serde(rename = "type")]
-    pub purple_type: Option<serde_json::Value>,
+    pub payment_type: PaymentType,
     pub card_payment: Option<serde_json::Value>,
     pub ach_payment: Option<serde_json::Value>,
 }
