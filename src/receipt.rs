@@ -15,291 +15,211 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 /// A Versa itemized receipt
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Receipt {
-    actions: Option<Vec<Action>>,
-
-    header: Header,
-
-    itemization: Itemization,
-
-    payment: Option<Payment>,
-
-    version: String,
+    pub actions: Option<Vec<Action>>,
+    pub header: Header,
+    pub itemization: Itemization,
+    pub payment: Option<Payment>,
+    pub version: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Action {
-    name: String,
-
-    url: String,
+    pub name: String,
+    pub url: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Header {
-    amount: i64,
-
-    created_at: i64,
-
+    pub amount: i64,
+    pub created_at: i64,
     /// ISO 4217 currency code
-    currency: Currency,
-
-    customer: Option<Customer>,
-
-    location: Option<LocationClass>,
-
-    mcc: Option<String>,
-
-    receipt_id: String,
-
-    subtotal: Option<i64>,
-
-    third_party: Option<ThirdParty>,
+    pub currency: Currency,
+    pub customer: Option<Customer>,
+    pub location: Option<LocationClass>,
+    pub mcc: Option<String>,
+    pub receipt_id: String,
+    pub subtotal: Option<i64>,
+    pub third_party: Option<ThirdParty>,
 }
 
 /// ISO 4217 currency code
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Currency {
     Aud,
-
     Cad,
-
     Chf,
-
     Cnh,
-
     Eur,
-
     Gbp,
-
     Jpy,
-
     Usd,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Customer {
-    address: Option<AddressClass>,
-
-    email: Option<String>,
-
-    name: String,
-
-    phone: Option<String>,
+    pub address: Option<AddressClass>,
+    pub email: Option<String>,
+    pub name: String,
+    pub phone: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct AddressClass {
-    city: Option<String>,
-
-    country: String,
-
-    lat: f64,
-
-    lon: f64,
-
-    postal_code: Option<String>,
-
-    region: Option<String>,
-
-    street_address: Option<String>,
+    pub city: Option<String>,
+    pub country: String,
+    pub lat: f64,
+    pub lon: f64,
+    pub postal_code: Option<String>,
+    pub region: Option<String>,
+    pub street_address: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct LocationClass {
-    address: Option<AddressClass>,
-
-    google_place_id: Option<String>,
-
-    name: Option<String>,
-
-    phone: Option<String>,
-
-    url: Option<String>,
+    pub address: Option<AddressClass>,
+    pub google_place_id: Option<String>,
+    pub name: Option<String>,
+    pub phone: Option<String>,
+    pub url: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct ThirdParty {
-    first_party_relation: FirstPartyRelation,
-
+    pub first_party_relation: FirstPartyRelation,
     /// Determines whether the merchant or third party gets top billing on the receipt
-    make_primary: bool,
-
-    merchant: Merchant,
+    pub make_primary: bool,
+    pub merchant: Merchant,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum FirstPartyRelation {
     Bnpl,
-
     #[serde(rename = "delivery_service")]
     DeliveryService,
-
     Marketplace,
-
     #[serde(rename = "payment_processor")]
     PaymentProcessor,
-
     Platform,
-
     #[serde(rename = "point_of_sale")]
     PointOfSale,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Merchant {
     /// Hex color
-    brand_color: String,
-
-    logo: Option<String>,
-
-    name: String,
-
-    website: Option<String>,
-
-    id: Option<serde_json::Value>,
+    pub brand_color: String,
+    pub logo: Option<String>,
+    pub name: String,
+    pub website: Option<String>,
+    pub id: Option<serde_json::Value>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Itemization {
-    general: HashMap<String, Option<serde_json::Value>>,
-
-    lodging: HashMap<String, Option<serde_json::Value>>,
-
-    ecommerce: HashMap<String, Option<serde_json::Value>>,
-
-    car_rental: HashMap<String, Option<serde_json::Value>>,
-
-    transit_route: HashMap<String, Option<serde_json::Value>>,
-
-    subscription: Subscription,
-
-    flight: HashMap<String, Option<serde_json::Value>>,
+    pub general: HashMap<String, Option<serde_json::Value>>,
+    pub lodging: HashMap<String, Option<serde_json::Value>>,
+    pub ecommerce: HashMap<String, Option<serde_json::Value>>,
+    pub car_rental: HashMap<String, Option<serde_json::Value>>,
+    pub transit_route: HashMap<String, Option<serde_json::Value>>,
+    pub subscription: Subscription,
+    pub flight: HashMap<String, Option<serde_json::Value>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Subscription {
-    subscription_items: Vec<SubscriptionItem>,
-
-    invoice_level_discounts: Option<serde_json::Value>,
+    pub subscription_items: Vec<SubscriptionItem>,
+    pub invoice_level_discounts: Option<serde_json::Value>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct SubscriptionItem {
-    current_period_end: Option<i64>,
-
-    current_period_start: Option<i64>,
-
-    description: String,
-
-    discounts: Option<Vec<DiscountElement>>,
-
-    interval: Option<Interval>,
-
-    interval_count: Option<i64>,
-
-    metadata: Option<Vec<MetadatumElement>>,
-
-    quantity: Option<f64>,
-
-    taxes: Option<Vec<TaxElement>>,
-
+    pub current_period_end: Option<i64>,
+    pub current_period_start: Option<i64>,
+    pub description: String,
+    pub discounts: Option<Vec<DiscountElement>>,
+    pub interval: Option<Interval>,
+    pub interval_count: Option<i64>,
+    pub metadata: Option<Vec<MetadatumElement>>,
+    pub quantity: Option<f64>,
+    pub taxes: Option<Vec<TaxElement>>,
     #[serde(rename = "type")]
-    subscription_item_type: SubscriptionItemType,
-
-    unit_cost: Option<f64>,
+    pub subscription_item_type: SubscriptionItemType,
+    pub unit_cost: Option<f64>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DiscountElement {
-    amount: i64,
-
-    name: String,
-
+    pub amount: i64,
+    pub name: String,
     #[serde(rename = "type")]
-    receipt_schema_type: DiscountType,
-
-    rate: Option<serde_json::Value>,
+    pub receipt_schema_type: DiscountType,
+    pub rate: Option<serde_json::Value>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum DiscountType {
     Fixed,
-
     Percentage,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Interval {
     Day,
-
     Month,
-
     Week,
-
     Year,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct MetadatumElement {
-    name: String,
-
+    pub name: String,
     #[serde(rename = "type")]
-    receipt_schema_type: MetadatumType,
-
-    value: String,
+    pub receipt_schema_type: MetadatumType,
+    pub value: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum MetadatumType {
     Asin,
-
     Other,
-
     Sku,
-
     Unspsc,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum SubscriptionItemType {
     #[serde(rename = "one_time")]
     OneTime,
-
     Recurring,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct TaxElement {
-    amount: i64,
-
-    name: String,
-
-    rate: Option<f64>,
+    pub amount: i64,
+    pub name: String,
+    pub rate: Option<f64>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Payment {
-    paid_at: i64,
-
+    pub paid_at: i64,
     #[serde(rename = "type")]
-    payment_type: PaymentType,
-
-    card_payment: Option<serde_json::Value>,
-
-    ach_payment: Option<serde_json::Value>,
+    pub payment_type: PaymentType,
+    pub card_payment: Option<serde_json::Value>,
+    pub ach_payment: Option<serde_json::Value>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentType {
     Ach,
-
     Card,
 }
