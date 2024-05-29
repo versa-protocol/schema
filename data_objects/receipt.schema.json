@@ -18,7 +18,7 @@
         "receipt_id",
         "currency",
         "amount",
-        "date_time",
+        "created_at",
         "mcc",
         "third_party",
         "customer",
@@ -33,7 +33,7 @@
         },
         "amount": { "type": "integer" },
         "subtotal": { "type": "integer" },
-        "datetime": { "type": "integer" },
+        "created_at": { "type": "integer" },
         "mcc": { "type": ["string", "null"] },
         "third_party": {
           "type": ["object", "null"],
