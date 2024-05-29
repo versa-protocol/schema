@@ -13,3 +13,6 @@ repository = "https://github.com/versa-protocol/schema"
 
 [dependencies]
 serde = { version = "1.0.203", features = ["derive"] }
+
+[dev-dependencies]
+rusty-hook = "^0.11.2"

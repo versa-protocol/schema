@@ -1,0 +1,7 @@
+[hooks]
+pre-commit = "bash build_rs.sh"
+pre-push = ["cargo test", "cargo check", "cargo fmt -- --check"]
+post-commit = "echo Commit Successful"
+
+[logging]
+verbose = true
