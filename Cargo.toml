@@ -1,7 +1,13 @@
 [package]
-name = "versa_schema"
+name = "versa_unstable_schema"
 version = "0.1.0"
 edition = "2021"
+description = "Versa Unstable Schema"
+authors = ["Versa"]
+license = "MIT"
+documentation = "https://docs.versa.org"
+homepage = "https://versa.org"
+repository = "https://github.com/versa-protocol/schema"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
