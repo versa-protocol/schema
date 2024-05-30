@@ -81,15 +81,7 @@
     },
     "itemization": {
       "type": "object",
-      "required": [
-        "general",
-        "lodging",
-        "ecommerce",
-        "car_rental",
-        "transit_route",
-        "subscription",
-        "flight"
-      ],
+      "required": [],
       "oneOf": [
         {
           "properties": {
