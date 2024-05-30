@@ -115,7 +115,64 @@
         {
           "properties": {
             "transit_route": {
-              "type": "object"
+              "type": "object",
+              "required": [],
+              "properties": {
+                "departure_address": {
+                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+                },
+                "arrival_address": {
+                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+                },
+                "departure_time": {
+                  "type": "integer"
+                },
+                "arrival_time": {
+                  "type": "integer"
+                },
+                "polyline": {
+                  "oneOf": [{ "type": "null" }, { "type": "string" }]
+                },
+                "taxes": {
+                  "oneOf": [
+                    { "type": "null" },
+                    {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/$defs/tax"
+                      }
+                    }
+                  ]
+                },
+                "invoice_level_discounts": {
+                  "oneOf": [
+                    { "type": "null" },
+                    {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/$defs/discount"
+                      }
+                    }
+                  ]
+                },
+                "metadata": {
+                  "oneOf": [
+                    { "type": "null" },
+                    {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/$defs/item_metadata"
+                      }
+                    }
+                  ]
+                },
+                "tip": {
+                  "type": ["integer", "null"]
+                }
+              }
             }
           }
         },

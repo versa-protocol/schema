@@ -124,7 +124,7 @@ pub struct Itemization {
     pub lodging: Option<HashMap<String, Option<serde_json::Value>>>,
     pub ecommerce: Option<HashMap<String, Option<serde_json::Value>>>,
     pub car_rental: Option<HashMap<String, Option<serde_json::Value>>>,
-    pub transit_route: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub transit_route: Option<TransitRoute>,
     pub subscription: Option<Subscription>,
     pub flight: Option<HashMap<String, Option<serde_json::Value>>>,
 }
@@ -140,7 +140,7 @@ pub struct SubscriptionItem {
     pub current_period_end: Option<i64>,
     pub current_period_start: Option<i64>,
     pub description: String,
-    pub discounts: Option<Vec<DiscountElement>>,
+    pub discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub interval: Option<Interval>,
     pub interval_count: Option<i64>,
     pub metadata: Option<Vec<MetadatumElement>>,
@@ -151,7 +151,7 @@ pub struct SubscriptionItem {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct DiscountElement {
+pub struct InvoiceLevelDiscountElement {
     pub amount: i64,
     pub discount_type: DiscountType,
     pub name: String,
@@ -203,6 +203,19 @@ pub struct TaxElement {
     pub amount: i64,
     pub name: String,
     pub rate: Option<f64>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TransitRoute {
+    pub arrival_address: Option<AddressClass>,
+    pub arrival_time: Option<i64>,
+    pub departure_address: Option<AddressClass>,
+    pub departure_time: Option<i64>,
+    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub metadata: Option<Vec<MetadatumElement>>,
+    pub polyline: Option<String>,
+    pub taxes: Option<Vec<TaxElement>>,
+    pub tip: Option<i64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

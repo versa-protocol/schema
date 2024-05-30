@@ -1,6 +1,6 @@
 [package]
 name = "versa_unstable_schema"
-version = "0.2.6"
+version = "0.3.0"
 edition = "2021"
 description = "Versa Unstable Schema"
 authors = ["Versa"]
