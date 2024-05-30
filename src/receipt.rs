@@ -12,7 +12,6 @@
 // }
 
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 /// A Versa itemized receipt
 #[derive(Debug, Serialize, Deserialize)]
@@ -120,13 +119,13 @@ pub struct Merchant {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Itemization {
-    pub general: HashMap<String, Option<serde_json::Value>>,
-    pub lodging: HashMap<String, Option<serde_json::Value>>,
-    pub ecommerce: HashMap<String, Option<serde_json::Value>>,
-    pub car_rental: HashMap<String, Option<serde_json::Value>>,
-    pub transit_route: HashMap<String, Option<serde_json::Value>>,
+    pub general: Option<serde_json::Value>,
+    pub lodging: Option<serde_json::Value>,
+    pub ecommerce: Option<serde_json::Value>,
+    pub car_rental: Option<serde_json::Value>,
+    pub transit_route: Option<serde_json::Value>,
     pub subscription: Subscription,
-    pub flight: HashMap<String, Option<serde_json::Value>>,
+    pub flight: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
