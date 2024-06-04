@@ -1,5 +1,5 @@
 [hooks]
-pre-commit = "bash build_rs.sh"
+pre-commit = "bash build.sh"
 pre-push = "cargo check"
 post-commit = "echo Commit Successful"
 
