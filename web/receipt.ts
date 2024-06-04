@@ -115,13 +115,13 @@ export interface Merchant {
 }
 
 export interface Itemization {
-    general?:       { [key: string]: any };
-    lodging?:       { [key: string]: any };
-    ecommerce?:     { [key: string]: any };
-    car_rental?:    { [key: string]: any };
-    transit_route?: TransitRoute;
-    subscription?:  Subscription;
-    flight?:        { [key: string]: any };
+    general:       { [key: string]: any };
+    lodging:       { [key: string]: any };
+    ecommerce:     { [key: string]: any };
+    car_rental:    { [key: string]: any };
+    transit_route: TransitRoute;
+    subscription:  Subscription;
+    flight:        { [key: string]: any };
     [property: string]: any;
 }
 
@@ -440,13 +440,13 @@ const typeMap: any = {
         { json: "id", js: "id", typ: "any" },
     ], "any"),
     "Itemization": o([
-        { json: "general", js: "general", typ: u(undefined, m("any")) },
-        { json: "lodging", js: "lodging", typ: u(undefined, m("any")) },
-        { json: "ecommerce", js: "ecommerce", typ: u(undefined, m("any")) },
-        { json: "car_rental", js: "car_rental", typ: u(undefined, m("any")) },
-        { json: "transit_route", js: "transit_route", typ: u(undefined, r("TransitRoute")) },
-        { json: "subscription", js: "subscription", typ: u(undefined, r("Subscription")) },
-        { json: "flight", js: "flight", typ: u(undefined, m("any")) },
+        { json: "general", js: "general", typ: m("any") },
+        { json: "lodging", js: "lodging", typ: m("any") },
+        { json: "ecommerce", js: "ecommerce", typ: m("any") },
+        { json: "car_rental", js: "car_rental", typ: m("any") },
+        { json: "transit_route", js: "transit_route", typ: r("TransitRoute") },
+        { json: "subscription", js: "subscription", typ: r("Subscription") },
+        { json: "flight", js: "flight", typ: m("any") },
     ], "any"),
     "Subscription": o([
         { json: "subscription_items", js: "subscription_items", typ: a(r("SubscriptionItem")) },
