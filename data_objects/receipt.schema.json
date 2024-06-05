@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "id": "https://raw.githubusercontent.com/versa-protocol/schema/data_objects/receipt.schema.json",
+  "$id": "data_objects/receipt",
   "title": "Receipt",
   "description": "A Versa itemized receipt",
   "type": "object",
@@ -86,7 +86,7 @@
         {
           "properties": {
             "general": {
-              "type": "object",
+              "type": ["object", "null"],
               "minItems": 1
             }
           }
@@ -94,28 +94,28 @@
         {
           "properties": {
             "lodging": {
-              "type": "object"
+              "type": ["object", "null"]
             }
           }
         },
         {
           "properties": {
             "ecommerce": {
-              "type": "object"
+              "type": ["object", "null"]
             }
           }
         },
         {
           "properties": {
             "car_rental": {
-              "type": "object"
+              "type": ["object", "null"]
             }
           }
         },
         {
           "properties": {
             "transit_route": {
-              "type": "object",
+              "type": ["object", "null"],
               "required": [],
               "properties": {
                 "departure_address": {
@@ -179,7 +179,7 @@
         {
           "properties": {
             "subscription": {
-              "type": "object",
+              "type": ["object", "null"],
               "required": ["subscription_items", "invoice_level_discounts"],
               "properties": {
                 "subscription_items": {
@@ -278,7 +278,7 @@
         {
           "properties": {
             "flight": {
-              "type": "object"
+              "type": ["object", "null"]
             }
           }
         }

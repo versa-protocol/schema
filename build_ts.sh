@@ -1,2 +1,2 @@
-quicktype -o web/receipt.ts --src-lang schema data_objects/receipt.schema.json
-git add web/receipt.ts
+quicktype -o web/schema.ts --src-lang schema data_objects/*
+git add web/schema.ts

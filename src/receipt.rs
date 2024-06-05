@@ -60,14 +60,14 @@ pub enum Currency {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Customer {
-    pub address: Option<ArrivalAddressClass>,
+    pub address: Option<AddressClass>,
     pub email: Option<String>,
     pub name: String,
     pub phone: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ArrivalAddressClass {
+pub struct AddressClass {
     pub city: Option<String>,
     pub country: String,
     pub lat: f64,
@@ -79,7 +79,7 @@ pub struct ArrivalAddressClass {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LocationClass {
-    pub address: Option<ArrivalAddressClass>,
+    pub address: Option<AddressClass>,
     pub google_place_id: Option<String>,
     pub name: Option<String>,
     pub phone: Option<String>,
@@ -120,13 +120,13 @@ pub struct Merchant {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Itemization {
-    pub general: HashMap<String, Option<serde_json::Value>>,
-    pub lodging: HashMap<String, Option<serde_json::Value>>,
-    pub ecommerce: HashMap<String, Option<serde_json::Value>>,
-    pub car_rental: HashMap<String, Option<serde_json::Value>>,
-    pub transit_route: TransitRoute,
-    pub subscription: Subscription,
-    pub flight: HashMap<String, Option<serde_json::Value>>,
+    pub general: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub lodging: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub ecommerce: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub car_rental: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub transit_route: Option<TransitRoute>,
+    pub subscription: Option<Subscription>,
+    pub flight: Option<HashMap<String, Option<serde_json::Value>>>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -207,9 +207,9 @@ pub struct TaxElement {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransitRoute {
-    pub arrival_address: Option<ArrivalAddressClass>,
+    pub arrival_address: Option<AddressClass>,
     pub arrival_time: Option<i64>,
-    pub departure_address: Option<ArrivalAddressClass>,
+    pub departure_address: Option<AddressClass>,
     pub departure_time: Option<i64>,
     pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub metadata: Option<Vec<MetadatumElement>>,
