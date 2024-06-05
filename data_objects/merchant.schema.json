@@ -4,23 +4,38 @@
     "title": "Merchant",
     "description": "A Versa merchant returned by the registry, associated with the sender client_id",
     "type": "object",
-    "required": ["id", "name", "brand_color", "logo"],
+    "required": [
+        "id",
+        "name",
+        "brand_color",
+        "logo"
+    ],
+    "additionalProperties": false,
     "properties": {
-      "id": {
-        "type": "string"
-      },
-      "name": {
-        "type": "string"
-      },
-      "brand_color": {
-        "type": "string",
-        "minLength": 7,
-        "maxLength": 7,
-        "pattern": "^#(?:[0-9a-fA-F]{3}){1,2}$"
-      },
-      "logo": {
-        "type": "string",
-        "format": "uri"
-      }
+        "id": {
+            "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "brand_color": {
+          "description": "Hex color",
+          "type": "string",
+          "pattern": "^#?([a-f0-9]{6}|[a-f0-9]{3})$"
+        },
+        "logo": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "website": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "hostname"
+        }
     }
 }

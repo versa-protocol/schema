@@ -13,54 +13,55 @@
  * A receipt composite with both the receipt and merchant information
  */
 export interface CompositeReceipt {
-    merchant: CompositeReceiptMerchant;
-    receipt:  ReceiptObject;
+    merchant: Merchant;
+    receipt:  Receipt;
     [property: string]: any;
 }
 
 /**
  * A Versa merchant returned by the registry, associated with the sender client_id
  */
-export interface CompositeReceiptMerchant {
+export interface Merchant {
+    /**
+     * Hex color
+     */
     brand_color: string;
     id:          string;
-    logo:        string;
+    logo:        null | string;
     name:        string;
-    [property: string]: any;
+    website?:    null | string;
 }
 
 /**
  * A Versa itemized receipt
  */
-export interface ReceiptObject {
-    actions:     ReceiptAction[] | null;
-    header:      ReceiptHeader;
-    itemization: ReceiptItemization;
-    payment:     null | ReceiptPayment;
+export interface Receipt {
+    actions:     Action[] | null;
+    header:      Header;
+    itemization: Itemization;
+    payment:     null | Payment;
     version:     string;
-    [property: string]: any;
 }
 
-export interface ReceiptAction {
+export interface Action {
     name: string;
     url:  string;
     [property: string]: any;
 }
 
-export interface ReceiptHeader {
+export interface Header {
     amount:     number;
     created_at: number;
     /**
      * ISO 4217 currency code
      */
     currency:    Currency;
-    customer:    null | PurpleCustomer;
+    customer:    null | Customer;
     location:    null | LocationObject;
     mcc:         null | string;
     receipt_id:  string;
     subtotal?:   number;
-    third_party: null | PurpleThirdParty;
-    [property: string]: any;
+    third_party: ThirdParty | null;
 }
 
 /**
@@ -77,7 +78,7 @@ export enum Currency {
     Usd = "usd",
 }
 
-export interface PurpleCustomer {
+export interface Customer {
     address: null | AddressObject;
     email:   null | string;
     name:    string;
@@ -105,14 +106,13 @@ export interface LocationObject {
     [property: string]: any;
 }
 
-export interface PurpleThirdParty {
+export interface ThirdParty {
     first_party_relation: FirstPartyRelation;
     /**
      * Determines whether the merchant or third party gets top billing on the receipt
      */
     make_primary: boolean;
-    merchant:     ThirdPartyMerchant;
-    [property: string]: any;
+    merchant:     MerchantClass;
 }
 
 export enum FirstPartyRelation {
@@ -124,36 +124,38 @@ export enum FirstPartyRelation {
     PointOfSale = "point_of_sale",
 }
 
-export interface ThirdPartyMerchant {
+/**
+ * A Versa merchant returned by the registry, associated with the sender client_id
+ */
+export interface MerchantClass {
     /**
      * Hex color
      */
     brand_color: string;
+    id:          string;
     logo:        null | string;
     name:        string;
-    website:     null | string;
-    id:          any;
-    [property: string]: any;
+    website?:    null | string;
 }
 
-export interface ReceiptItemization {
+export interface Itemization {
     general:       { [key: string]: any } | null;
     lodging:       { [key: string]: any } | null;
     ecommerce:     { [key: string]: any } | null;
     car_rental:    { [key: string]: any } | null;
-    transit_route: null | PurpleTransitRoute;
-    subscription:  null | PurpleSubscription;
+    transit_route: null | TransitRoute;
+    subscription:  null | Subscription;
     flight:        { [key: string]: any } | null;
     [property: string]: any;
 }
 
-export interface PurpleSubscription {
-    subscription_items:      PurpleSubscriptionItem[];
+export interface Subscription {
+    subscription_items:      SubscriptionItem[];
     invoice_level_discounts: any;
     [property: string]: any;
 }
 
-export interface PurpleSubscriptionItem {
+export interface SubscriptionItem {
     current_period_end:   number | null;
     current_period_start: number | null;
     description:          string;
@@ -214,7 +216,7 @@ export interface TaxElement {
     [property: string]: any;
 }
 
-export interface PurpleTransitRoute {
+export interface TransitRoute {
     arrival_address?:         null | AddressObject;
     arrival_time?:            number;
     departure_address?:       null | AddressObject;
@@ -227,7 +229,7 @@ export interface PurpleTransitRoute {
     [property: string]: any;
 }
 
-export interface ReceiptPayment {
+export interface Payment {
     paid_at:      number;
     payment_type: PaymentType;
     card_payment: any;
@@ -238,122 +240,6 @@ export interface ReceiptPayment {
 export enum PaymentType {
     Ach = "ach",
     Card = "card",
-}
-
-/**
- * A Versa merchant returned by the registry, associated with the sender client_id
- */
-export interface Merchant {
-    brand_color: string;
-    id:          string;
-    logo:        string;
-    name:        string;
-    [property: string]: any;
-}
-
-/**
- * A Versa itemized receipt
- */
-export interface Receipt {
-    actions:     ReceiptActionObject[] | null;
-    header:      ReceiptHeaderObject;
-    itemization: ReceiptItemizationObject;
-    payment:     null | ReceiptPaymentObject;
-    version:     string;
-    [property: string]: any;
-}
-
-export interface ReceiptActionObject {
-    name: string;
-    url:  string;
-    [property: string]: any;
-}
-
-export interface ReceiptHeaderObject {
-    amount:     number;
-    created_at: number;
-    /**
-     * ISO 4217 currency code
-     */
-    currency:    Currency;
-    customer:    null | FluffyCustomer;
-    location:    null | LocationObject;
-    mcc:         null | string;
-    receipt_id:  string;
-    subtotal?:   number;
-    third_party: null | FluffyThirdParty;
-    [property: string]: any;
-}
-
-export interface FluffyCustomer {
-    address: null | AddressObject;
-    email:   null | string;
-    name:    string;
-    phone:   null | string;
-    [property: string]: any;
-}
-
-export interface FluffyThirdParty {
-    first_party_relation: FirstPartyRelation;
-    /**
-     * Determines whether the merchant or third party gets top billing on the receipt
-     */
-    make_primary: boolean;
-    merchant:     ThirdPartyMerchant;
-    [property: string]: any;
-}
-
-export interface ReceiptItemizationObject {
-    general:       { [key: string]: any } | null;
-    lodging:       { [key: string]: any } | null;
-    ecommerce:     { [key: string]: any } | null;
-    car_rental:    { [key: string]: any } | null;
-    transit_route: null | FluffyTransitRoute;
-    subscription:  null | FluffySubscription;
-    flight:        { [key: string]: any } | null;
-    [property: string]: any;
-}
-
-export interface FluffySubscription {
-    subscription_items:      FluffySubscriptionItem[];
-    invoice_level_discounts: any;
-    [property: string]: any;
-}
-
-export interface FluffySubscriptionItem {
-    current_period_end:   number | null;
-    current_period_start: number | null;
-    description:          string;
-    discounts:            InvoiceLevelDiscountElement[] | null;
-    interval:             Interval | null;
-    interval_count:       number | null;
-    metadata:             MetadatumElement[] | null;
-    quantity:             number | null;
-    subscription_type:    SubscriptionType;
-    taxes:                TaxElement[] | null;
-    unit_cost:            number | null;
-    [property: string]: any;
-}
-
-export interface FluffyTransitRoute {
-    arrival_address?:         null | AddressObject;
-    arrival_time?:            number;
-    departure_address?:       null | AddressObject;
-    departure_time?:          number;
-    invoice_level_discounts?: InvoiceLevelDiscountElement[] | null;
-    metadata?:                MetadatumElement[] | null;
-    polyline?:                null | string;
-    taxes?:                   TaxElement[] | null;
-    tip?:                     number | null;
-    [property: string]: any;
-}
-
-export interface ReceiptPaymentObject {
-    paid_at:      number;
-    payment_type: PaymentType;
-    card_payment: any;
-    ach_payment:  any;
-    [property: string]: any;
 }
 
 // Converts JSON strings to/from your types
@@ -538,38 +424,39 @@ function r(name: string) {
 
 const typeMap: any = {
     "CompositeReceipt": o([
-        { json: "merchant", js: "merchant", typ: r("CompositeReceiptMerchant") },
-        { json: "receipt", js: "receipt", typ: r("ReceiptObject") },
+        { json: "merchant", js: "merchant", typ: r("Merchant") },
+        { json: "receipt", js: "receipt", typ: r("Receipt") },
     ], "any"),
-    "CompositeReceiptMerchant": o([
+    "Merchant": o([
         { json: "brand_color", js: "brand_color", typ: "" },
         { json: "id", js: "id", typ: "" },
-        { json: "logo", js: "logo", typ: "" },
+        { json: "logo", js: "logo", typ: u(null, "") },
         { json: "name", js: "name", typ: "" },
-    ], "any"),
-    "ReceiptObject": o([
-        { json: "actions", js: "actions", typ: u(a(r("ReceiptAction")), null) },
-        { json: "header", js: "header", typ: r("ReceiptHeader") },
-        { json: "itemization", js: "itemization", typ: r("ReceiptItemization") },
-        { json: "payment", js: "payment", typ: u(null, r("ReceiptPayment")) },
+        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
+    ], false),
+    "Receipt": o([
+        { json: "actions", js: "actions", typ: u(a(r("Action")), null) },
+        { json: "header", js: "header", typ: r("Header") },
+        { json: "itemization", js: "itemization", typ: r("Itemization") },
+        { json: "payment", js: "payment", typ: u(null, r("Payment")) },
         { json: "version", js: "version", typ: "" },
-    ], "any"),
-    "ReceiptAction": o([
+    ], false),
+    "Action": o([
         { json: "name", js: "name", typ: "" },
         { json: "url", js: "url", typ: "" },
     ], "any"),
-    "ReceiptHeader": o([
+    "Header": o([
         { json: "amount", js: "amount", typ: 0 },
         { json: "created_at", js: "created_at", typ: 0 },
         { json: "currency", js: "currency", typ: r("Currency") },
-        { json: "customer", js: "customer", typ: u(null, r("PurpleCustomer")) },
+        { json: "customer", js: "customer", typ: u(null, r("Customer")) },
         { json: "location", js: "location", typ: u(null, r("LocationObject")) },
         { json: "mcc", js: "mcc", typ: u(null, "") },
         { json: "receipt_id", js: "receipt_id", typ: "" },
         { json: "subtotal", js: "subtotal", typ: u(undefined, 0) },
-        { json: "third_party", js: "third_party", typ: u(null, r("PurpleThirdParty")) },
-    ], "any"),
-    "PurpleCustomer": o([
+        { json: "third_party", js: "third_party", typ: u(r("ThirdParty"), null) },
+    ], false),
+    "Customer": o([
         { json: "address", js: "address", typ: u(null, r("AddressObject")) },
         { json: "email", js: "email", typ: u(null, "") },
         { json: "name", js: "name", typ: "" },
@@ -591,32 +478,32 @@ const typeMap: any = {
         { json: "phone", js: "phone", typ: u(null, "") },
         { json: "url", js: "url", typ: u(null, "") },
     ], "any"),
-    "PurpleThirdParty": o([
+    "ThirdParty": o([
         { json: "first_party_relation", js: "first_party_relation", typ: r("FirstPartyRelation") },
         { json: "make_primary", js: "make_primary", typ: true },
-        { json: "merchant", js: "merchant", typ: r("ThirdPartyMerchant") },
-    ], "any"),
-    "ThirdPartyMerchant": o([
+        { json: "merchant", js: "merchant", typ: r("MerchantClass") },
+    ], false),
+    "MerchantClass": o([
         { json: "brand_color", js: "brand_color", typ: "" },
+        { json: "id", js: "id", typ: "" },
         { json: "logo", js: "logo", typ: u(null, "") },
         { json: "name", js: "name", typ: "" },
-        { json: "website", js: "website", typ: u(null, "") },
-        { json: "id", js: "id", typ: "any" },
-    ], "any"),
-    "ReceiptItemization": o([
+        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
+    ], false),
+    "Itemization": o([
         { json: "general", js: "general", typ: u(m("any"), null) },
         { json: "lodging", js: "lodging", typ: u(m("any"), null) },
         { json: "ecommerce", js: "ecommerce", typ: u(m("any"), null) },
         { json: "car_rental", js: "car_rental", typ: u(m("any"), null) },
-        { json: "transit_route", js: "transit_route", typ: u(null, r("PurpleTransitRoute")) },
-        { json: "subscription", js: "subscription", typ: u(null, r("PurpleSubscription")) },
+        { json: "transit_route", js: "transit_route", typ: u(null, r("TransitRoute")) },
+        { json: "subscription", js: "subscription", typ: u(null, r("Subscription")) },
         { json: "flight", js: "flight", typ: u(m("any"), null) },
     ], "any"),
-    "PurpleSubscription": o([
-        { json: "subscription_items", js: "subscription_items", typ: a(r("PurpleSubscriptionItem")) },
+    "Subscription": o([
+        { json: "subscription_items", js: "subscription_items", typ: a(r("SubscriptionItem")) },
         { json: "invoice_level_discounts", js: "invoice_level_discounts", typ: "any" },
     ], "any"),
-    "PurpleSubscriptionItem": o([
+    "SubscriptionItem": o([
         { json: "current_period_end", js: "current_period_end", typ: u(0, null) },
         { json: "current_period_start", js: "current_period_start", typ: u(0, null) },
         { json: "description", js: "description", typ: "" },
@@ -645,7 +532,7 @@ const typeMap: any = {
         { json: "name", js: "name", typ: "" },
         { json: "rate", js: "rate", typ: u(3.14, null) },
     ], "any"),
-    "PurpleTransitRoute": o([
+    "TransitRoute": o([
         { json: "arrival_address", js: "arrival_address", typ: u(undefined, u(null, r("AddressObject"))) },
         { json: "arrival_time", js: "arrival_time", typ: u(undefined, 0) },
         { json: "departure_address", js: "departure_address", typ: u(undefined, u(null, r("AddressObject"))) },
@@ -656,89 +543,7 @@ const typeMap: any = {
         { json: "taxes", js: "taxes", typ: u(undefined, u(a(r("TaxElement")), null)) },
         { json: "tip", js: "tip", typ: u(undefined, u(0, null)) },
     ], "any"),
-    "ReceiptPayment": o([
-        { json: "paid_at", js: "paid_at", typ: 0 },
-        { json: "payment_type", js: "payment_type", typ: r("PaymentType") },
-        { json: "card_payment", js: "card_payment", typ: "any" },
-        { json: "ach_payment", js: "ach_payment", typ: "any" },
-    ], "any"),
-    "Merchant": o([
-        { json: "brand_color", js: "brand_color", typ: "" },
-        { json: "id", js: "id", typ: "" },
-        { json: "logo", js: "logo", typ: "" },
-        { json: "name", js: "name", typ: "" },
-    ], "any"),
-    "Receipt": o([
-        { json: "actions", js: "actions", typ: u(a(r("ReceiptActionObject")), null) },
-        { json: "header", js: "header", typ: r("ReceiptHeaderObject") },
-        { json: "itemization", js: "itemization", typ: r("ReceiptItemizationObject") },
-        { json: "payment", js: "payment", typ: u(null, r("ReceiptPaymentObject")) },
-        { json: "version", js: "version", typ: "" },
-    ], "any"),
-    "ReceiptActionObject": o([
-        { json: "name", js: "name", typ: "" },
-        { json: "url", js: "url", typ: "" },
-    ], "any"),
-    "ReceiptHeaderObject": o([
-        { json: "amount", js: "amount", typ: 0 },
-        { json: "created_at", js: "created_at", typ: 0 },
-        { json: "currency", js: "currency", typ: r("Currency") },
-        { json: "customer", js: "customer", typ: u(null, r("FluffyCustomer")) },
-        { json: "location", js: "location", typ: u(null, r("LocationObject")) },
-        { json: "mcc", js: "mcc", typ: u(null, "") },
-        { json: "receipt_id", js: "receipt_id", typ: "" },
-        { json: "subtotal", js: "subtotal", typ: u(undefined, 0) },
-        { json: "third_party", js: "third_party", typ: u(null, r("FluffyThirdParty")) },
-    ], "any"),
-    "FluffyCustomer": o([
-        { json: "address", js: "address", typ: u(null, r("AddressObject")) },
-        { json: "email", js: "email", typ: u(null, "") },
-        { json: "name", js: "name", typ: "" },
-        { json: "phone", js: "phone", typ: u(null, "") },
-    ], "any"),
-    "FluffyThirdParty": o([
-        { json: "first_party_relation", js: "first_party_relation", typ: r("FirstPartyRelation") },
-        { json: "make_primary", js: "make_primary", typ: true },
-        { json: "merchant", js: "merchant", typ: r("ThirdPartyMerchant") },
-    ], "any"),
-    "ReceiptItemizationObject": o([
-        { json: "general", js: "general", typ: u(m("any"), null) },
-        { json: "lodging", js: "lodging", typ: u(m("any"), null) },
-        { json: "ecommerce", js: "ecommerce", typ: u(m("any"), null) },
-        { json: "car_rental", js: "car_rental", typ: u(m("any"), null) },
-        { json: "transit_route", js: "transit_route", typ: u(null, r("FluffyTransitRoute")) },
-        { json: "subscription", js: "subscription", typ: u(null, r("FluffySubscription")) },
-        { json: "flight", js: "flight", typ: u(m("any"), null) },
-    ], "any"),
-    "FluffySubscription": o([
-        { json: "subscription_items", js: "subscription_items", typ: a(r("FluffySubscriptionItem")) },
-        { json: "invoice_level_discounts", js: "invoice_level_discounts", typ: "any" },
-    ], "any"),
-    "FluffySubscriptionItem": o([
-        { json: "current_period_end", js: "current_period_end", typ: u(0, null) },
-        { json: "current_period_start", js: "current_period_start", typ: u(0, null) },
-        { json: "description", js: "description", typ: "" },
-        { json: "discounts", js: "discounts", typ: u(a(r("InvoiceLevelDiscountElement")), null) },
-        { json: "interval", js: "interval", typ: u(r("Interval"), null) },
-        { json: "interval_count", js: "interval_count", typ: u(0, null) },
-        { json: "metadata", js: "metadata", typ: u(a(r("MetadatumElement")), null) },
-        { json: "quantity", js: "quantity", typ: u(3.14, null) },
-        { json: "subscription_type", js: "subscription_type", typ: r("SubscriptionType") },
-        { json: "taxes", js: "taxes", typ: u(a(r("TaxElement")), null) },
-        { json: "unit_cost", js: "unit_cost", typ: u(3.14, null) },
-    ], "any"),
-    "FluffyTransitRoute": o([
-        { json: "arrival_address", js: "arrival_address", typ: u(undefined, u(null, r("AddressObject"))) },
-        { json: "arrival_time", js: "arrival_time", typ: u(undefined, 0) },
-        { json: "departure_address", js: "departure_address", typ: u(undefined, u(null, r("AddressObject"))) },
-        { json: "departure_time", js: "departure_time", typ: u(undefined, 0) },
-        { json: "invoice_level_discounts", js: "invoice_level_discounts", typ: u(undefined, u(a(r("InvoiceLevelDiscountElement")), null)) },
-        { json: "metadata", js: "metadata", typ: u(undefined, u(a(r("MetadatumElement")), null)) },
-        { json: "polyline", js: "polyline", typ: u(undefined, u(null, "")) },
-        { json: "taxes", js: "taxes", typ: u(undefined, u(a(r("TaxElement")), null)) },
-        { json: "tip", js: "tip", typ: u(undefined, u(0, null)) },
-    ], "any"),
-    "ReceiptPaymentObject": o([
+    "Payment": o([
         { json: "paid_at", js: "paid_at", typ: 0 },
         { json: "payment_type", js: "payment_type", typ: r("PaymentType") },
         { json: "card_payment", js: "card_payment", typ: "any" },

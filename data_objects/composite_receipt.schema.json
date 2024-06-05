@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "id": "data_objects/composite_receipt",
+  "id": "composite_receipt",
   "title": "CompositeReceipt",
   "description": "A receipt composite with both the receipt and merchant information",
   "type": "object",
@@ -10,10 +10,10 @@
   ],
   "properties": {
     "receipt": {
-      "$ref": "data_objects/receipt"
+      "$ref": "receipt"
     },
     "merchant": {
-      "$ref": "data_objects/merchant"
+      "$ref": "merchant"
     }
   }
 }

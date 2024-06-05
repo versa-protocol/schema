@@ -4,6 +4,7 @@
   "title": "Receipt",
   "description": "A Versa itemized receipt",
   "type": "object",
+  "additionalProperties": false,
   "required": ["version", "header", "itemization", "actions", "payment"],
   "properties": {
     "version": {
@@ -14,6 +15,7 @@
     },
     "header": {
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "receipt_id",
         "currency",
@@ -37,6 +39,7 @@
         "mcc": { "type": ["string", "null"] },
         "third_party": {
           "type": ["object", "null"],
+          "additionalProperties": false,
           "required": ["first_party_relation", "make_primary", "merchant"],
           "properties": {
             "first_party_relation": {
@@ -54,7 +57,7 @@
               "description": "Determines whether the merchant or third party gets top billing on the receipt",
               "type": "boolean"
             },
-            "merchant": { "$ref": "#/$defs/merchant" }
+            "merchant": { "$ref": "merchant" }
           }
         },
         "customer": {
