@@ -79,14 +79,14 @@ export enum Currency {
 }
 
 export interface Customer {
-    address: null | AddressObject;
+    address: null | ArrivalAddressObject;
     email:   null | string;
     name:    string;
     phone:   null | string;
     [property: string]: any;
 }
 
-export interface AddressObject {
+export interface ArrivalAddressObject {
     city:           null | string;
     country:        string;
     lat:            number;
@@ -98,7 +98,7 @@ export interface AddressObject {
 }
 
 export interface LocationObject {
-    address:         null | AddressObject;
+    address:         null | ArrivalAddressObject;
     google_place_id: null | string;
     name:            null | string;
     phone:           null | string;
@@ -139,11 +139,11 @@ export interface MerchantClass {
 }
 
 export interface Itemization {
-    general:       { [key: string]: any } | null;
-    lodging:       { [key: string]: any } | null;
-    ecommerce:     { [key: string]: any } | null;
-    car_rental:    { [key: string]: any } | null;
-    transit_route: null | TransitRoute;
+    general:       { [key: string]: any };
+    lodging:       { [key: string]: any };
+    ecommerce:     { [key: string]: any };
+    car_rental:    { [key: string]: any };
+    transit_route: TransitRoute;
     subscription:  null | Subscription;
     flight:        { [key: string]: any } | null;
     [property: string]: any;
@@ -217,9 +217,9 @@ export interface TaxElement {
 }
 
 export interface TransitRoute {
-    arrival_address?:         null | AddressObject;
+    arrival_address?:         null | ArrivalAddressObject;
     arrival_time?:            number;
-    departure_address?:       null | AddressObject;
+    departure_address?:       null | ArrivalAddressObject;
     departure_time?:          number;
     invoice_level_discounts?: InvoiceLevelDiscountElement[] | null;
     metadata?:                MetadatumElement[] | null;
@@ -457,12 +457,12 @@ const typeMap: any = {
         { json: "third_party", js: "third_party", typ: u(r("ThirdParty"), null) },
     ], false),
     "Customer": o([
-        { json: "address", js: "address", typ: u(null, r("AddressObject")) },
+        { json: "address", js: "address", typ: u(null, r("ArrivalAddressObject")) },
         { json: "email", js: "email", typ: u(null, "") },
         { json: "name", js: "name", typ: "" },
         { json: "phone", js: "phone", typ: u(null, "") },
     ], "any"),
-    "AddressObject": o([
+    "ArrivalAddressObject": o([
         { json: "city", js: "city", typ: u(null, "") },
         { json: "country", js: "country", typ: "" },
         { json: "lat", js: "lat", typ: 3.14 },
@@ -472,7 +472,7 @@ const typeMap: any = {
         { json: "street_address", js: "street_address", typ: u(null, "") },
     ], "any"),
     "LocationObject": o([
-        { json: "address", js: "address", typ: u(null, r("AddressObject")) },
+        { json: "address", js: "address", typ: u(null, r("ArrivalAddressObject")) },
         { json: "google_place_id", js: "google_place_id", typ: u(null, "") },
         { json: "name", js: "name", typ: u(null, "") },
         { json: "phone", js: "phone", typ: u(null, "") },
@@ -491,11 +491,11 @@ const typeMap: any = {
         { json: "website", js: "website", typ: u(undefined, u(null, "")) },
     ], false),
     "Itemization": o([
-        { json: "general", js: "general", typ: u(m("any"), null) },
-        { json: "lodging", js: "lodging", typ: u(m("any"), null) },
-        { json: "ecommerce", js: "ecommerce", typ: u(m("any"), null) },
-        { json: "car_rental", js: "car_rental", typ: u(m("any"), null) },
-        { json: "transit_route", js: "transit_route", typ: u(null, r("TransitRoute")) },
+        { json: "general", js: "general", typ: m("any") },
+        { json: "lodging", js: "lodging", typ: m("any") },
+        { json: "ecommerce", js: "ecommerce", typ: m("any") },
+        { json: "car_rental", js: "car_rental", typ: m("any") },
+        { json: "transit_route", js: "transit_route", typ: r("TransitRoute") },
         { json: "subscription", js: "subscription", typ: u(null, r("Subscription")) },
         { json: "flight", js: "flight", typ: u(m("any"), null) },
     ], "any"),
@@ -533,9 +533,9 @@ const typeMap: any = {
         { json: "rate", js: "rate", typ: u(3.14, null) },
     ], "any"),
     "TransitRoute": o([
-        { json: "arrival_address", js: "arrival_address", typ: u(undefined, u(null, r("AddressObject"))) },
+        { json: "arrival_address", js: "arrival_address", typ: u(undefined, u(null, r("ArrivalAddressObject"))) },
         { json: "arrival_time", js: "arrival_time", typ: u(undefined, 0) },
-        { json: "departure_address", js: "departure_address", typ: u(undefined, u(null, r("AddressObject"))) },
+        { json: "departure_address", js: "departure_address", typ: u(undefined, u(null, r("ArrivalAddressObject"))) },
         { json: "departure_time", js: "departure_time", typ: u(undefined, 0) },
         { json: "invoice_level_discounts", js: "invoice_level_discounts", typ: u(undefined, u(a(r("InvoiceLevelDiscountElement")), null)) },
         { json: "metadata", js: "metadata", typ: u(undefined, u(a(r("MetadatumElement")), null)) },

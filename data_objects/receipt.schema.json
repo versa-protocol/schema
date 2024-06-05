@@ -89,7 +89,7 @@
         {
           "properties": {
             "general": {
-              "type": ["object", "null"],
+              "type": "object",
               "minItems": 1
             }
           }
@@ -97,28 +97,28 @@
         {
           "properties": {
             "lodging": {
-              "type": ["object", "null"]
+              "type": "object"
             }
           }
         },
         {
           "properties": {
             "ecommerce": {
-              "type": ["object", "null"]
+              "type": "object"
             }
           }
         },
         {
           "properties": {
             "car_rental": {
-              "type": ["object", "null"]
+              "type": "object"
             }
           }
         },
         {
           "properties": {
             "transit_route": {
-              "type": ["object", "null"],
+              "type": "object",
               "required": [],
               "properties": {
                 "departure_address": {
