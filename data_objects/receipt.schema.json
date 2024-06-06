@@ -520,7 +520,14 @@
     },
     "place": {
       "type": "object",
-      "required": ["name", "address", "phone", "url", "google_place_id"],
+      "required": [
+        "name",
+        "address",
+        "phone",
+        "url",
+        "google_place_id",
+        "image"
+      ],
       "properties": {
         "name": { "type": ["string", "null"] },
         "address": {
@@ -528,10 +535,24 @@
         },
         "phone": { "type": ["string", "null"] },
         "url": {
-          "type": ["string", "null"],
-          "format": "uri"
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
         },
-        "google_place_id": { "type": ["string", "null"] }
+        "google_place_id": { "type": ["string", "null"] },
+        "image": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        }
       }
     },
     "item_metadata": {
