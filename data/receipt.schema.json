@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "data_objects/receipt",
+  "$id": "data/receipt",
   "title": "Receipt",
   "description": "A Versa itemized receipt",
   "type": "object",
