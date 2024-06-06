@@ -1,41 +1,16 @@
 // To parse this data:
 //
-//   import { Convert, CompositeReceipt, Merchant, Receipt } from "./file";
+//   import { Convert, Schema } from "./file";
 //
-//   const compositeReceipt = Convert.toCompositeReceipt(json);
-//   const merchant = Convert.toMerchant(json);
-//   const receipt = Convert.toReceipt(json);
+//   const schema = Convert.toSchema(json);
 //
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 
 /**
- * A receipt composite with both the receipt and merchant information
- */
-export interface CompositeReceipt {
-    merchant: Merchant;
-    receipt:  Receipt;
-    [property: string]: any;
-}
-
-/**
- * A Versa merchant returned by the registry, associated with the sender client_id
- */
-export interface Merchant {
-    /**
-     * Hex color
-     */
-    brand_color: string;
-    id:          string;
-    logo:        null | string;
-    name:        string;
-    website?:    null | string;
-}
-
-/**
  * A Versa itemized receipt
  */
-export interface Receipt {
+export interface Schema {
     actions:     Action[] | null;
     header:      Header;
     itemization: Itemization;
@@ -57,7 +32,7 @@ export interface Header {
      */
     currency:    Currency;
     customer:    null | Customer;
-    location:    null | LocationObject;
+    location:    null | ReceiptSchema;
     mcc:         null | string;
     receipt_id:  string;
     subtotal?:   number;
@@ -97,9 +72,10 @@ export interface ArrivalAddressObject {
     [property: string]: any;
 }
 
-export interface LocationObject {
+export interface ReceiptSchema {
     address:         null | ArrivalAddressObject;
     google_place_id: null | string;
+    image:           null | string;
     name:            null | string;
     phone:           null | string;
     url:             null | string;
@@ -112,7 +88,7 @@ export interface ThirdParty {
      * Determines whether the merchant or third party gets top billing on the receipt
      */
     make_primary: boolean;
-    merchant:     MerchantClass;
+    merchant:     Merchant;
 }
 
 export enum FirstPartyRelation {
@@ -124,28 +100,104 @@ export enum FirstPartyRelation {
     PointOfSale = "point_of_sale",
 }
 
-/**
- * A Versa merchant returned by the registry, associated with the sender client_id
- */
-export interface MerchantClass {
+export interface Merchant {
     /**
      * Hex color
      */
     brand_color: string;
-    id:          string;
     logo:        null | string;
     name:        string;
-    website?:    null | string;
+    website:     null | string;
+    id:          any;
+    [property: string]: any;
 }
 
 export interface Itemization {
     general:       { [key: string]: any };
-    lodging:       { [key: string]: any };
+    lodging:       Lodging;
     ecommerce:     { [key: string]: any };
-    car_rental:    { [key: string]: any };
+    car_rental:    CarRental;
     transit_route: TransitRoute;
-    subscription:  null | Subscription;
-    flight:        { [key: string]: any } | null;
+    subscription:  Subscription;
+    flight:        { [key: string]: any };
+    [property: string]: any;
+}
+
+export interface CarRental {
+    driver_name:          string;
+    odometer_reading_in:  number;
+    odometer_reading_out: number;
+    rental_location:      ReceiptSchema;
+    rental_time:          number;
+    return_location:      ReceiptSchema;
+    return_time:          number;
+    vehicle_desscription: string;
+    [property: string]: any;
+}
+
+export interface Lodging {
+    invoice_level_discounts: InvoiceLevelDiscountElement[] | null;
+    lodging_items:           LodgingItem[];
+    [property: string]: any;
+}
+
+export interface InvoiceLevelDiscountElement {
+    amount:        number;
+    discount_type: DiscountType;
+    name:          string;
+    rate:          any;
+    [property: string]: any;
+}
+
+export enum DiscountType {
+    Fixed = "fixed",
+    Percentage = "percentage",
+}
+
+export interface LodgingItem {
+    check_in:  number;
+    check_out: number;
+    guests?:   null | string;
+    items:     ItemElement[];
+    location:  ReceiptSchema;
+    metadata?: MetadatumElement[] | null;
+    room?:     null | string;
+    [property: string]: any;
+}
+
+export interface ItemElement {
+    description:    string;
+    discounts?:     InvoiceLevelDiscountElement[] | null;
+    group?:         null | string;
+    metadata?:      MetadatumElement[] | null;
+    product_image?: null | string;
+    quantity?:      number | null;
+    taxes?:         TaxElement[] | null;
+    total:          number;
+    uniit_cost?:    number | null;
+    unit?:          null | string;
+    url?:           null | string;
+    [property: string]: any;
+}
+
+export interface MetadatumElement {
+    metadata_type: MetadataType;
+    name:          string;
+    value:         string;
+    [property: string]: any;
+}
+
+export enum MetadataType {
+    Asin = "asin",
+    Other = "other",
+    Sku = "sku",
+    Unspsc = "unspsc",
+}
+
+export interface TaxElement {
+    amount: number;
+    name:   string;
+    rate:   number | null;
     [property: string]: any;
 }
 
@@ -170,19 +222,6 @@ export interface SubscriptionItem {
     [property: string]: any;
 }
 
-export interface InvoiceLevelDiscountElement {
-    amount:        number;
-    discount_type: DiscountType;
-    name:          string;
-    rate:          any;
-    [property: string]: any;
-}
-
-export enum DiscountType {
-    Fixed = "fixed",
-    Percentage = "percentage",
-}
-
 export enum Interval {
     Day = "day",
     Month = "month",
@@ -190,30 +229,9 @@ export enum Interval {
     Year = "year",
 }
 
-export interface MetadatumElement {
-    metadata_type: MetadataType;
-    name:          string;
-    value:         string;
-    [property: string]: any;
-}
-
-export enum MetadataType {
-    Asin = "asin",
-    Other = "other",
-    Sku = "sku",
-    Unspsc = "unspsc",
-}
-
 export enum SubscriptionType {
     OneTime = "one_time",
     Recurring = "recurring",
-}
-
-export interface TaxElement {
-    amount: number;
-    name:   string;
-    rate:   number | null;
-    [property: string]: any;
 }
 
 export interface TransitRoute {
@@ -245,28 +263,12 @@ export enum PaymentType {
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-    public static toCompositeReceipt(json: string): CompositeReceipt {
-        return cast(JSON.parse(json), r("CompositeReceipt"));
+    public static toSchema(json: string): Schema {
+        return cast(JSON.parse(json), r("Schema"));
     }
 
-    public static compositeReceiptToJson(value: CompositeReceipt): string {
-        return JSON.stringify(uncast(value, r("CompositeReceipt")), null, 2);
-    }
-
-    public static toMerchant(json: string): Merchant {
-        return cast(JSON.parse(json), r("Merchant"));
-    }
-
-    public static merchantToJson(value: Merchant): string {
-        return JSON.stringify(uncast(value, r("Merchant")), null, 2);
-    }
-
-    public static toReceipt(json: string): Receipt {
-        return cast(JSON.parse(json), r("Receipt"));
-    }
-
-    public static receiptToJson(value: Receipt): string {
-        return JSON.stringify(uncast(value, r("Receipt")), null, 2);
+    public static schemaToJson(value: Schema): string {
+        return JSON.stringify(uncast(value, r("Schema")), null, 2);
     }
 }
 
@@ -423,18 +425,7 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-    "CompositeReceipt": o([
-        { json: "merchant", js: "merchant", typ: r("Merchant") },
-        { json: "receipt", js: "receipt", typ: r("Receipt") },
-    ], "any"),
-    "Merchant": o([
-        { json: "brand_color", js: "brand_color", typ: "" },
-        { json: "id", js: "id", typ: "" },
-        { json: "logo", js: "logo", typ: u(null, "") },
-        { json: "name", js: "name", typ: "" },
-        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
-    ], false),
-    "Receipt": o([
+    "Schema": o([
         { json: "actions", js: "actions", typ: u(a(r("Action")), null) },
         { json: "header", js: "header", typ: r("Header") },
         { json: "itemization", js: "itemization", typ: r("Itemization") },
@@ -450,7 +441,7 @@ const typeMap: any = {
         { json: "created_at", js: "created_at", typ: 0 },
         { json: "currency", js: "currency", typ: r("Currency") },
         { json: "customer", js: "customer", typ: u(null, r("Customer")) },
-        { json: "location", js: "location", typ: u(null, r("LocationObject")) },
+        { json: "location", js: "location", typ: u(null, r("ReceiptSchema")) },
         { json: "mcc", js: "mcc", typ: u(null, "") },
         { json: "receipt_id", js: "receipt_id", typ: "" },
         { json: "subtotal", js: "subtotal", typ: u(undefined, 0) },
@@ -471,9 +462,10 @@ const typeMap: any = {
         { json: "region", js: "region", typ: u(null, "") },
         { json: "street_address", js: "street_address", typ: u(null, "") },
     ], "any"),
-    "LocationObject": o([
+    "ReceiptSchema": o([
         { json: "address", js: "address", typ: u(null, r("ArrivalAddressObject")) },
         { json: "google_place_id", js: "google_place_id", typ: u(null, "") },
+        { json: "image", js: "image", typ: u(null, "") },
         { json: "name", js: "name", typ: u(null, "") },
         { json: "phone", js: "phone", typ: u(null, "") },
         { json: "url", js: "url", typ: u(null, "") },
@@ -481,23 +473,75 @@ const typeMap: any = {
     "ThirdParty": o([
         { json: "first_party_relation", js: "first_party_relation", typ: r("FirstPartyRelation") },
         { json: "make_primary", js: "make_primary", typ: true },
-        { json: "merchant", js: "merchant", typ: r("MerchantClass") },
+        { json: "merchant", js: "merchant", typ: r("Merchant") },
     ], false),
-    "MerchantClass": o([
+    "Merchant": o([
         { json: "brand_color", js: "brand_color", typ: "" },
-        { json: "id", js: "id", typ: "" },
         { json: "logo", js: "logo", typ: u(null, "") },
         { json: "name", js: "name", typ: "" },
-        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
-    ], false),
+        { json: "website", js: "website", typ: u(null, "") },
+        { json: "id", js: "id", typ: "any" },
+    ], "any"),
     "Itemization": o([
         { json: "general", js: "general", typ: m("any") },
-        { json: "lodging", js: "lodging", typ: m("any") },
+        { json: "lodging", js: "lodging", typ: r("Lodging") },
         { json: "ecommerce", js: "ecommerce", typ: m("any") },
-        { json: "car_rental", js: "car_rental", typ: m("any") },
+        { json: "car_rental", js: "car_rental", typ: r("CarRental") },
         { json: "transit_route", js: "transit_route", typ: r("TransitRoute") },
-        { json: "subscription", js: "subscription", typ: u(null, r("Subscription")) },
-        { json: "flight", js: "flight", typ: u(m("any"), null) },
+        { json: "subscription", js: "subscription", typ: r("Subscription") },
+        { json: "flight", js: "flight", typ: m("any") },
+    ], "any"),
+    "CarRental": o([
+        { json: "driver_name", js: "driver_name", typ: "" },
+        { json: "odometer_reading_in", js: "odometer_reading_in", typ: 0 },
+        { json: "odometer_reading_out", js: "odometer_reading_out", typ: 0 },
+        { json: "rental_location", js: "rental_location", typ: r("ReceiptSchema") },
+        { json: "rental_time", js: "rental_time", typ: 0 },
+        { json: "return_location", js: "return_location", typ: r("ReceiptSchema") },
+        { json: "return_time", js: "return_time", typ: 0 },
+        { json: "vehicle_desscription", js: "vehicle_desscription", typ: "" },
+    ], "any"),
+    "Lodging": o([
+        { json: "invoice_level_discounts", js: "invoice_level_discounts", typ: u(a(r("InvoiceLevelDiscountElement")), null) },
+        { json: "lodging_items", js: "lodging_items", typ: a(r("LodgingItem")) },
+    ], "any"),
+    "InvoiceLevelDiscountElement": o([
+        { json: "amount", js: "amount", typ: 0 },
+        { json: "discount_type", js: "discount_type", typ: r("DiscountType") },
+        { json: "name", js: "name", typ: "" },
+        { json: "rate", js: "rate", typ: "any" },
+    ], "any"),
+    "LodgingItem": o([
+        { json: "check_in", js: "check_in", typ: 0 },
+        { json: "check_out", js: "check_out", typ: 0 },
+        { json: "guests", js: "guests", typ: u(undefined, u(null, "")) },
+        { json: "items", js: "items", typ: a(r("ItemElement")) },
+        { json: "location", js: "location", typ: r("ReceiptSchema") },
+        { json: "metadata", js: "metadata", typ: u(undefined, u(a(r("MetadatumElement")), null)) },
+        { json: "room", js: "room", typ: u(undefined, u(null, "")) },
+    ], "any"),
+    "ItemElement": o([
+        { json: "description", js: "description", typ: "" },
+        { json: "discounts", js: "discounts", typ: u(undefined, u(a(r("InvoiceLevelDiscountElement")), null)) },
+        { json: "group", js: "group", typ: u(undefined, u(null, "")) },
+        { json: "metadata", js: "metadata", typ: u(undefined, u(a(r("MetadatumElement")), null)) },
+        { json: "product_image", js: "product_image", typ: u(undefined, u(null, "")) },
+        { json: "quantity", js: "quantity", typ: u(undefined, u(3.14, null)) },
+        { json: "taxes", js: "taxes", typ: u(undefined, u(a(r("TaxElement")), null)) },
+        { json: "total", js: "total", typ: 0 },
+        { json: "uniit_cost", js: "uniit_cost", typ: u(undefined, u(0, null)) },
+        { json: "unit", js: "unit", typ: u(undefined, u(null, "")) },
+        { json: "url", js: "url", typ: u(undefined, u(null, "")) },
+    ], "any"),
+    "MetadatumElement": o([
+        { json: "metadata_type", js: "metadata_type", typ: r("MetadataType") },
+        { json: "name", js: "name", typ: "" },
+        { json: "value", js: "value", typ: "" },
+    ], "any"),
+    "TaxElement": o([
+        { json: "amount", js: "amount", typ: 0 },
+        { json: "name", js: "name", typ: "" },
+        { json: "rate", js: "rate", typ: u(3.14, null) },
     ], "any"),
     "Subscription": o([
         { json: "subscription_items", js: "subscription_items", typ: a(r("SubscriptionItem")) },
@@ -515,22 +559,6 @@ const typeMap: any = {
         { json: "subscription_type", js: "subscription_type", typ: r("SubscriptionType") },
         { json: "taxes", js: "taxes", typ: u(a(r("TaxElement")), null) },
         { json: "unit_cost", js: "unit_cost", typ: u(3.14, null) },
-    ], "any"),
-    "InvoiceLevelDiscountElement": o([
-        { json: "amount", js: "amount", typ: 0 },
-        { json: "discount_type", js: "discount_type", typ: r("DiscountType") },
-        { json: "name", js: "name", typ: "" },
-        { json: "rate", js: "rate", typ: "any" },
-    ], "any"),
-    "MetadatumElement": o([
-        { json: "metadata_type", js: "metadata_type", typ: r("MetadataType") },
-        { json: "name", js: "name", typ: "" },
-        { json: "value", js: "value", typ: "" },
-    ], "any"),
-    "TaxElement": o([
-        { json: "amount", js: "amount", typ: 0 },
-        { json: "name", js: "name", typ: "" },
-        { json: "rate", js: "rate", typ: u(3.14, null) },
     ], "any"),
     "TransitRoute": o([
         { json: "arrival_address", js: "arrival_address", typ: u(undefined, u(null, r("ArrivalAddressObject"))) },
@@ -571,17 +599,17 @@ const typeMap: any = {
         "fixed",
         "percentage",
     ],
-    "Interval": [
-        "day",
-        "month",
-        "week",
-        "year",
-    ],
     "MetadataType": [
         "asin",
         "other",
         "sku",
         "unspsc",
+    ],
+    "Interval": [
+        "day",
+        "month",
+        "week",
+        "year",
     ],
     "SubscriptionType": [
         "one_time",

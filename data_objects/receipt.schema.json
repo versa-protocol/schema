@@ -178,7 +178,34 @@
         {
           "properties": {
             "car_rental": {
-              "type": "object"
+              "type": "object",
+              "required": ["rental_time", "return_time", "rental_location", "return_location", "vehicle_desscription", "driver_name", "odometer_reading_in", "odometer_reading_out"],
+              "properties": {
+                "rental_time": {
+                  "type": "integer"
+                },
+                "return_time": {
+                  "type": "integer"
+                },
+                "rental_location": {
+                  "$ref": "#/$defs/place"
+                },
+                "return_location": {
+                  "$ref": "#/$defs/place"
+                },
+                "vehicle_desscription": {
+                  "type": "string"
+                },
+                "driver_name": {
+                  "type": "string"
+                },
+                "odometer_reading_in": {
+                  "type": "integer"
+                },
+                "odometer_reading_out": {
+                  "type": "integer"
+                }
+              }
             }
           }
         },

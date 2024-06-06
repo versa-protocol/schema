@@ -37,7 +37,7 @@ pub struct Header {
     /// ISO 4217 currency code
     pub currency: Currency,
     pub customer: Option<Customer>,
-    pub location: Option<LocationClass>,
+    pub location: Option<ReceiptSchema>,
     pub mcc: Option<String>,
     pub receipt_id: String,
     pub subtotal: Option<i64>,
@@ -60,14 +60,14 @@ pub enum Currency {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Customer {
-    pub address: Option<AddressClass>,
+    pub address: Option<ArrivalAddressClass>,
     pub email: Option<String>,
     pub name: String,
     pub phone: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AddressClass {
+pub struct ArrivalAddressClass {
     pub city: Option<String>,
     pub country: String,
     pub lat: f64,
@@ -78,9 +78,10 @@ pub struct AddressClass {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct LocationClass {
-    pub address: Option<AddressClass>,
+pub struct ReceiptSchema {
+    pub address: Option<ArrivalAddressClass>,
     pub google_place_id: Option<String>,
+    pub image: Option<String>,
     pub name: Option<String>,
     pub phone: Option<String>,
     pub url: Option<String>,
@@ -120,13 +121,95 @@ pub struct Merchant {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Itemization {
-    pub general: Option<HashMap<String, Option<serde_json::Value>>>,
-    pub lodging: Option<HashMap<String, Option<serde_json::Value>>>,
-    pub ecommerce: Option<HashMap<String, Option<serde_json::Value>>>,
-    pub car_rental: Option<HashMap<String, Option<serde_json::Value>>>,
-    pub transit_route: Option<TransitRoute>,
-    pub subscription: Option<Subscription>,
-    pub flight: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub general: HashMap<String, Option<serde_json::Value>>,
+    pub lodging: Lodging,
+    pub ecommerce: HashMap<String, Option<serde_json::Value>>,
+    pub car_rental: CarRental,
+    pub transit_route: TransitRoute,
+    pub subscription: Subscription,
+    pub flight: HashMap<String, Option<serde_json::Value>>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CarRental {
+    pub driver_name: String,
+    pub odometer_reading_in: i64,
+    pub odometer_reading_out: i64,
+    pub rental_location: ReceiptSchema,
+    pub rental_time: i64,
+    pub return_location: ReceiptSchema,
+    pub return_time: i64,
+    pub vehicle_desscription: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Lodging {
+    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub lodging_items: Vec<LodgingItem>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct InvoiceLevelDiscountElement {
+    pub amount: i64,
+    pub discount_type: DiscountType,
+    pub name: String,
+    pub rate: Option<serde_json::Value>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum DiscountType {
+    Fixed,
+    Percentage,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct LodgingItem {
+    pub check_in: i64,
+    pub check_out: i64,
+    pub guests: Option<String>,
+    pub items: Vec<ItemElement>,
+    pub location: ReceiptSchema,
+    pub metadata: Option<Vec<MetadatumElement>>,
+    pub room: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ItemElement {
+    pub description: String,
+    pub discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub group: Option<String>,
+    pub metadata: Option<Vec<MetadatumElement>>,
+    pub product_image: Option<String>,
+    pub quantity: Option<f64>,
+    pub taxes: Option<Vec<TaxElement>>,
+    pub total: i64,
+    pub uniit_cost: Option<i64>,
+    pub unit: Option<String>,
+    pub url: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MetadatumElement {
+    pub metadata_type: MetadataType,
+    pub name: String,
+    pub value: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum MetadataType {
+    Asin,
+    Other,
+    Sku,
+    Unspsc,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TaxElement {
+    pub amount: i64,
+    pub name: String,
+    pub rate: Option<f64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -151,43 +234,12 @@ pub struct SubscriptionItem {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct InvoiceLevelDiscountElement {
-    pub amount: i64,
-    pub discount_type: DiscountType,
-    pub name: String,
-    pub rate: Option<serde_json::Value>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum DiscountType {
-    Fixed,
-    Percentage,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Interval {
     Day,
     Month,
     Week,
     Year,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct MetadatumElement {
-    pub metadata_type: MetadataType,
-    pub name: String,
-    pub value: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum MetadataType {
-    Asin,
-    Other,
-    Sku,
-    Unspsc,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -199,17 +251,10 @@ pub enum SubscriptionType {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct TaxElement {
-    pub amount: i64,
-    pub name: String,
-    pub rate: Option<f64>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
 pub struct TransitRoute {
-    pub arrival_address: Option<AddressClass>,
+    pub arrival_address: Option<ArrivalAddressClass>,
     pub arrival_time: Option<i64>,
-    pub departure_address: Option<AddressClass>,
+    pub departure_address: Option<ArrivalAddressClass>,
     pub departure_time: Option<i64>,
     pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub metadata: Option<Vec<MetadatumElement>>,
