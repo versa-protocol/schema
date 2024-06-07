@@ -354,7 +354,7 @@
                 "itinerary_locator",
                 "invoice_level_discounts"
               ],
-              "items": {
+              "properties": {
                 "tickets": {
                   "type": "array",
                   "minItems": 1,
