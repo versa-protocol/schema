@@ -5,7 +5,13 @@
   "description": "A Versa itemized receipt",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "header", "itemization", "actions", "payment"],
+  "required": [
+    "version",
+    "header",
+    "itemization",
+    "actions",
+    "payment"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -27,20 +33,49 @@
         "location"
       ],
       "properties": {
-        "receipt_id": { "type": "string" },
+        "receipt_id": {
+          "type": "string"
+        },
         "currency": {
           "description": "ISO 4217 currency code",
           "type": "string",
-          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cnh"]
+          "enum": [
+            "usd",
+            "eur",
+            "jpy",
+            "gbp",
+            "aud",
+            "cad",
+            "chf",
+            "cnh"
+          ]
         },
-        "amount": { "type": "integer" },
-        "subtotal": { "type": "integer" },
-        "created_at": { "type": "integer" },
-        "mcc": { "type": ["string", "null"] },
+        "amount": {
+          "type": "integer"
+        },
+        "subtotal": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "integer"
+        },
+        "mcc": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "third_party": {
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "additionalProperties": false,
-          "required": ["first_party_relation", "make_primary", "merchant"],
+          "required": [
+            "first_party_relation",
+            "make_primary",
+            "merchant"
+          ],
           "properties": {
             "first_party_relation": {
               "type": "string",
@@ -57,28 +92,62 @@
               "description": "Determines whether the merchant or third party gets top billing on the receipt",
               "type": "boolean"
             },
-            "merchant": { "$ref": "#/$defs/merchant" }
+            "merchant": {
+              "$ref": "#/$defs/merchant"
+            }
           }
         },
         "customer": {
-          "type": ["object", "null"],
-          "required": ["name", "email", "address", "phone"],
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "name",
+            "email",
+            "address",
+            "phone"
+          ],
           "properties": {
-            "name": { "type": "string" },
+            "name": {
+              "type": "string"
+            },
             "email": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "email",
               "minLength": 6,
               "maxLength": 127
             },
             "address": {
-              "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/address"
+                }
+              ]
             },
-            "phone": { "type": ["string", "null"] }
+            "phone": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
           }
         },
         "location": {
-          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/place" }]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/place"
+            }
+          ]
         }
       }
     },
@@ -106,14 +175,22 @@
           "properties": {
             "lodging": {
               "type": "object",
-              "required": ["lodging_items", "invoice_level_discounts"],
+              "required": [
+                "lodging_items",
+                "invoice_level_discounts"
+              ],
               "properties": {
                 "lodging_items": {
                   "type": "array",
                   "minItems": 1,
                   "items": {
                     "type": "object",
-                    "required": ["check_in", "check_out", "location", "items"],
+                    "required": [
+                      "check_in",
+                      "check_out",
+                      "location",
+                      "items"
+                    ],
                     "properties": {
                       "check_in": {
                         "type": "integer"
@@ -132,14 +209,22 @@
                         }
                       },
                       "room": {
-                        "type": ["null", "string"]
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       },
                       "guests": {
-                        "type": ["null", "string"]
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       },
                       "metadata": {
                         "oneOf": [
-                          { "type": "null" },
+                          {
+                            "type": "null"
+                          },
                           {
                             "type": "array",
                             "minItems": 1,
@@ -154,7 +239,9 @@
                 },
                 "invoice_level_discounts": {
                   "oneOf": [
-                    { "type": "null" },
+                    {
+                      "type": "null"
+                    },
                     {
                       "type": "array",
                       "minItems": 1,
@@ -179,7 +266,16 @@
           "properties": {
             "car_rental": {
               "type": "object",
-              "required": ["rental_time", "return_time", "rental_location", "return_location", "vehicle_desscription", "driver_name", "odometer_reading_in", "odometer_reading_out"],
+              "required": [
+                "rental_time",
+                "return_time",
+                "rental_location",
+                "return_location",
+                "vehicle_desscription",
+                "driver_name",
+                "odometer_reading_in",
+                "odometer_reading_out"
+              ],
               "properties": {
                 "rental_time": {
                   "type": "integer"
@@ -216,10 +312,24 @@
               "required": [],
               "properties": {
                 "departure_address": {
-                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/$defs/address"
+                    }
+                  ]
                 },
                 "arrival_address": {
-                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/$defs/address"
+                    }
+                  ]
                 },
                 "departure_at": {
                   "type": "integer"
@@ -228,11 +338,20 @@
                   "type": "integer"
                 },
                 "polyline": {
-                  "oneOf": [{ "type": "null" }, { "type": "string" }]
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "taxes": {
                   "oneOf": [
-                    { "type": "null" },
+                    {
+                      "type": "null"
+                    },
                     {
                       "type": "array",
                       "minItems": 1,
@@ -244,7 +363,9 @@
                 },
                 "invoice_level_discounts": {
                   "oneOf": [
-                    { "type": "null" },
+                    {
+                      "type": "null"
+                    },
                     {
                       "type": "array",
                       "minItems": 1,
@@ -256,7 +377,9 @@
                 },
                 "metadata": {
                   "oneOf": [
-                    { "type": "null" },
+                    {
+                      "type": "null"
+                    },
                     {
                       "type": "array",
                       "minItems": 1,
@@ -267,7 +390,10 @@
                   ]
                 },
                 "tip": {
-                  "type": ["integer", "null"]
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
                 }
               }
             }
@@ -276,8 +402,13 @@
         {
           "properties": {
             "subscription": {
-              "type": ["object"],
-              "required": ["subscription_items", "invoice_level_discounts"],
+              "type": [
+                "object"
+              ],
+              "required": [
+                "subscription_items",
+                "invoice_level_discounts"
+              ],
               "properties": {
                 "subscription_items": {
                   "type": "array",
@@ -300,38 +431,65 @@
                     "properties": {
                       "subscription_type": {
                         "type": "string",
-                        "enum": ["one_time", "recurring"]
+                        "enum": [
+                          "one_time",
+                          "recurring"
+                        ]
                       },
                       "description": {
                         "type": "string"
                       },
                       "interval": {
                         "oneOf": [
-                          { "type": "null" },
+                          {
+                            "type": "null"
+                          },
                           {
                             "type": "string",
-                            "enum": ["day", "week", "month", "year"]
+                            "enum": [
+                              "day",
+                              "week",
+                              "month",
+                              "year"
+                            ]
                           }
                         ]
                       },
                       "interval_count": {
-                        "type": ["integer", "null"]
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
                       },
                       "current_period_start": {
-                        "type": ["integer", "null"]
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
                       },
                       "current_period_end": {
-                        "type": ["integer", "null"]
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
                       },
                       "quantity": {
-                        "type": ["number", "null"]
+                        "type": [
+                          "number",
+                          "null"
+                        ]
                       },
                       "unit_cost": {
-                        "type": ["number", "null"]
+                        "type": [
+                          "number",
+                          "null"
+                        ]
                       },
                       "taxes": {
                         "oneOf": [
-                          { "type": "null" },
+                          {
+                            "type": "null"
+                          },
                           {
                             "type": "array",
                             "minItems": 1,
@@ -343,7 +501,9 @@
                       },
                       "metadata": {
                         "oneOf": [
-                          { "type": "null" },
+                          {
+                            "type": "null"
+                          },
                           {
                             "type": "array",
                             "minItems": 1,
@@ -355,7 +515,9 @@
                       },
                       "discounts": {
                         "oneOf": [
-                          { "type": "null" },
+                          {
+                            "type": "null"
+                          },
                           {
                             "type": "array",
                             "minItems": 1,
@@ -421,20 +583,34 @@
                               "type": "string"
                             },
                             "departure_at": {
-                              "type": ["null", "integer"]
+                              "type": [
+                                "null",
+                                "integer"
+                              ]
                             },
                             "arrival_at": {
-                              "type": ["null", "integer"]
+                              "type": [
+                                "null",
+                                "integer"
+                              ]
                             },
                             "flight_number": {
-                              "type": ["null", "string"]
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "class_of_service": {
-                              "type": ["null", "string"]
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "taxes": {
                               "oneOf": [
-                                { "type": "null" },
+                                {
+                                  "type": "null"
+                                },
                                 {
                                   "type": "array",
                                   "minItems": 1,
@@ -446,7 +622,9 @@
                             },
                             "discounts": {
                               "oneOf": [
-                                { "type": "null" },
+                                {
+                                  "type": "null"
+                                },
                                 {
                                   "type": "array",
                                   "minItems": 1,
@@ -460,23 +638,37 @@
                         }
                       },
                       "number": {
-                        "type": ["null", "string"]
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       },
                       "record_locator": {
-                        "type": ["null", "string"]
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       },
                       "passenger": {
-                        "type": ["null", "string"]
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       }
                     }
                   }
                 },
                 "itinerary_locator": {
-                  "type": ["null", "string"]
+                  "type": [
+                    "null",
+                    "string"
+                  ]
                 },
                 "invoice_level_discounts": {
                   "oneOf": [
-                    { "type": "null" },
+                    {
+                      "type": "null"
+                    },
                     {
                       "type": "array",
                       "minItems": 1,
@@ -494,12 +686,17 @@
     },
     "actions": {
       "oneOf": [
-        { "type": "null" },
+        {
+          "type": "null"
+        },
         {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["name", "url"],
+            "required": [
+              "name",
+              "url"
+            ],
             "properties": {
               "name": {
                 "type": "string"
@@ -515,7 +712,9 @@
     },
     "payment": {
       "oneOf": [
-        { "type": "null" },
+        {
+          "type": "null"
+        },
         {
           "type": "object",
           "required": [
@@ -530,7 +729,10 @@
             },
             "payment_type": {
               "type": "string",
-              "enum": ["card", "ach"]
+              "enum": [
+                "card",
+                "ach"
+              ]
             }
           },
           "allOf": [
@@ -546,7 +748,10 @@
                 "properties": {
                   "card_payment": {
                     "type": "object",
-                    "required": ["last_four", "network"],
+                    "required": [
+                      "last_four",
+                      "network"
+                    ],
                     "properties": {
                       "last_four": {
                         "type": "string"
@@ -587,7 +792,9 @@
                   },
                   "ach_payment": {
                     "type": "object",
-                    "required": ["routing_number"],
+                    "required": [
+                      "routing_number"
+                    ],
                     "properties": {
                       "routing_number": {
                         "type": "string"
@@ -605,20 +812,34 @@
   "$defs": {
     "merchant": {
       "type": "object",
-      "required": ["id", "name", "brand_color", "logo", "website"],
+      "required": [
+        "id",
+        "name",
+        "brand_color",
+        "logo",
+        "website"
+      ],
       "properties": {
-        "name": { "type": "string" },
+        "name": {
+          "type": "string"
+        },
         "brand_color": {
           "description": "Hex color",
           "type": "string",
           "pattern": "^#?([a-f0-9]{6}|[a-f0-9]{3})$"
         },
         "logo": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "uri"
         },
         "website": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "hostname"
         }
       }
@@ -635,24 +856,71 @@
         "lon"
       ],
       "properties": {
-        "street_address": { "type": ["string", "null"] },
-        "city": { "type": ["string", "null"] },
-        "region": {
-          "type": ["string", "null"],
-          "minLength": 2,
-          "maxLength": 2
+        "street_address": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
-        "country": { "type": "string", "minLength": 2, "maxLength": 2 },
-        "postal_code": { "type": ["string", "null"] },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "region": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          ]
+        },
+        "country": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          ]
+        },
+        "postal_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "lat": {
-          "type": "number",
-          "minimum": -90,
-          "maximum": 90
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "lon": {
-          "type": "number",
-          "minimum": -180,
-          "maximum": 180
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       }
     },
@@ -667,24 +935,50 @@
         "image"
       ],
       "properties": {
-        "name": { "type": ["string", "null"] },
-        "address": {
-          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
-        "phone": { "type": ["string", "null"] },
+        "address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "url": {
           "oneOf": [
-            { "type": "null" },
+            {
+              "type": "null"
+            },
             {
               "type": "string",
               "format": "uri"
             }
           ]
         },
-        "google_place_id": { "type": ["string", "null"] },
+        "google_place_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "image": {
           "oneOf": [
-            { "type": "null" },
+            {
+              "type": "null"
+            },
             {
               "type": "string",
               "format": "uri"
@@ -695,11 +989,20 @@
     },
     "item_metadata": {
       "type": "object",
-      "required": ["name", "metadata_type", "value"],
+      "required": [
+        "name",
+        "metadata_type",
+        "value"
+      ],
       "properties": {
         "metadata_type": {
           "type": "string",
-          "enum": ["sku", "unspsc", "asin", "other"]
+          "enum": [
+            "sku",
+            "unspsc",
+            "asin",
+            "other"
+          ]
         },
         "name": {
           "type": "string"
@@ -711,7 +1014,12 @@
     },
     "discount": {
       "type": "object",
-      "required": ["amount", "name", "discount_type", "rate"],
+      "required": [
+        "amount",
+        "name",
+        "discount_type",
+        "rate"
+      ],
       "properties": {
         "amount": {
           "type": "integer"
@@ -721,7 +1029,10 @@
         },
         "discount_type": {
           "type": "string",
-          "enum": ["fixed", "percentage"]
+          "enum": [
+            "fixed",
+            "percentage"
+          ]
         }
       },
       "if": {
@@ -748,13 +1059,20 @@
     },
     "tax": {
       "type": "object",
-      "required": ["amount", "rate", "name"],
+      "required": [
+        "amount",
+        "rate",
+        "name"
+      ],
       "properties": {
         "amount": {
           "type": "integer"
         },
         "rate": {
-          "type": ["number", "null"]
+          "type": [
+            "number",
+            "null"
+          ]
         },
         "name": {
           "type": "string"
@@ -763,7 +1081,10 @@
     },
     "item": {
       "type": "object",
-      "required": ["description", "total"],
+      "required": [
+        "description",
+        "total"
+      ],
       "properties": {
         "description": {
           "type": "string"
@@ -772,17 +1093,28 @@
           "type": "integer"
         },
         "quantity": {
-          "type": ["null", "number"]
+          "type": [
+            "null",
+            "number"
+          ]
         },
         "uniit_cost": {
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "unit": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "taxes": {
           "oneOf": [
-            { "type": "null" },
+            {
+              "type": "null"
+            },
             {
               "type": "array",
               "minItems": 1,
@@ -794,7 +1126,9 @@
         },
         "metadata": {
           "oneOf": [
-            { "type": "null" },
+            {
+              "type": "null"
+            },
             {
               "type": "array",
               "minItems": 1,
@@ -806,7 +1140,9 @@
         },
         "product_image": {
           "oneOf": [
-            { "type": "null" },
+            {
+              "type": "null"
+            },
             {
               "type": "string",
               "format": "uri"
@@ -814,11 +1150,16 @@
           ]
         },
         "group": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "url": {
           "oneOf": [
-            { "type": "null" },
+            {
+              "type": "null"
+            },
             {
               "type": "string",
               "format": "uri"
@@ -827,7 +1168,9 @@
         },
         "discounts": {
           "oneOf": [
-            { "type": "null" },
+            {
+              "type": "null"
+            },
             {
               "type": "array",
               "minItems": 1,

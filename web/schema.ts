@@ -112,8 +112,8 @@ export interface Receipt {
         transit_route?: {
           departure_address?: null | Address;
           arrival_address?: null | Address;
-          departure_time?: number;
-          arrival_time?: number;
+          departure_at?: number;
+          arrival_at?: number;
           polyline?: null | string;
           taxes?: null | [Tax, ...Tax[]];
           invoice_level_discounts?: null | [Discount, ...Discount[]];
@@ -164,6 +164,83 @@ export interface Receipt {
       }
     | {
         flight?: {
+          /**
+           * @minItems 1
+           */
+          tickets: [
+            {
+              /**
+               * @minItems 1
+               */
+              segments: [
+                {
+                  fare: number;
+                  departure_airport_code: string;
+                  arrival_airport_code: string;
+                  departure_at: null | number;
+                  arrival_at: null | number;
+                  flight_number: null | string;
+                  class_of_service: null | string;
+                  taxes: null | [Tax, ...Tax[]];
+                  discounts: null | [Discount, ...Discount[]];
+                  [k: string]: unknown;
+                },
+                ...{
+                  fare: number;
+                  departure_airport_code: string;
+                  arrival_airport_code: string;
+                  departure_at: null | number;
+                  arrival_at: null | number;
+                  flight_number: null | string;
+                  class_of_service: null | string;
+                  taxes: null | [Tax, ...Tax[]];
+                  discounts: null | [Discount, ...Discount[]];
+                  [k: string]: unknown;
+                }[]
+              ];
+              number: null | string;
+              record_locator: null | string;
+              passenger: null | string;
+              [k: string]: unknown;
+            },
+            ...{
+              /**
+               * @minItems 1
+               */
+              segments: [
+                {
+                  fare: number;
+                  departure_airport_code: string;
+                  arrival_airport_code: string;
+                  departure_at: null | number;
+                  arrival_at: null | number;
+                  flight_number: null | string;
+                  class_of_service: null | string;
+                  taxes: null | [Tax, ...Tax[]];
+                  discounts: null | [Discount, ...Discount[]];
+                  [k: string]: unknown;
+                },
+                ...{
+                  fare: number;
+                  departure_airport_code: string;
+                  arrival_airport_code: string;
+                  departure_at: null | number;
+                  arrival_at: null | number;
+                  flight_number: null | string;
+                  class_of_service: null | string;
+                  taxes: null | [Tax, ...Tax[]];
+                  discounts: null | [Discount, ...Discount[]];
+                  [k: string]: unknown;
+                }[]
+              ];
+              number: null | string;
+              record_locator: null | string;
+              passenger: null | string;
+              [k: string]: unknown;
+            }[]
+          ];
+          itinerary_locator: null | string;
+          invoice_level_discounts: null | [Discount, ...Discount[]];
           [k: string]: unknown;
         };
         [k: string]: unknown;
@@ -192,11 +269,11 @@ export interface Merchant {
 export interface Address {
   street_address: string | null;
   city: string | null;
-  region: string | null;
-  country: string;
+  region: null | string;
+  country: null | string;
   postal_code: string | null;
-  lat: number;
-  lon: number;
+  lat: number | null;
+  lon: number | null;
   [k: string]: unknown;
 }
 export interface Place {
