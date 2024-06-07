@@ -194,10 +194,10 @@
                 "arrival_address": {
                   "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/address" }]
                 },
-                "departure_time": {
+                "departure_at": {
                   "type": "integer"
                 },
-                "arrival_time": {
+                "arrival_at": {
                   "type": "integer"
                 },
                 "polyline": {
@@ -376,8 +376,8 @@
                             "fare",
                             "departure_airport_code",
                             "arrival_airport_code",
-                            "departure_time",
-                            "arrival_time",
+                            "departure_at",
+                            "arrival_at",
                             "flight_number",
                             "class_of_service",
                             "taxes",
@@ -393,10 +393,10 @@
                             "arrival_airport_code": {
                               "type": "string"
                             },
-                            "departure_time": {
+                            "departure_at": {
                               "type": ["null", "integer"]
                             },
-                            "arrival_time": {
+                            "arrival_at": {
                               "type": ["null", "integer"]
                             },
                             "flight_number": {
