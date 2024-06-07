@@ -348,7 +348,118 @@
         {
           "properties": {
             "flight": {
-              "type": ["object"]
+              "type": "object",
+              "required": [
+                "tickets",
+                "itinerary_locator",
+                "invoice_level_discounts"
+              ],
+              "items": {
+                "tickets": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "segments",
+                      "number",
+                      "record_locator",
+                      "passenger"
+                    ],
+                    "properties": {
+                      "segments": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "fare",
+                            "departure_airport_code",
+                            "arrival_airport_code",
+                            "departure_time",
+                            "arrival_time",
+                            "flight_number",
+                            "class_of_service",
+                            "taxes",
+                            "discounts"
+                          ],
+                          "properties": {
+                            "fare": {
+                              "type": "integer"
+                            },
+                            "departure_airport_code": {
+                              "type": "string"
+                            },
+                            "arrival_airport_code": {
+                              "type": "string"
+                            },
+                            "departure_time": {
+                              "type": ["null", "integer"]
+                            },
+                            "arrival_time": {
+                              "type": ["null", "integer"]
+                            },
+                            "flight_number": {
+                              "type": ["null", "string"]
+                            },
+                            "class_of_service": {
+                              "type": ["null", "string"]
+                            },
+                            "taxes": {
+                              "oneOf": [
+                                { "type": "null" },
+                                {
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "items": {
+                                    "$ref": "#/$defs/tax"
+                                  }
+                                }
+                              ]
+                            },
+                            "discounts": {
+                              "oneOf": [
+                                { "type": "null" },
+                                {
+                                  "type": "array",
+                                  "minItems": 1,
+                                  "items": {
+                                    "$ref": "#/$defs/discount"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "number": {
+                        "type": ["null", "string"]
+                      },
+                      "record_locator": {
+                        "type": ["null", "string"]
+                      },
+                      "passenger": {
+                        "type": ["null", "string"]
+                      }
+                    }
+                  }
+                },
+                "itinerary_locator": {
+                  "type": ["null", "string"]
+                },
+                "invoice_level_discounts": {
+                  "oneOf": [
+                    { "type": "null" },
+                    {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/$defs/discount"
+                      }
+                    }
+                  ]
+                }
+              }
             }
           }
         }
