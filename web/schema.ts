@@ -5,29 +5,6 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Itemization =
-  | {
-      general: {};
-    }
-  | {
-      lodging: Lodging;
-    }
-  | {
-      ecommerce: {};
-    }
-  | {
-      car_rental: CarRental;
-    }
-  | {
-      transit_route: TransitRoute;
-    }
-  | {
-      subscription: Subscription;
-    }
-  | {
-      flight: Flight;
-    };
-
 /**
  * A Versa itemized receipt
  */
@@ -104,6 +81,15 @@ export interface Place {
   url: null | string;
   google_place_id: string | null;
   image: null | string;
+}
+export interface Itemization {
+  general: {} | null;
+  lodging: Lodging | null;
+  ecommerce: {} | null;
+  car_rental: CarRental | null;
+  transit_route: TransitRoute | null;
+  subscription: Subscription | null;
+  flight: Flight | null;
 }
 export interface Lodging {
   /**

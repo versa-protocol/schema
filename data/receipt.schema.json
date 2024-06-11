@@ -402,65 +402,15 @@
         "subscription",
         "flight"
       ],
-      "oneOf": [
-        {
-          "required": ["general"],
-          "properties": {
-            "general": {
-              "type": "object",
-              "minItems": 1
-            }
-          }
-        },
-        {
-          "required": ["lodging"],
-          "properties": {
-            "lodging": {
-              "$ref": "#/$defs/lodging"
-            }
-          }
-        },
-        {
-          "required": ["ecommerce"],
-          "properties": {
-            "ecommerce": {
-              "type": "object"
-            }
-          }
-        },
-        {
-          "required": ["car_rental"],
-          "properties": {
-            "car_rental": {
-              "$ref": "#/$defs/car_rental"
-            }
-          }
-        },
-        {
-          "required": ["transit_route"],
-          "properties": {
-            "transit_route": {
-              "$ref": "#/$defs/transit_route"
-            }
-          }
-        },
-        {
-          "required": ["subscription"],
-          "properties": {
-            "subscription": {
-              "$ref": "#/$defs/subscription"
-            }
-          }
-        },
-        {
-          "required": ["flight"],
-          "properties": {
-            "flight": {
-              "$ref": "#/$defs/flight"
-            }
-          }
-        }
-      ]
+      "properties": {
+        "general": {"oneOf": [{"type": "object"}, {"type": "null"}]},
+        "lodging": {"oneOf": [{"$ref": "#/$defs/lodging"}, {"type": "null"}]},
+        "ecommerce": {"oneOf": [{"type": "object"}, {"type": "null"}]},
+        "car_rental": {"oneOf": [{"$ref": "#/$defs/car_rental"}, {"type": "null"}]},
+        "transit_route": {"oneOf": [{"$ref": "#/$defs/transit_route"}, {"type": "null"}]},
+        "subscription": {"oneOf": [{"$ref": "#/$defs/subscription"}, {"type": "null"}]},
+        "flight": {"oneOf": [{"$ref": "#/$defs/flight"}, {"type": "null"}]}
+      }
     },
     "lodging": {
       "type": "object",
