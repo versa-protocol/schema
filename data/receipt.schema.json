@@ -604,12 +604,16 @@
           "items": {
             "type": "object",
             "required": [
+              "amount",
               "paid_at",
               "payment_type",
               "card_payment",
               "ach_payment"
             ],
             "properties": {
+              "amount": {
+                "type": "integer"
+              },
               "paid_at": {
                 "type": "integer"
               },
