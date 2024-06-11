@@ -7,76 +7,25 @@
 
 export type Itemization =
   | {
-      general?: {};
+      general: {};
     }
   | {
-      lodging?: {
-        /**
-         * @minItems 1
-         */
-        lodging_items: {
-          check_in: number;
-          check_out: number;
-          location: Place;
-          /**
-           * @minItems 1
-           */
-          items: Item[];
-          room?: null | string;
-          guests?: null | string;
-          metadata?: null | ItemMetadata[];
-        }[];
-        invoice_level_discounts: null | Discount[];
-      };
+      lodging: Lodging;
     }
   | {
-      ecommerce?: {};
+      ecommerce: {};
     }
   | {
-      car_rental?: {
-        rental_time: number;
-        return_time: number;
-        rental_location: Place;
-        return_location: Place;
-        vehicle_desscription: string;
-        driver_name: string;
-        odometer_reading_in: number;
-        odometer_reading_out: number;
-      };
+      car_rental: CarRental;
     }
   | {
-      transit_route?: TransitRoute;
+      transit_route: TransitRoute;
     }
   | {
-      subscription?: Subscription;
+      subscription: Subscription;
     }
   | {
-      flight?: {
-        /**
-         * @minItems 1
-         */
-        tickets: {
-          /**
-           * @minItems 1
-           */
-          segments: {
-            fare: number;
-            departure_airport_code: string;
-            arrival_airport_code: string;
-            departure_at: null | number;
-            arrival_at: null | number;
-            flight_number: null | string;
-            class_of_service: null | string;
-            taxes: null | Tax[];
-            discounts: null | Discount[];
-          }[];
-          number: null | string;
-          record_locator: null | string;
-          passenger: null | string;
-        }[];
-        itinerary_locator: null | string;
-        invoice_level_discounts: null | Discount[];
-      };
+      flight: Flight;
     };
 
 /**
@@ -156,6 +105,24 @@ export interface Place {
   google_place_id: string | null;
   image: null | string;
 }
+export interface Lodging {
+  /**
+   * @minItems 1
+   */
+  lodging_items: {
+    check_in: number;
+    check_out: number;
+    location: Place;
+    /**
+     * @minItems 1
+     */
+    items: Item[];
+    room?: null | string;
+    guests?: null | string;
+    metadata?: null | ItemMetadata[];
+  }[];
+  invoice_level_discounts: null | Discount[];
+}
 export interface Item {
   description: string;
   total: number;
@@ -183,6 +150,16 @@ export interface Discount {
   amount: number;
   name: string;
   discount_type: "fixed" | "percentage";
+}
+export interface CarRental {
+  rental_time: number;
+  return_time: number;
+  rental_location: Place;
+  return_location: Place;
+  vehicle_desscription: string;
+  driver_name: string;
+  odometer_reading_in: number;
+  odometer_reading_out: number;
 }
 export interface TransitRoute {
   departure_address?: null | Address;
@@ -212,4 +189,30 @@ export interface Subscription {
     metadata: null | ItemMetadata[];
     discounts: null | Discount[];
   }[];
+}
+export interface Flight {
+  /**
+   * @minItems 1
+   */
+  tickets: {
+    /**
+     * @minItems 1
+     */
+    segments: {
+      fare: number;
+      departure_airport_code: string;
+      arrival_airport_code: string;
+      departure_at: null | number;
+      arrival_at: null | number;
+      flight_number: null | string;
+      class_of_service: null | string;
+      taxes: null | Tax[];
+      discounts: null | Discount[];
+    }[];
+    number: null | string;
+    record_locator: null | string;
+    passenger: null | string;
+  }[];
+  itinerary_locator: null | string;
+  invoice_level_discounts: null | Discount[];
 }
