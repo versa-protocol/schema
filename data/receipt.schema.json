@@ -108,468 +108,7 @@
       }
     },
     "itemization": {
-      "type": "object",
-      "required": [
-        "general",
-        "lodging",
-        "ecommerce",
-        "car_rental",
-        "transit_route",
-        "subscription",
-        "flight"
-      ],
-      "oneOf": [
-        {
-          "properties": {
-            "general": {
-              "type": "object",
-              "minItems": 1
-            }
-          }
-        },
-        {
-          "properties": {
-            "lodging": {
-              "type": "object",
-              "required": ["lodging_items", "invoice_level_discounts"],
-              "properties": {
-                "lodging_items": {
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "object",
-                    "required": ["check_in", "check_out", "location", "items"],
-                    "properties": {
-                      "check_in": {
-                        "type": "integer"
-                      },
-                      "check_out": {
-                        "type": "integer"
-                      },
-                      "location": {
-                        "$ref": "#/$defs/place"
-                      },
-                      "items": {
-                        "type": "array",
-                        "minItems": 1,
-                        "items": {
-                          "$ref": "#/$defs/item"
-                        }
-                      },
-                      "room": {
-                        "type": ["null", "string"]
-                      },
-                      "guests": {
-                        "type": ["null", "string"]
-                      },
-                      "metadata": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "array",
-                            "minItems": 1,
-                            "items": {
-                              "$ref": "#/$defs/item_metadata"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                },
-                "invoice_level_discounts": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "array",
-                      "minItems": 1,
-                      "items": {
-                        "$ref": "#/$defs/discount"
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        {
-          "properties": {
-            "ecommerce": {
-              "type": "object"
-            }
-          }
-        },
-        {
-          "properties": {
-            "car_rental": {
-              "type": "object",
-              "required": [
-                "rental_time",
-                "return_time",
-                "rental_location",
-                "return_location",
-                "vehicle_desscription",
-                "driver_name",
-                "odometer_reading_in",
-                "odometer_reading_out"
-              ],
-              "properties": {
-                "rental_time": {
-                  "type": "integer"
-                },
-                "return_time": {
-                  "type": "integer"
-                },
-                "rental_location": {
-                  "$ref": "#/$defs/place"
-                },
-                "return_location": {
-                  "$ref": "#/$defs/place"
-                },
-                "vehicle_desscription": {
-                  "type": "string"
-                },
-                "driver_name": {
-                  "type": "string"
-                },
-                "odometer_reading_in": {
-                  "type": "integer"
-                },
-                "odometer_reading_out": {
-                  "type": "integer"
-                }
-              }
-            }
-          }
-        },
-        {
-          "properties": {
-            "transit_route": {
-              "type": "object",
-              "required": [],
-              "properties": {
-                "departure_address": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "$ref": "#/$defs/address"
-                    }
-                  ]
-                },
-                "arrival_address": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "$ref": "#/$defs/address"
-                    }
-                  ]
-                },
-                "departure_at": {
-                  "type": "integer"
-                },
-                "arrival_at": {
-                  "type": "integer"
-                },
-                "polyline": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "taxes": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "array",
-                      "minItems": 1,
-                      "items": {
-                        "$ref": "#/$defs/tax"
-                      }
-                    }
-                  ]
-                },
-                "invoice_level_discounts": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "array",
-                      "minItems": 1,
-                      "items": {
-                        "$ref": "#/$defs/discount"
-                      }
-                    }
-                  ]
-                },
-                "metadata": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "array",
-                      "minItems": 1,
-                      "items": {
-                        "$ref": "#/$defs/item_metadata"
-                      }
-                    }
-                  ]
-                },
-                "tip": {
-                  "type": ["integer", "null"]
-                }
-              }
-            }
-          }
-        },
-        {
-          "properties": {
-            "subscription": {
-              "type": ["object"],
-              "required": ["subscription_items", "invoice_level_discounts"],
-              "properties": {
-                "subscription_items": {
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "subscription_type",
-                      "description",
-                      "interval",
-                      "interval_count",
-                      "current_period_start",
-                      "current_period_end",
-                      "quantity",
-                      "unit_cost",
-                      "taxes",
-                      "metadata",
-                      "discounts"
-                    ],
-                    "properties": {
-                      "subscription_type": {
-                        "type": "string",
-                        "enum": ["one_time", "recurring"]
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "interval": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "string",
-                            "enum": ["day", "week", "month", "year"]
-                          }
-                        ]
-                      },
-                      "interval_count": {
-                        "type": ["integer", "null"]
-                      },
-                      "current_period_start": {
-                        "type": ["integer", "null"]
-                      },
-                      "current_period_end": {
-                        "type": ["integer", "null"]
-                      },
-                      "quantity": {
-                        "type": ["number", "null"]
-                      },
-                      "unit_cost": {
-                        "type": ["number", "null"]
-                      },
-                      "taxes": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "array",
-                            "minItems": 1,
-                            "items": {
-                              "$ref": "#/$defs/tax"
-                            }
-                          }
-                        ]
-                      },
-                      "metadata": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "array",
-                            "minItems": 1,
-                            "items": {
-                              "$ref": "#/$defs/item_metadata"
-                            }
-                          }
-                        ]
-                      },
-                      "discounts": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "array",
-                            "minItems": 1,
-                            "items": {
-                              "$ref": "#/$defs/discount"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "properties": {
-            "flight": {
-              "type": "object",
-              "required": [
-                "tickets",
-                "itinerary_locator",
-                "invoice_level_discounts"
-              ],
-              "properties": {
-                "tickets": {
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "segments",
-                      "number",
-                      "record_locator",
-                      "passenger"
-                    ],
-                    "properties": {
-                      "segments": {
-                        "type": "array",
-                        "minItems": 1,
-                        "items": {
-                          "type": "object",
-                          "required": [
-                            "fare",
-                            "departure_airport_code",
-                            "arrival_airport_code",
-                            "departure_at",
-                            "arrival_at",
-                            "flight_number",
-                            "class_of_service",
-                            "taxes",
-                            "discounts"
-                          ],
-                          "properties": {
-                            "fare": {
-                              "type": "integer"
-                            },
-                            "departure_airport_code": {
-                              "type": "string"
-                            },
-                            "arrival_airport_code": {
-                              "type": "string"
-                            },
-                            "departure_at": {
-                              "type": ["null", "integer"]
-                            },
-                            "arrival_at": {
-                              "type": ["null", "integer"]
-                            },
-                            "flight_number": {
-                              "type": ["null", "string"]
-                            },
-                            "class_of_service": {
-                              "type": ["null", "string"]
-                            },
-                            "taxes": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "array",
-                                  "minItems": 1,
-                                  "items": {
-                                    "$ref": "#/$defs/tax"
-                                  }
-                                }
-                              ]
-                            },
-                            "discounts": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "array",
-                                  "minItems": 1,
-                                  "items": {
-                                    "$ref": "#/$defs/discount"
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      },
-                      "number": {
-                        "type": ["null", "string"]
-                      },
-                      "record_locator": {
-                        "type": ["null", "string"]
-                      },
-                      "passenger": {
-                        "type": ["null", "string"]
-                      }
-                    }
-                  }
-                },
-                "itinerary_locator": {
-                  "type": ["null", "string"]
-                },
-                "invoice_level_discounts": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "array",
-                      "minItems": 1,
-                      "items": {
-                        "$ref": "#/$defs/discount"
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      ]
+      "$ref": "#/$defs/itemization"
     },
     "actions": {
       "oneOf": [
@@ -693,6 +232,302 @@
     }
   },
   "$defs": {
+    "car_rental": {
+      "type": "object",
+      "required": [
+        "rental_time",
+        "return_time",
+        "rental_location",
+        "return_location",
+        "vehicle_desscription",
+        "driver_name",
+        "odometer_reading_in",
+        "odometer_reading_out"
+      ],
+      "properties": {
+        "rental_time": {
+          "type": "integer"
+        },
+        "return_time": {
+          "type": "integer"
+        },
+        "rental_location": {
+          "$ref": "#/$defs/place"
+        },
+        "return_location": {
+          "$ref": "#/$defs/place"
+        },
+        "vehicle_desscription": {
+          "type": "string"
+        },
+        "driver_name": {
+          "type": "string"
+        },
+        "odometer_reading_in": {
+          "type": "integer"
+        },
+        "odometer_reading_out": {
+          "type": "integer"
+        }
+      }
+    },
+    "flight": {
+      "type": "object",
+      "required": [
+        "tickets",
+        "itinerary_locator",
+        "invoice_level_discounts"
+      ],
+      "properties": {
+        "tickets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "segments",
+              "number",
+              "record_locator",
+              "passenger"
+            ],
+            "properties": {
+              "segments": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "fare",
+                    "departure_airport_code",
+                    "arrival_airport_code",
+                    "departure_at",
+                    "arrival_at",
+                    "flight_number",
+                    "class_of_service",
+                    "taxes",
+                    "discounts"
+                  ],
+                  "properties": {
+                    "fare": {
+                      "type": "integer"
+                    },
+                    "departure_airport_code": {
+                      "type": "string"
+                    },
+                    "arrival_airport_code": {
+                      "type": "string"
+                    },
+                    "departure_at": {
+                      "type": ["null", "integer"]
+                    },
+                    "arrival_at": {
+                      "type": ["null", "integer"]
+                    },
+                    "flight_number": {
+                      "type": ["null", "string"]
+                    },
+                    "class_of_service": {
+                      "type": ["null", "string"]
+                    },
+                    "taxes": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "$ref": "#/$defs/tax"
+                          }
+                        }
+                      ]
+                    },
+                    "discounts": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "$ref": "#/$defs/discount"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "number": {
+                "type": ["null", "string"]
+              },
+              "record_locator": {
+                "type": ["null", "string"]
+              },
+              "passenger": {
+                "type": ["null", "string"]
+              }
+            }
+          }
+        },
+        "itinerary_locator": {
+          "type": ["null", "string"]
+        },
+        "invoice_level_discounts": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/discount"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "itemization": {
+      "type": "object",
+      "required": [
+        "general",
+        "lodging",
+        "ecommerce",
+        "car_rental",
+        "transit_route",
+        "subscription",
+        "flight"
+      ],
+      "oneOf": [
+        {
+          "required": ["general"],
+          "properties": {
+            "general": {
+              "type": "object",
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "required": ["lodging"],
+          "properties": {
+            "lodging": {
+              "$ref": "#/$defs/lodging"
+            }
+          }
+        },
+        {
+          "required": ["ecommerce"],
+          "properties": {
+            "ecommerce": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "required": ["car_rental"],
+          "properties": {
+            "car_rental": {
+              "$ref": "#/$defs/car_rental"
+            }
+          }
+        },
+        {
+          "required": ["transit_route"],
+          "properties": {
+            "transit_route": {
+              "$ref": "#/$defs/transit_route"
+            }
+          }
+        },
+        {
+          "required": ["subscription"],
+          "properties": {
+            "subscription": {
+              "$ref": "#/$defs/subscription"
+            }
+          }
+        },
+        {
+          "required": ["flight"],
+          "properties": {
+            "flight": {
+              "$ref": "#/$defs/flight"
+            }
+          }
+        }
+      ]
+    },
+    "lodging": {
+      "type": "object",
+      "required": ["lodging_items", "invoice_level_discounts"],
+      "properties": {
+        "lodging_items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["check_in", "check_out", "location", "items"],
+            "properties": {
+              "check_in": {
+                "type": "integer"
+              },
+              "check_out": {
+                "type": "integer"
+              },
+              "location": {
+                "$ref": "#/$defs/place"
+              },
+              "items": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/$defs/item"
+                }
+              },
+              "room": {
+                "type": ["null", "string"]
+              },
+              "guests": {
+                "type": ["null", "string"]
+              },
+              "metadata": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "$ref": "#/$defs/item_metadata"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "invoice_level_discounts": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/discount"
+              }
+            }
+          ]
+        }
+      }
+    },
     "merchant": {
       "type": "object",
       "required": ["id", "name", "brand_color", "logo", "website"],
@@ -893,6 +728,109 @@
         }
       }
     },
+    "subscription": {
+      "type": "object",
+      "required": ["subscription_items", "invoice_level_discounts"],
+      "properties": {
+        "subscription_items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "subscription_type",
+              "description",
+              "interval",
+              "interval_count",
+              "current_period_start",
+              "current_period_end",
+              "quantity",
+              "unit_cost",
+              "taxes",
+              "metadata",
+              "discounts"
+            ],
+            "properties": {
+              "subscription_type": {
+                "type": "string",
+                "enum": ["one_time", "recurring"]
+              },
+              "description": {
+                "type": "string"
+              },
+              "interval": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "enum": ["day", "week", "month", "year"]
+                  }
+                ]
+              },
+              "interval_count": {
+                "type": ["integer", "null"]
+              },
+              "current_period_start": {
+                "type": ["integer", "null"]
+              },
+              "current_period_end": {
+                "type": ["integer", "null"]
+              },
+              "quantity": {
+                "type": ["number", "null"]
+              },
+              "unit_cost": {
+                "type": ["number", "null"]
+              },
+              "taxes": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "$ref": "#/$defs/tax"
+                    }
+                  }
+                ]
+              },
+              "metadata": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "$ref": "#/$defs/item_metadata"
+                    }
+                  }
+                ]
+              },
+              "discounts": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "$ref": "#/$defs/discount"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "tax": {
       "type": "object",
       "required": ["amount", "rate", "name"],
@@ -905,6 +843,93 @@
         },
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "transit_route": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "departure_address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
+        },
+        "arrival_address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
+        },
+        "departure_at": {
+          "type": "integer"
+        },
+        "arrival_at": {
+          "type": "integer"
+        },
+        "polyline": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        },
+        "invoice_level_discounts": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/discount"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/item_metadata"
+              }
+            }
+          ]
+        },
+        "tip": {
+          "type": ["integer", "null"]
         }
       }
     },

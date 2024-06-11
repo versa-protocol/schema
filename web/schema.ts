@@ -5,6 +5,80 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type Itemization =
+  | {
+      general?: {};
+    }
+  | {
+      lodging?: {
+        /**
+         * @minItems 1
+         */
+        lodging_items: {
+          check_in: number;
+          check_out: number;
+          location: Place;
+          /**
+           * @minItems 1
+           */
+          items: Item[];
+          room?: null | string;
+          guests?: null | string;
+          metadata?: null | ItemMetadata[];
+        }[];
+        invoice_level_discounts: null | Discount[];
+      };
+    }
+  | {
+      ecommerce?: {};
+    }
+  | {
+      car_rental?: {
+        rental_time: number;
+        return_time: number;
+        rental_location: Place;
+        return_location: Place;
+        vehicle_desscription: string;
+        driver_name: string;
+        odometer_reading_in: number;
+        odometer_reading_out: number;
+      };
+    }
+  | {
+      transit_route?: TransitRoute;
+    }
+  | {
+      subscription?: Subscription;
+    }
+  | {
+      flight?: {
+        /**
+         * @minItems 1
+         */
+        tickets: {
+          /**
+           * @minItems 1
+           */
+          segments: {
+            fare: number;
+            departure_airport_code: string;
+            arrival_airport_code: string;
+            departure_at: null | number;
+            arrival_at: null | number;
+            flight_number: null | string;
+            class_of_service: null | string;
+            taxes: null | Tax[];
+            discounts: null | Discount[];
+          }[];
+          number: null | string;
+          record_locator: null | string;
+          passenger: null | string;
+        }[];
+        itinerary_locator: null | string;
+        invoice_level_discounts: null | Discount[];
+      };
+    };
+
 /**
  * A Versa itemized receipt
  */
@@ -43,106 +117,7 @@ export interface Receipt {
     } | null;
     location: null | Place;
   };
-  itemization:
-    | {
-        general?: {};
-      }
-    | {
-        lodging?: {
-          /**
-           * @minItems 1
-           */
-          lodging_items: {
-            check_in: number;
-            check_out: number;
-            location: Place;
-            /**
-             * @minItems 1
-             */
-            items: Item[];
-            room?: null | string;
-            guests?: null | string;
-            metadata?: null | ItemMetadata[];
-          }[];
-          invoice_level_discounts: null | Discount[];
-        };
-      }
-    | {
-        ecommerce?: {};
-      }
-    | {
-        car_rental?: {
-          rental_time: number;
-          return_time: number;
-          rental_location: Place;
-          return_location: Place;
-          vehicle_desscription: string;
-          driver_name: string;
-          odometer_reading_in: number;
-          odometer_reading_out: number;
-        };
-      }
-    | {
-        transit_route?: {
-          departure_address?: null | Address;
-          arrival_address?: null | Address;
-          departure_at?: number;
-          arrival_at?: number;
-          polyline?: null | string;
-          taxes?: null | Tax[];
-          invoice_level_discounts?: null | Discount[];
-          metadata?: null | ItemMetadata[];
-          tip?: number | null;
-        };
-      }
-    | {
-        subscription?: {
-          /**
-           * @minItems 1
-           */
-          subscription_items: {
-            subscription_type: "one_time" | "recurring";
-            description: string;
-            interval: null | ("day" | "week" | "month" | "year");
-            interval_count: number | null;
-            current_period_start: number | null;
-            current_period_end: number | null;
-            quantity: number | null;
-            unit_cost: number | null;
-            taxes: null | Tax[];
-            metadata: null | ItemMetadata[];
-            discounts: null | Discount[];
-          }[];
-        };
-      }
-    | {
-        flight?: {
-          /**
-           * @minItems 1
-           */
-          tickets: {
-            /**
-             * @minItems 1
-             */
-            segments: {
-              fare: number;
-              departure_airport_code: string;
-              arrival_airport_code: string;
-              departure_at: null | number;
-              arrival_at: null | number;
-              flight_number: null | string;
-              class_of_service: null | string;
-              taxes: null | Tax[];
-              discounts: null | Discount[];
-            }[];
-            number: null | string;
-            record_locator: null | string;
-            passenger: null | string;
-          }[];
-          itinerary_locator: null | string;
-          invoice_level_discounts: null | Discount[];
-        };
-      };
+  itemization: Itemization;
   actions:
     | null
     | {
@@ -208,4 +183,33 @@ export interface Discount {
   amount: number;
   name: string;
   discount_type: "fixed" | "percentage";
+}
+export interface TransitRoute {
+  departure_address?: null | Address;
+  arrival_address?: null | Address;
+  departure_at?: number;
+  arrival_at?: number;
+  polyline?: null | string;
+  taxes?: null | Tax[];
+  invoice_level_discounts?: null | Discount[];
+  metadata?: null | ItemMetadata[];
+  tip?: number | null;
+}
+export interface Subscription {
+  /**
+   * @minItems 1
+   */
+  subscription_items: {
+    subscription_type: "one_time" | "recurring";
+    description: string;
+    interval: null | ("day" | "week" | "month" | "year");
+    interval_count: number | null;
+    current_period_start: number | null;
+    current_period_end: number | null;
+    quantity: number | null;
+    unit_cost: number | null;
+    taxes: null | Tax[];
+    metadata: null | ItemMetadata[];
+    discounts: null | Discount[];
+  }[];
 }
