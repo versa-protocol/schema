@@ -138,8 +138,8 @@ export interface Discount {
   discount_type: "fixed" | "percentage";
 }
 export interface CarRental {
-  rental_time: number;
-  return_time: number;
+  rental_at: number;
+  return_at: number;
   rental_location: Place;
   return_location: Place;
   vehicle: {
