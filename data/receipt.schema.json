@@ -239,7 +239,7 @@
         "return_time",
         "rental_location",
         "return_location",
-        "vehicle_desscription",
+        "vehicle",
         "driver_name",
         "odometer_reading_in",
         "odometer_reading_out"
@@ -257,8 +257,18 @@
         "return_location": {
           "$ref": "#/$defs/place"
         },
-        "vehicle_desscription": {
-          "type": "string"
+        "vehicle": {
+          "type": ["object", "null"],
+          "required": ["description", "image"],
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "image": {
+              "type": ["string", "null"],
+              "format": "uri"
+            }
+          }
         },
         "driver_name": {
           "type": "string"
@@ -273,23 +283,14 @@
     },
     "flight": {
       "type": "object",
-      "required": [
-        "tickets",
-        "itinerary_locator",
-        "invoice_level_discounts"
-      ],
+      "required": ["tickets", "itinerary_locator", "invoice_level_discounts"],
       "properties": {
         "tickets": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": [
-              "segments",
-              "number",
-              "record_locator",
-              "passenger"
-            ],
+            "required": ["segments", "number", "record_locator", "passenger"],
             "properties": {
               "segments": {
                 "type": "array",
@@ -403,13 +404,23 @@
         "flight"
       ],
       "properties": {
-        "general": {"oneOf": [{"type": "object"}, {"type": "null"}]},
-        "lodging": {"oneOf": [{"$ref": "#/$defs/lodging"}, {"type": "null"}]},
-        "ecommerce": {"oneOf": [{"type": "object"}, {"type": "null"}]},
-        "car_rental": {"oneOf": [{"$ref": "#/$defs/car_rental"}, {"type": "null"}]},
-        "transit_route": {"oneOf": [{"$ref": "#/$defs/transit_route"}, {"type": "null"}]},
-        "subscription": {"oneOf": [{"$ref": "#/$defs/subscription"}, {"type": "null"}]},
-        "flight": {"oneOf": [{"$ref": "#/$defs/flight"}, {"type": "null"}]}
+        "general": { "oneOf": [{ "type": "object" }, { "type": "null" }] },
+        "lodging": {
+          "oneOf": [{ "$ref": "#/$defs/lodging" }, { "type": "null" }]
+        },
+        "ecommerce": { "oneOf": [{ "type": "object" }, { "type": "null" }] },
+        "car_rental": {
+          "oneOf": [{ "$ref": "#/$defs/car_rental" }, { "type": "null" }]
+        },
+        "transit_route": {
+          "oneOf": [{ "$ref": "#/$defs/transit_route" }, { "type": "null" }]
+        },
+        "subscription": {
+          "oneOf": [{ "$ref": "#/$defs/subscription" }, { "type": "null" }]
+        },
+        "flight": {
+          "oneOf": [{ "$ref": "#/$defs/flight" }, { "type": "null" }]
+        }
       }
     },
     "lodging": {
