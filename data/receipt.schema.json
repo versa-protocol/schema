@@ -235,8 +235,8 @@
     "car_rental": {
       "type": "object",
       "required": [
-        "rental_time",
-        "return_time",
+        "rental_at",
+        "return_at",
         "rental_location",
         "return_location",
         "vehicle",
@@ -246,10 +246,10 @@
         "items"
       ],
       "properties": {
-        "rental_time": {
+        "rental_at": {
           "type": "integer"
         },
-        "return_time": {
+        "return_at": {
           "type": "integer"
         },
         "rental_location": {
