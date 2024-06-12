@@ -41,7 +41,7 @@ export interface Receipt {
       address: null | Address;
       phone: string | null;
     } | null;
-    location: null | Place;
+    location: Place | null;
   };
   itemization: Itemization;
   actions:
@@ -95,19 +95,20 @@ export interface Lodging {
   /**
    * @minItems 1
    */
-  lodging_items: {
-    check_in: number;
-    check_out: number;
-    location: Place;
-    /**
-     * @minItems 1
-     */
-    items: Item[];
-    room?: null | string;
-    guests?: null | string;
-    metadata?: null | ItemMetadata[];
-  }[];
+  lodging_items: LodgingItem[];
   invoice_level_discounts: null | Discount[];
+}
+export interface LodgingItem {
+  check_in: number;
+  check_out: number;
+  location: Place;
+  /**
+   * @minItems 1
+   */
+  items: Item[];
+  room?: null | string;
+  guests?: null | string;
+  metadata?: null | ItemMetadata[];
 }
 export interface Item {
   description: string;
@@ -187,25 +188,27 @@ export interface Flight {
   /**
    * @minItems 1
    */
-  tickets: {
-    /**
-     * @minItems 1
-     */
-    segments: {
-      fare: number;
-      departure_airport_code: string;
-      arrival_airport_code: string;
-      departure_at: null | number;
-      arrival_at: null | number;
-      flight_number: null | string;
-      class_of_service: null | string;
-      taxes: null | Tax[];
-      discounts: null | Discount[];
-    }[];
-    number: null | string;
-    record_locator: null | string;
-    passenger: null | string;
-  }[];
+  tickets: FlightTicket[];
   itinerary_locator: null | string;
   invoice_level_discounts: null | Discount[];
+}
+export interface FlightTicket {
+  /**
+   * @minItems 1
+   */
+  segments: FlightSegment[];
+  number: null | string;
+  record_locator: null | string;
+  passenger: null | string;
+}
+export interface FlightSegment {
+  fare: number;
+  departure_airport_code: string;
+  arrival_airport_code: string;
+  departure_at: null | number;
+  arrival_at: null | number;
+  flight_number: null | string;
+  class_of_service: null | string;
+  taxes: null | Tax[];
+  discounts: null | Discount[];
 }
