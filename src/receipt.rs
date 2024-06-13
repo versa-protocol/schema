@@ -12,7 +12,6 @@
 // }
 
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 /// A Versa itemized receipt
 #[derive(Debug, Serialize, Deserialize)]
@@ -123,9 +122,9 @@ pub struct Merchant {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Itemization {
     pub car_rental: Option<CarRentalClass>,
-    pub ecommerce: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub ecommerce: Option<EcommerceClass>,
     pub flight: Option<FlightClass>,
-    pub general: Option<HashMap<String, Option<serde_json::Value>>>,
+    pub general: Option<GeneralClass>,
     pub lodging: Option<LodgingClass>,
     pub subscription: Option<SubscriptionClass>,
     pub transit_route: Option<TransitRouteClass>,
@@ -204,6 +203,31 @@ pub struct Vehicle {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct EcommerceClass {
+    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub invoice_level_line_items: Option<Vec<ItemElement>>,
+    pub shipments: Option<Vec<Shipment>>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Shipment {
+    pub destination_address: Option<AddressClass>,
+    pub expected_delivery_at: Option<i64>,
+    pub items: Vec<ItemElement>,
+    pub shipment_status: ShipmentStatus,
+    pub tracking_number: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ShipmentStatus {
+    Delivered,
+    #[serde(rename = "in_transit")]
+    InTransit,
+    Prep,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct FlightClass {
     pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub itinerary_locator: Option<String>,
@@ -229,6 +253,12 @@ pub struct SegmentElement {
     pub fare: i64,
     pub flight_number: Option<String>,
     pub taxes: Option<Vec<TaxElement>>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct GeneralClass {
+    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub line_items: Vec<ItemElement>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
