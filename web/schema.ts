@@ -158,8 +158,8 @@ export interface CarRental {
 export interface TransitRoute {
   departure_address: null | Address;
   arrival_address: null | Address;
-  departure_at: number;
-  arrival_at: number;
+  departure_at: number | null;
+  arrival_at: number | null;
   polyline: null | string;
   taxes: null | Tax[];
   invoice_level_discounts: null | Discount[];
@@ -179,7 +179,6 @@ export interface Subscription {
     current_period_start: number | null;
     current_period_end: number | null;
     quantity: number | null;
-    total: number;
     unit_cost: number | null;
     taxes: null | Tax[];
     metadata: null | ItemMetadata[];

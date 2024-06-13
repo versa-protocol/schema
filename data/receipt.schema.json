@@ -945,8 +945,7 @@
               "unit_cost",
               "taxes",
               "metadata",
-              "discounts",
-              "total"
+              "discounts"
             ],
             "properties": {
               "subscription_type": {
@@ -998,9 +997,6 @@
                   "number",
                   "null"
                 ]
-              },
-              "total": {
-                "type": "number"
               },
               "unit_cost": {
                 "type": [
@@ -1102,10 +1098,10 @@
           ]
         },
         "departure_at": {
-          "type": "integer"
+          "type": ["integer", "null"]
         },
         "arrival_at": {
-          "type": "integer"
+          "type": ["integer", "null"]
         },
         "polyline": {
           "oneOf": [
