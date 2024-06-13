@@ -172,6 +172,7 @@ export interface Subscription {
    * @minItems 1
    */
   subscription_items: {
+    total: number;
     subscription_type: "one_time" | "recurring";
     description: string;
     interval: null | ("day" | "week" | "month" | "year");

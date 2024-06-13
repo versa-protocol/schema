@@ -945,9 +945,13 @@
               "unit_cost",
               "taxes",
               "metadata",
-              "discounts"
+              "discounts",
+              "total"
             ],
             "properties": {
+              "total": {
+                "type": "integer"
+              },
               "subscription_type": {
                 "type": "string",
                 "enum": [

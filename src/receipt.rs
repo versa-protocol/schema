@@ -266,6 +266,7 @@ pub struct SubscriptionItem {
     pub quantity: Option<f64>,
     pub subscription_type: SubscriptionType,
     pub taxes: Option<Vec<TaxElement>>,
+    pub total: i64,
     pub unit_cost: Option<f64>,
 }
 
