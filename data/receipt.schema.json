@@ -899,6 +899,9 @@
         },
         "tip": {
           "type": ["integer", "null"]
+        },
+        "fare": {
+          "type": ["integer"]
         }
       }
     },
