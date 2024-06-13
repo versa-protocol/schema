@@ -1075,7 +1075,7 @@
     },
     "transit_route": {
       "type": "object",
-      "required": [],
+      "required": ["fare", "departure_address", "arrival_address", "departure_at", "arrival_at", "polyline", "taxes", "invoice_level_discounts", "metadata", "tip"],
       "properties": {
         "departure_address": {
           "oneOf": [

@@ -156,16 +156,16 @@ export interface CarRental {
   items: Item[];
 }
 export interface TransitRoute {
-  departure_address?: null | Address;
-  arrival_address?: null | Address;
-  departure_at?: number;
-  arrival_at?: number;
-  polyline?: null | string;
-  taxes?: null | Tax[];
-  invoice_level_discounts?: null | Discount[];
-  metadata?: null | ItemMetadata[];
-  tip?: number | null;
-  fare?: number;
+  departure_address: null | Address;
+  arrival_address: null | Address;
+  departure_at: number;
+  arrival_at: number;
+  polyline: null | string;
+  taxes: null | Tax[];
+  invoice_level_discounts: null | Discount[];
+  metadata: null | ItemMetadata[];
+  tip: number | null;
+  fare: number;
 }
 export interface Subscription {
   /**

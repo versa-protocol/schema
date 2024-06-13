@@ -289,10 +289,10 @@ pub enum SubscriptionType {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransitRouteClass {
     pub arrival_address: Option<AddressClass>,
-    pub arrival_at: Option<i64>,
+    pub arrival_at: i64,
     pub departure_address: Option<AddressClass>,
-    pub departure_at: Option<i64>,
-    pub fare: Option<i64>,
+    pub departure_at: i64,
+    pub fare: i64,
     pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub metadata: Option<Vec<MetadatumElement>>,
     pub polyline: Option<String>,
