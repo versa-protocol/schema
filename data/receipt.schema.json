@@ -945,7 +945,8 @@
               "unit_cost",
               "taxes",
               "metadata",
-              "discounts"
+              "discounts",
+              "total"
             ],
             "properties": {
               "subscription_type": {
@@ -997,6 +998,9 @@
                   "number",
                   "null"
                 ]
+              },
+              "total": {
+                "type": "number"
               },
               "unit_cost": {
                 "type": [
