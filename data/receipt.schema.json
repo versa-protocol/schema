@@ -1182,7 +1182,7 @@
             "number"
           ]
         },
-        "uniit_cost": {
+        "unit_cost": {
           "type": [
             "null",
             "integer"

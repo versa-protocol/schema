@@ -114,7 +114,7 @@ export interface Item {
   description: string;
   total: number;
   quantity?: null | number;
-  uniit_cost?: null | number;
+  unit_cost?: null | number;
   unit?: null | string;
   taxes?: null | Tax[];
   metadata?: null | ItemMetadata[];

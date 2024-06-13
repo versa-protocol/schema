@@ -154,8 +154,8 @@ pub struct ItemElement {
     pub quantity: Option<f64>,
     pub taxes: Option<Vec<TaxElement>>,
     pub total: i64,
-    pub uniit_cost: Option<i64>,
     pub unit: Option<String>,
+    pub unit_cost: Option<i64>,
     pub url: Option<String>,
 }
 
