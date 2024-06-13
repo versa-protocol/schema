@@ -165,6 +165,7 @@ export interface TransitRoute {
   invoice_level_discounts?: null | Discount[];
   metadata?: null | ItemMetadata[];
   tip?: number | null;
+  fare?: number;
 }
 export interface Subscription {
   /**

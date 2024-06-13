@@ -292,6 +292,7 @@ pub struct TransitRouteClass {
     pub arrival_at: Option<i64>,
     pub departure_address: Option<AddressClass>,
     pub departure_at: Option<i64>,
+    pub fare: Option<i64>,
     pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub metadata: Option<Vec<MetadatumElement>>,
     pub polyline: Option<String>,
