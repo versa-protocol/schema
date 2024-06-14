@@ -693,7 +693,7 @@
         },
         "brand_color": {
           "description": "Hex color",
-          "type": "string",
+          "type": ["string", "null"],
           "pattern": "^#?([a-f0-9]{6}|[a-f0-9]{3})$"
         },
         "logo": {
@@ -833,13 +833,9 @@
     },
     "item_metadata": {
       "type": "object",
-      "required": ["name", "metadata_type", "value"],
+      "required": ["key", "value"],
       "properties": {
-        "metadata_type": {
-          "type": "string",
-          "enum": ["sku", "unspsc", "asin", "other"]
-        },
-        "name": {
+        "key": {
           "type": "string"
         },
         "value": {
