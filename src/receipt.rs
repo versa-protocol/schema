@@ -111,8 +111,7 @@ pub enum FirstPartyRelation {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Merchant {
-    /// Hex color
-    pub brand_color: String,
+    pub brand_color: Option<String>,
     pub logo: Option<String>,
     pub name: String,
     pub website: Option<String>,
@@ -175,18 +174,8 @@ pub enum DiscountType {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MetadatumElement {
-    pub metadata_type: MetadataType,
-    pub name: String,
+    pub key: String,
     pub value: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum MetadataType {
-    Asin,
-    Other,
-    Sku,
-    Unspsc,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

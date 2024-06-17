@@ -58,10 +58,7 @@ export interface Receipt {
 }
 export interface Merchant {
   name: string;
-  /**
-   * Hex color
-   */
-  brand_color: string;
+  brand_color: string | null;
   logo: string | null;
   website: string | null;
 }
@@ -117,8 +114,7 @@ export interface Tax {
   name: string;
 }
 export interface ItemMetadata {
-  metadata_type: "sku" | "unspsc" | "asin" | "other";
-  name: string;
+  key: string;
   value: string;
 }
 export interface Discount {
