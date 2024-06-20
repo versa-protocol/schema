@@ -1019,8 +1019,8 @@
           "items": {
             "type": "object",
             "required": [
-              "departure_address",
-              "arrival_address",
+              "departure_location",
+              "arrival_location",
               "departure_at",
               "arrival_at",
               "fare",
@@ -1030,23 +1030,23 @@
               "discounts"
             ],
             "properties": {
-              "departure_address": {
+              "departure_location": {
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
-                    "$ref": "#/$defs/address"
+                    "$ref": "#/$defs/place"
                   }
                 ]
               },
-              "arrival_address": {
+              "arrival_location": {
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
-                    "$ref": "#/$defs/address"
+                    "$ref": "#/$defs/place"
                   }
                 ]
               },
