@@ -187,6 +187,9 @@ export interface TransitRoute {
     taxes: null | Tax[];
     metadata: null | ItemMetadata[];
     fare: number;
+    passenger: string | null;
+    ticket_number: string | null;
+    class_of_service: string | null;
   }[];
   invoice_level_discounts: null | Discount[];
   tip: number | null;

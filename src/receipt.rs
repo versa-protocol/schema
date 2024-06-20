@@ -317,12 +317,15 @@ pub struct TransitRouteClass {
 pub struct TransitRouteItem {
     pub arrival_at: Option<i64>,
     pub arrival_location: Option<ReceiptSchema>,
+    pub class_of_service: Option<String>,
     pub departure_at: Option<i64>,
     pub departure_location: Option<ReceiptSchema>,
     pub fare: i64,
     pub metadata: Option<Vec<MetadatumElement>>,
+    pub passenger: Option<String>,
     pub polyline: Option<String>,
     pub taxes: Option<Vec<TaxElement>>,
+    pub ticket_number: Option<String>,
     pub discounts: Option<serde_json::Value>,
 }
 
