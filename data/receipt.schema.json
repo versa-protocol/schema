@@ -1007,8 +1007,6 @@
               "arrival_at",
               "fare",
               "passenger",
-              "ticket_number",
-              "class_of_service",
               "polyline",
               "taxes",
               "metadata",
