@@ -301,7 +301,7 @@
     },
     "flight": {
       "type": "object",
-      "required": ["tickets", "itinerary_locator", "invoice_level_discounts"],
+      "required": ["tickets", "itinerary_locator", "invoice_level_adjustments"],
       "properties": {
         "tickets": {
           "type": "array",
@@ -313,7 +313,7 @@
         "itinerary_locator": {
           "type": ["null", "string"]
         },
-        "invoice_level_discounts": {
+        "invoice_level_adjustments": {
           "oneOf": [
             {
               "type": "null"
@@ -322,7 +322,7 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/$defs/discount"
+                "$ref": "#/$defs/adjustment"
               }
             }
           ]
@@ -340,7 +340,7 @@
         "flight_number",
         "class_of_service",
         "taxes",
-        "discounts"
+        "adjustments"
       ],
       "properties": {
         "fare": {
@@ -378,7 +378,7 @@
             }
           ]
         },
-        "discounts": {
+        "adjustments": {
           "oneOf": [
             {
               "type": "null"
@@ -387,7 +387,7 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/$defs/discount"
+                "$ref": "#/$defs/adjustment"
               }
             }
           ]
@@ -505,7 +505,7 @@
       "required": [
         "shipments",
         "invoice_level_line_items",
-        "invoice_level_discounts"
+        "invoice_level_adjustments"
       ],
       "properties": {
         "shipments": {
@@ -572,7 +572,7 @@
             }
           ]
         },
-        "invoice_level_discounts": {
+        "invoice_level_adjustments": {
           "oneOf": [
             {
               "type": "null"
@@ -581,7 +581,7 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/$defs/discount"
+                "$ref": "#/$defs/adjustment"
               }
             }
           ]
@@ -590,7 +590,7 @@
     },
     "general_itemization": {
       "type": "object",
-      "required": ["line_items", "invoice_level_discounts"],
+      "required": ["line_items", "invoice_level_adjustments"],
       "properties": {
         "line_items": {
           "type": "array",
@@ -599,7 +599,7 @@
             "$ref": "#/$defs/item"
           }
         },
-        "invoice_level_discounts": {
+        "invoice_level_adjustments": {
           "oneOf": [
             {
               "type": "null"
@@ -608,7 +608,7 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/$defs/discount"
+                "$ref": "#/$defs/adjustment"
               }
             }
           ]
@@ -617,7 +617,7 @@
     },
     "lodging": {
       "type": "object",
-      "required": ["lodging_items", "invoice_level_discounts"],
+      "required": ["lodging_items", "invoice_level_adjustments"],
       "properties": {
         "lodging_items": {
           "type": "array",
@@ -626,7 +626,7 @@
             "$ref": "#/$defs/lodging_item"
           }
         },
-        "invoice_level_discounts": {
+        "invoice_level_adjustments": {
           "oneOf": [
             {
               "type": "null"
@@ -635,7 +635,7 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/$defs/discount"
+                "$ref": "#/$defs/adjustment"
               }
             }
           ]
@@ -850,46 +850,28 @@
         }
       }
     },
-    "discount": {
+    "adjustment": {
       "type": "object",
-      "required": ["amount", "name", "discount_type", "rate"],
+      "required": ["amount", "name", "adjustment_type", "rate"],
       "properties": {
         "amount": {
           "type": "integer"
         },
         "name": {
-          "type": "string"
+          "type": ["null", "string"]
         },
-        "discount_type": {
+        "adjustment_type": {
           "type": "string",
-          "enum": ["fixed", "percentage"]
-        }
-      },
-      "if": {
-        "properties": {
-          "discount_type": {
-            "const": "fixed"
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "rate": {
-            "type": "null"
-          }
-        }
-      },
-      "else": {
-        "properties": {
-          "rate": {
-            "type": "number"
-          }
+          "enum": ["discount", "tip", "fee", "other"]
+        },
+        "rate": {
+          "type": ["null", "number"]
         }
       }
     },
     "subscription": {
       "type": "object",
-      "required": ["subscription_items", "invoice_level_discounts"],
+      "required": ["subscription_items", "invoice_level_adjustments"],
       "properties": {
         "subscription_items": {
           "type": "array",
@@ -907,7 +889,7 @@
               "unit_cost",
               "taxes",
               "metadata",
-              "discounts",
+              "adjustments",
               "total"
             ],
             "properties": {
@@ -975,7 +957,7 @@
                   }
                 ]
               },
-              "discounts": {
+              "adjustments": {
                 "oneOf": [
                   {
                     "type": "null"
@@ -984,7 +966,7 @@
                     "type": "array",
                     "minItems": 1,
                     "items": {
-                      "$ref": "#/$defs/discount"
+                      "$ref": "#/$defs/adjustment"
                     }
                   }
                 ]
@@ -1011,7 +993,7 @@
     },
     "transit_route": {
       "type": "object",
-      "required": ["transit_route_items", "invoice_level_discounts", "tip"],
+      "required": ["transit_route_items", "invoice_level_adjustments"],
       "properties": {
         "transit_route_items": {
           "type": "array",
@@ -1030,7 +1012,7 @@
               "polyline",
               "taxes",
               "metadata",
-              "discounts"
+              "adjustments"
             ],
             "properties": {
               "departure_location": {
@@ -1110,7 +1092,7 @@
             }
           }
         },
-        "invoice_level_discounts": {
+        "invoice_level_adjustments": {
           "oneOf": [
             {
               "type": "null"
@@ -1119,13 +1101,10 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/$defs/discount"
+                "$ref": "#/$defs/adjustment"
               }
             }
           ]
-        },
-        "tip": {
-          "type": ["integer", "null"]
         }
       }
     },
@@ -1201,7 +1180,7 @@
             }
           ]
         },
-        "discounts": {
+        "adjustments": {
           "oneOf": [
             {
               "type": "null"
@@ -1210,7 +1189,7 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/$defs/discount"
+                "$ref": "#/$defs/adjustment"
               }
             }
           ]
