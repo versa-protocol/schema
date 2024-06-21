@@ -144,8 +144,8 @@ pub struct CarRentalClass {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemElement {
+    pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub description: String,
-    pub discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub group: Option<String>,
     pub metadata: Option<Vec<MetadatumElement>>,
     pub product_image: Option<String>,
@@ -158,18 +158,20 @@ pub struct ItemElement {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct InvoiceLevelDiscountElement {
+pub struct InvoiceLevelAdjustmentElement {
+    pub adjustment_type: AdjustmentType,
     pub amount: i64,
-    pub discount_type: DiscountType,
-    pub name: String,
-    pub rate: Option<serde_json::Value>,
+    pub name: Option<String>,
+    pub rate: Option<f64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum DiscountType {
-    Fixed,
-    Percentage,
+pub enum AdjustmentType {
+    Discount,
+    Fee,
+    Other,
+    Tip,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -193,7 +195,7 @@ pub struct Vehicle {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EcommerceClass {
-    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub invoice_level_line_items: Option<Vec<ItemElement>>,
     pub shipments: Option<Vec<Shipment>>,
 }
@@ -218,7 +220,7 @@ pub enum ShipmentStatus {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FlightClass {
-    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub itinerary_locator: Option<String>,
     pub tickets: Vec<TicketElement>,
 }
@@ -233,12 +235,12 @@ pub struct TicketElement {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SegmentElement {
+    pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub arrival_airport_code: String,
     pub arrival_at: Option<i64>,
     pub class_of_service: Option<String>,
     pub departure_airport_code: String,
     pub departure_at: Option<i64>,
-    pub discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub fare: i64,
     pub flight_number: Option<String>,
     pub taxes: Option<Vec<TaxElement>>,
@@ -246,13 +248,13 @@ pub struct SegmentElement {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GeneralClass {
-    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub line_items: Vec<ItemElement>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LodgingClass {
-    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
+    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub lodging_items: Vec<LodgingItemElement>,
 }
 
@@ -270,15 +272,15 @@ pub struct LodgingItemElement {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SubscriptionClass {
     pub subscription_items: Vec<SubscriptionItem>,
-    pub invoice_level_discounts: Option<serde_json::Value>,
+    pub invoice_level_adjustments: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SubscriptionItem {
+    pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub current_period_end: Option<i64>,
     pub current_period_start: Option<i64>,
     pub description: String,
-    pub discounts: Option<Vec<InvoiceLevelDiscountElement>>,
     pub interval: Option<Interval>,
     pub interval_count: Option<i64>,
     pub metadata: Option<Vec<MetadatumElement>>,
@@ -308,8 +310,7 @@ pub enum SubscriptionType {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransitRouteClass {
-    pub invoice_level_discounts: Option<Vec<InvoiceLevelDiscountElement>>,
-    pub tip: Option<i64>,
+    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub transit_route_items: Vec<TransitRouteItem>,
 }
 
@@ -317,16 +318,26 @@ pub struct TransitRouteClass {
 pub struct TransitRouteItem {
     pub arrival_at: Option<i64>,
     pub arrival_location: Option<ReceiptSchema>,
-    pub class_of_service: Option<String>,
     pub departure_at: Option<i64>,
     pub departure_location: Option<ReceiptSchema>,
     pub fare: i64,
     pub metadata: Option<Vec<MetadatumElement>>,
+    pub mode: Option<Mode>,
     pub passenger: Option<String>,
     pub polyline: Option<String>,
     pub taxes: Option<Vec<TaxElement>>,
-    pub ticket_number: Option<String>,
-    pub discounts: Option<serde_json::Value>,
+    pub adjustments: Option<serde_json::Value>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Mode {
+    Bus,
+    Car,
+    Ferry,
+    Other,
+    Rail,
+    Taxi,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
