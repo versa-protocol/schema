@@ -1103,11 +1103,9 @@
               "passenger": {
                 "type": ["string", "null"]
               },
-              "ticket_number": {
-                "type": ["string", "null"]
-              },
-              "class_of_service": {
-                "type": ["string", "null"]
+              "mode": {
+                "type": ["string", "null"],
+                "enum": ["car", "taxi", "rail", "bus", "ferry", "other"]
               }
             }
           }
