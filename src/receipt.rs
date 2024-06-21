@@ -132,6 +132,7 @@ pub struct Itemization {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CarRentalClass {
     pub driver_name: String,
+    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub items: Vec<ItemElement>,
     pub odometer_reading_in: i64,
     pub odometer_reading_out: i64,
@@ -140,21 +141,6 @@ pub struct CarRentalClass {
     pub return_at: i64,
     pub return_location: ReceiptSchema,
     pub vehicle: Option<Vehicle>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct ItemElement {
-    pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
-    pub description: String,
-    pub group: Option<String>,
-    pub metadata: Option<Vec<MetadatumElement>>,
-    pub product_image: Option<String>,
-    pub quantity: Option<f64>,
-    pub taxes: Option<Vec<TaxElement>>,
-    pub total: i64,
-    pub unit: Option<String>,
-    pub unit_cost: Option<i64>,
-    pub url: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -172,6 +158,21 @@ pub enum AdjustmentType {
     Fee,
     Other,
     Tip,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ItemElement {
+    pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub description: String,
+    pub group: Option<String>,
+    pub metadata: Option<Vec<MetadatumElement>>,
+    pub product_image: Option<String>,
+    pub quantity: Option<f64>,
+    pub taxes: Option<Vec<TaxElement>>,
+    pub total: i64,
+    pub unit: Option<String>,
+    pub unit_cost: Option<i64>,
+    pub url: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -271,8 +272,8 @@ pub struct LodgingItemElement {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SubscriptionClass {
+    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub subscription_items: Vec<SubscriptionItem>,
-    pub invoice_level_adjustments: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
