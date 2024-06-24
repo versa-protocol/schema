@@ -22,7 +22,7 @@
         "total",
         "subtotal",
         "paid",
-        "created_at",
+        "invoiced_at",
         "mcc",
         "third_party",
         "customer",
@@ -46,7 +46,7 @@
         "paid": {
           "type": "integer"
         },
-        "created_at": {
+        "invoiced_at": {
           "type": "integer"
         },
         "mcc": {
