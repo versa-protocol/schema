@@ -31,10 +31,10 @@ pub struct Action {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Header {
-    pub created_at: i64,
     /// ISO 4217 currency code
     pub currency: Currency,
     pub customer: Option<Customer>,
+    pub invoiced_at: i64,
     pub location: Option<ReceiptSchema>,
     pub mcc: Option<String>,
     pub paid: i64,

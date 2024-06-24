@@ -1,6 +1,6 @@
 {
   "name": "versa_unstable_sdk",
-  "version": "0.1.29",
+  "version": "0.1.30",
   "description": "There are broadly two kinds of types represented in this repository: Protocol Bindings and Purchase Details",
   "main": "dist/web/index",
   "types": "dist/web/index",
