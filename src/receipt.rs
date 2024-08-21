@@ -345,11 +345,36 @@ pub enum Mode {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentElement {
+    pub ach_payment: Option<AchPaymentClass>,
     pub amount: i64,
+    pub card_payment: Option<CardPaymentClass>,
     pub paid_at: i64,
     pub payment_type: PaymentType,
-    pub card_payment: Option<serde_json::Value>,
-    pub ach_payment: Option<serde_json::Value>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AchPaymentClass {
+    pub routing_number: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CardPaymentClass {
+    pub last_four: String,
+    pub network: Network,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Network {
+    Amex,
+    Diners,
+    Discover,
+    #[serde(rename = "eftpos_au")]
+    EftposAu,
+    Jcb,
+    Mastercard,
+    Unionpay,
+    Visa,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

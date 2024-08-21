@@ -5,16 +5,6 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Payments = null | Payment[];
-export type Payment = Payment1 & {
-  amount: number;
-  paid_at: number;
-  payment_type: "card" | "ach";
-};
-export type Payment1 = {
-  [k: string]: unknown;
-};
-
 /**
  * A Versa itemized receipt
  */
@@ -60,7 +50,7 @@ export interface Receipt {
         name: string;
         url: string;
       }[];
-  payments: Payments;
+  payments: null | Payment[];
 }
 export interface Merchant {
   name: string;
@@ -249,4 +239,18 @@ export interface FlightSegment {
   class_of_service: null | string;
   taxes: null | Tax[];
   adjustments: null | Adjustment[];
+}
+export interface Payment {
+  amount: number;
+  paid_at: number;
+  payment_type: "card" | "ach";
+  card_payment: null | CardPayment;
+  ach_payment: null | AchPayment;
+}
+export interface CardPayment {
+  last_four: string;
+  network: ("amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa") | null;
+}
+export interface AchPayment {
+  routing_number: string;
 }
