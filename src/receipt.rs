@@ -19,7 +19,7 @@ pub struct Receipt {
     pub actions: Option<Vec<Action>>,
     pub header: Header,
     pub itemization: Itemization,
-    pub payments: Option<Vec<Payment>>,
+    pub payments: Option<Vec<PaymentElement>>,
     pub version: String,
 }
 
@@ -239,9 +239,11 @@ pub struct SegmentElement {
     pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
     pub arrival_airport_code: String,
     pub arrival_at: Option<i64>,
+    pub arrival_timezone: Option<String>,
     pub class_of_service: Option<String>,
     pub departure_airport_code: String,
     pub departure_at: Option<i64>,
+    pub departure_timezone: Option<String>,
     pub fare: i64,
     pub flight_number: Option<String>,
     pub taxes: Option<Vec<TaxElement>>,
@@ -342,7 +344,7 @@ pub enum Mode {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Payment {
+pub struct PaymentElement {
     pub amount: i64,
     pub paid_at: i64,
     pub payment_type: PaymentType,

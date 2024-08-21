@@ -144,101 +144,7 @@
       ]
     },
     "payments": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "amount",
-              "paid_at",
-              "payment_type",
-              "card_payment",
-              "ach_payment"
-            ],
-            "properties": {
-              "amount": {
-                "type": "integer"
-              },
-              "paid_at": {
-                "type": "integer"
-              },
-              "payment_type": {
-                "type": "string",
-                "enum": ["card", "ach"]
-              }
-            },
-            "allOf": [
-              {
-                "if": {
-                  "properties": {
-                    "payment_type": {
-                      "const": "card"
-                    }
-                  }
-                },
-                "then": {
-                  "properties": {
-                    "card_payment": {
-                      "type": "object",
-                      "required": ["last_four", "network"],
-                      "properties": {
-                        "last_four": {
-                          "type": "string"
-                        },
-                        "network": {
-                          "type": ["string", "null"],
-                          "enum": [
-                            "amex",
-                            "diners",
-                            "discover",
-                            "eftpos_au",
-                            "jcb",
-                            "mastercard",
-                            "unionpay",
-                            "visa"
-                          ]
-                        }
-                      }
-                    },
-                    "ach_payment": {
-                      "type": "null"
-                    }
-                  }
-                }
-              },
-              {
-                "if": {
-                  "properties": {
-                    "payment_type": {
-                      "const": "ach"
-                    }
-                  }
-                },
-                "then": {
-                  "properties": {
-                    "card_payment": {
-                      "type": "null"
-                    },
-                    "ach_payment": {
-                      "type": "object",
-                      "required": ["routing_number"],
-                      "properties": {
-                        "routing_number": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        }
-      ]
+      "$ref": "#/$defs/payments"
     }
   },
   "$defs": {
@@ -1230,6 +1136,103 @@
           ]
         }
       }
+    },
+    "payments": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "amount",
+              "paid_at",
+              "payment_type",
+              "card_payment",
+              "ach_payment"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "paid_at": {
+                "type": "integer"
+              },
+              "payment_type": {
+                "type": "string",
+                "enum": ["card", "ach"]
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "payment_type": {
+                      "const": "card"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "card_payment": {
+                      "type": "object",
+                      "required": ["last_four", "network"],
+                      "properties": {
+                        "last_four": {
+                          "type": "string"
+                        },
+                        "network": {
+                          "type": ["string", "null"],
+                          "enum": [
+                            "amex",
+                            "diners",
+                            "discover",
+                            "eftpos_au",
+                            "jcb",
+                            "mastercard",
+                            "unionpay",
+                            "visa"
+                          ]
+                        }
+                      }
+                    },
+                    "ach_payment": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "payment_type": {
+                      "const": "ach"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "card_payment": {
+                      "type": "null"
+                    },
+                    "ach_payment": {
+                      "type": "object",
+                      "required": ["routing_number"],
+                      "properties": {
+                        "routing_number": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
     "doc": {
       "type": "object",
