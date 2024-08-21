@@ -5,11 +5,15 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Payments =
-  | null
-  | {
-      [k: string]: unknown;
-    }[];
+export type Payments = null | Payment[];
+export type Payment = Payment1 & {
+  amount: number;
+  paid_at: number;
+  payment_type: "card" | "ach";
+};
+export type Payment1 = {
+  [k: string]: unknown;
+};
 
 /**
  * A Versa itemized receipt
