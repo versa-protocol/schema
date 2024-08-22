@@ -20,7 +20,7 @@ pub struct Receipt {
     pub header: Header,
     pub itemization: Itemization,
     pub payments: Option<Vec<PaymentElement>>,
-    pub version: String,
+    pub schema_version: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
