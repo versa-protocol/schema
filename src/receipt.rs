@@ -34,11 +34,11 @@ pub struct Header {
     /// ISO 4217 currency code
     pub currency: Currency,
     pub customer: Option<Customer>,
+    pub invoice_number: Option<String>,
     pub invoiced_at: i64,
     pub location: Option<ReceiptSchema>,
     pub mcc: Option<String>,
     pub paid: i64,
-    pub receipt_id: String,
     pub subtotal: i64,
     pub third_party: Option<ThirdParty>,
     pub total: i64,
@@ -62,6 +62,7 @@ pub enum Currency {
 pub struct Customer {
     pub address: Option<AddressClass>,
     pub email: Option<String>,
+    pub metadata: Vec<MetadatumElement>,
     pub name: String,
     pub phone: Option<String>,
 }
@@ -75,6 +76,13 @@ pub struct AddressClass {
     pub postal_code: Option<String>,
     pub region: Option<String>,
     pub street_address: Option<String>,
+    pub tz: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MetadatumElement {
+    pub key: String,
+    pub value: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -111,11 +119,12 @@ pub enum FirstPartyRelation {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Merchant {
+    pub address: Option<AddressClass>,
     pub brand_color: Option<String>,
     pub logo: Option<String>,
     pub name: String,
+    pub vat_number: Option<String>,
     pub website: Option<String>,
-    pub id: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -132,7 +141,7 @@ pub struct Itemization {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CarRentalClass {
     pub driver_name: String,
-    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub items: Vec<ItemElement>,
     pub odometer_reading_in: i64,
     pub odometer_reading_out: i64,
@@ -168,17 +177,11 @@ pub struct ItemElement {
     pub metadata: Option<Vec<MetadatumElement>>,
     pub product_image: Option<String>,
     pub quantity: Option<f64>,
+    pub subtotal: i64,
     pub taxes: Option<Vec<TaxElement>>,
-    pub total: i64,
     pub unit: Option<String>,
     pub unit_cost: Option<i64>,
     pub url: Option<String>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct MetadatumElement {
-    pub key: String,
-    pub value: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -196,9 +199,9 @@ pub struct Vehicle {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EcommerceClass {
-    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
-    pub invoice_level_line_items: Option<Vec<ItemElement>>,
-    pub shipments: Option<Vec<Shipment>>,
+    pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
+    pub invoice_level_line_items: Vec<ItemElement>,
+    pub shipments: Vec<Shipment>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -221,7 +224,7 @@ pub enum ShipmentStatus {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FlightClass {
-    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub itinerary_locator: Option<String>,
     pub tickets: Vec<TicketElement>,
 }
@@ -236,28 +239,28 @@ pub struct TicketElement {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SegmentElement {
-    pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub arrival_airport_code: String,
     pub arrival_at: Option<i64>,
-    pub arrival_timezone: Option<String>,
+    pub arrival_tz: Option<String>,
     pub class_of_service: Option<String>,
     pub departure_airport_code: String,
     pub departure_at: Option<i64>,
-    pub departure_timezone: Option<String>,
+    pub departure_tz: Option<String>,
     pub fare: i64,
     pub flight_number: Option<String>,
-    pub taxes: Option<Vec<TaxElement>>,
+    pub taxes: Vec<TaxElement>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GeneralClass {
-    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub line_items: Vec<ItemElement>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LodgingClass {
-    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub lodging_items: Vec<LodgingItemElement>,
 }
 
@@ -274,23 +277,23 @@ pub struct LodgingItemElement {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SubscriptionClass {
-    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub subscription_items: Vec<SubscriptionItem>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SubscriptionItem {
-    pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub current_period_end: Option<i64>,
     pub current_period_start: Option<i64>,
     pub description: String,
     pub interval: Option<Interval>,
     pub interval_count: Option<i64>,
-    pub metadata: Option<Vec<MetadatumElement>>,
+    pub metadata: Vec<MetadatumElement>,
     pub quantity: Option<f64>,
     pub subscription_type: SubscriptionType,
-    pub taxes: Option<Vec<TaxElement>>,
-    pub total: i64,
+    pub subtotal: i64,
+    pub taxes: Vec<TaxElement>,
     pub unit_cost: Option<f64>,
 }
 
@@ -313,7 +316,7 @@ pub enum SubscriptionType {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransitRouteClass {
-    pub invoice_level_adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+    pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
     pub transit_route_items: Vec<TransitRouteItem>,
 }
 
@@ -324,11 +327,11 @@ pub struct TransitRouteItem {
     pub departure_at: Option<i64>,
     pub departure_location: Option<ReceiptSchema>,
     pub fare: i64,
-    pub metadata: Option<Vec<MetadatumElement>>,
+    pub metadata: Vec<MetadatumElement>,
     pub mode: Option<Mode>,
     pub passenger: Option<String>,
     pub polyline: Option<String>,
-    pub taxes: Option<Vec<TaxElement>>,
+    pub taxes: Vec<TaxElement>,
     pub adjustments: Option<serde_json::Value>,
 }
 

@@ -23,7 +23,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "receipt_id",
+        "invoice_number",
         "currency",
         "total",
         "subtotal",
@@ -35,8 +35,11 @@
         "location"
       ],
       "properties": {
-        "receipt_id": {
-          "type": "string"
+        "invoice_number": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "currency": {
           "description": "ISO 4217 currency code",
@@ -111,7 +114,8 @@
             "name",
             "email",
             "address",
-            "phone"
+            "phone",
+            "metadata"
           ],
           "properties": {
             "name": {
@@ -141,6 +145,12 @@
                 "string",
                 "null"
               ]
+            },
+            "metadata": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/item_metadata"
+              }
             }
           }
         },
@@ -266,18 +276,10 @@
           }
         },
         "invoice_level_adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -303,18 +305,10 @@
           ]
         },
         "invoice_level_adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -326,8 +320,8 @@
         "arrival_airport_code",
         "departure_at",
         "arrival_at",
-        "departure_timezone",
-        "arrival_timezone",
+        "departure_tz",
+        "arrival_tz",
         "flight_number",
         "class_of_service",
         "taxes",
@@ -355,13 +349,13 @@
             "integer"
           ]
         },
-        "departure_timezone": {
+        "departure_tz": {
           "type": [
             "null",
             "string"
           ]
         },
-        "arrival_timezone": {
+        "arrival_tz": {
           "type": [
             "null",
             "string"
@@ -380,32 +374,16 @@
           ]
         },
         "taxes": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/tax"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tax"
+          }
         },
         "adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -538,95 +516,71 @@
       ],
       "properties": {
         "shipments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "items",
+              "tracking_number",
+              "expected_delivery_at",
+              "shipment_status",
+              "destination_address"
+            ],
+            "properties": {
               "items": {
-                "type": "object",
-                "required": [
-                  "items",
-                  "tracking_number",
-                  "expected_delivery_at",
-                  "shipment_status",
-                  "destination_address"
-                ],
-                "properties": {
-                  "items": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                      "$ref": "#/$defs/item"
-                    }
-                  },
-                  "tracking_number": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "expected_delivery_at": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "shipment_status": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "enum": [
-                      "prep",
-                      "in_transit",
-                      "delivered"
-                    ]
-                  },
-                  "destination_address": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/address"
-                      }
-                    ]
-                  }
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/$defs/item"
                 }
+              },
+              "tracking_number": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "expected_delivery_at": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "shipment_status": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "prep",
+                  "in_transit",
+                  "delivered"
+                ]
+              },
+              "destination_address": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/address"
+                  }
+                ]
               }
             }
-          ]
+          }
         },
         "invoice_level_line_items": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/item"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
         },
         "invoice_level_adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -645,18 +599,10 @@
           }
         },
         "invoice_level_adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -675,18 +621,10 @@
           }
         },
         "invoice_level_adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -728,29 +666,22 @@
           ]
         },
         "metadata": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/item_metadata"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item_metadata"
+          }
         }
       }
     },
     "merchant": {
       "type": "object",
       "required": [
-        "id",
         "name",
         "brand_color",
         "logo",
-        "website"
+        "website",
+        "vat_number",
+        "address"
       ],
       "properties": {
         "name": {
@@ -781,6 +712,22 @@
             "null"
           ],
           "format": "hostname"
+        },
+        "vat_number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
         }
       }
     },
@@ -793,7 +740,8 @@
         "country",
         "postal_code",
         "lat",
-        "lon"
+        "lon",
+        "tz"
       ],
       "properties": {
         "street_address": {
@@ -860,6 +808,12 @@
             {
               "type": "null"
             }
+          ]
+        },
+        "tz": {
+          "type": [
+            "string",
+            "null"
           ]
         }
       }
@@ -1001,10 +955,10 @@
               "taxes",
               "metadata",
               "adjustments",
-              "total"
+              "subtotal"
             ],
             "properties": {
-              "total": {
+              "subtotal": {
                 "type": "integer"
               },
               "subscription_type": {
@@ -1064,63 +1018,31 @@
                 ]
               },
               "taxes": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                      "$ref": "#/$defs/tax"
-                    }
-                  }
-                ]
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/tax"
+                }
               },
               "metadata": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                      "$ref": "#/$defs/item_metadata"
-                    }
-                  }
-                ]
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/item_metadata"
+                }
               },
               "adjustments": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                      "$ref": "#/$defs/adjustment"
-                    }
-                  }
-                ]
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/adjustment"
+                }
               }
             }
           }
         },
         "invoice_level_adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -1214,32 +1136,16 @@
                 ]
               },
               "taxes": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                      "$ref": "#/$defs/tax"
-                    }
-                  }
-                ]
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/tax"
+                }
               },
               "metadata": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": {
-                      "$ref": "#/$defs/item_metadata"
-                    }
-                  }
-                ]
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/item_metadata"
+                }
               },
               "fare": {
                 "type": [
@@ -1270,18 +1176,10 @@
           }
         },
         "invoice_level_adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
@@ -1289,13 +1187,13 @@
       "type": "object",
       "required": [
         "description",
-        "total"
+        "subtotal"
       ],
       "properties": {
         "description": {
           "type": "string"
         },
-        "total": {
+        "subtotal": {
           "type": "integer"
         },
         "quantity": {
@@ -1317,32 +1215,16 @@
           ]
         },
         "taxes": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/tax"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tax"
+          }
         },
         "metadata": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/item_metadata"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item_metadata"
+          }
         },
         "product_image": {
           "oneOf": [
@@ -1373,18 +1255,10 @@
           ]
         },
         "adjustments": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/adjustment"
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
         }
       }
     },
