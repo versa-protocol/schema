@@ -1,8 +1,8 @@
 [package]
 name = "versa"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
-description = "Versa Unstable Schema"
+description = "Versa types and utilities for developing Versa client applications in Rust"
 authors = ["Versa <support@versa.org>", "Thomas Moore <thomasmost@hey.com"]
 license = "MIT"
 documentation = "https://docs.versa.org"

@@ -1,4 +1,7 @@
 # Versa Protocol Schema
+
+**Warning: While the Versa schema is considered stable, certain down-stream artifacts such as the Rust crate may not be.**
+
 There are broadly two kinds of types represented in this repository: Protocol Bindings and Purchase Details
 
 **Note, NPM packages, including the TypeScript bindings, are maintained here: https://github.com/versa-protocol/js**
