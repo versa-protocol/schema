@@ -1,9 +1,9 @@
 [package]
-name = "versa_unstable_schema"
-version = "0.5.0"
+name = "versa"
+version = "0.1.0"
 edition = "2021"
 description = "Versa Unstable Schema"
-authors = ["Versa"]
+authors = ["Versa <support@versa.org>", "Thomas Moore <thomasmost@hey.com"]
 license = "MIT"
 documentation = "https://docs.versa.org"
 homepage = "https://versa.org"
