@@ -18,7 +18,6 @@ impl fmt::Display for VersaEnv {
   }
 }
 
-
 #[derive(Debug, Deserialize, Serialize)]
 pub struct TransactionHandles {
   pub customer_email: Option<String>,
