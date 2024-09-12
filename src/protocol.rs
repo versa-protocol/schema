@@ -86,3 +86,36 @@ pub struct ReceiptRegistrationResponse {
   pub receivers: Vec<Receiver>,
   pub encryption_key: String,
 }
+
+// Receiver structs
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Address {
+  pub street_address: Option<String>,
+  pub city: Option<String>,
+  pub region: Option<String>,
+  pub country: String,
+  pub postal_code: Option<String>,
+  pub tz: Option<String>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Sender {
+  pub address: Option<Address>,
+  pub brand_color: Option<String>,
+  pub logo: Option<String>,
+  pub name: String,
+  pub vat_number: Option<String>,
+  pub website: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Checkout {
+  pub key: String,
+  pub receipt_id: String,
+  pub receipt_hash: String,
+  pub schema_version: String,
+  pub transaction_id: String,
+  pub sender: Option<Sender>,
+  pub handles: TransactionHandles,
+}
