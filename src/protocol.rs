@@ -30,6 +30,34 @@ pub struct TransactionHandles {
   pub versa_client_ids: Option<Vec<String>>,
 }
 
+impl TransactionHandles {
+  pub fn new() -> Self {
+    Self {
+      customer_email: None,
+      customer_email_domain: None,
+      customer_email_uhash: None,
+      card_bin: None,
+      card_last_four: None,
+      versa_client_ids: None,
+    }
+  }
+
+  pub fn with_customer_email(mut self, email_address: String) -> Self {
+    self.customer_email = Some(email_address);
+    self
+  }
+
+  pub fn with_customer_email_domain(mut self, domain: String) -> Self {
+    self.customer_email_domain = Some(domain);
+    self
+  }
+
+  pub fn with_versa_client_ids(mut self, ids: Vec<String>) -> Self {
+    self.versa_client_ids = Some(ids);
+    self
+  }
+}
+
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ReceiptRegistrationRequest {
   /// EXPERIMENTAL, for now, leave as None
