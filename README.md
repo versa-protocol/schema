@@ -12,7 +12,7 @@ Protocol Bindings represent the types of requests, responses, and error codes to
 ## Purchase Details
 Purchase Details represent the receipt and invoice data schemas to be handled  when developing client implementations according to the specifications of the Versa Protocol. These types are defined in the `purchase_details` directory.
 
-Versa uses [semantic versioning](https://semver.org/) to ensure the stability of its data model. The current schema version **1.2.0**
+Versa uses [semantic versioning](https://semver.org/) to ensure the stability of its data model. The current schema version **1.3.0**
 
 Previous schema versions will be maintained in this repo under their version tag after the first major version release (1.0.0)
 
