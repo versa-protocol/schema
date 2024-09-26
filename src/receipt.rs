@@ -16,10 +16,10 @@ use serde::{Deserialize, Serialize};
 /// A Versa itemized receipt
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Receipt {
-  pub actions: Option<Vec<Action>>,
+  pub actions: Vec<Action>,
   pub header: Header,
   pub itemization: Itemization,
-  pub payments: Option<Vec<PaymentElement>>,
+  pub payments: Vec<PaymentElement>,
   pub schema_version: String,
 }
 
@@ -121,6 +121,7 @@ pub enum FirstPartyRelation {
 pub struct Merchant {
   pub address: Option<AddressClass>,
   pub brand_color: Option<String>,
+  pub legal_name: Option<String>,
   pub logo: Option<String>,
   pub name: String,
   pub vat_number: Option<String>,
@@ -172,6 +173,7 @@ pub enum AdjustmentType {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemElement {
   pub adjustments: Option<Vec<InvoiceLevelAdjustmentElement>>,
+  pub date: Option<String>,
   pub description: String,
   pub group: Option<String>,
   pub metadata: Option<Vec<MetadatumElement>>,
@@ -181,6 +183,7 @@ pub struct ItemElement {
   pub taxes: Option<Vec<TaxElement>>,
   pub unit: Option<String>,
   pub unit_cost: Option<i64>,
+  pub unspsc: Option<String>,
   pub url: Option<String>,
 }
 
@@ -260,15 +263,10 @@ pub struct GeneralClass {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LodgingClass {
-  pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
-  pub lodging_items: Vec<LodgingItemElement>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct LodgingItemElement {
   pub check_in: i64,
   pub check_out: i64,
   pub guests: Option<String>,
+  pub invoice_level_adjustments: Vec<InvoiceLevelAdjustmentElement>,
   pub items: Vec<ItemElement>,
   pub location: ReceiptSchema,
   pub metadata: Option<Vec<MetadatumElement>>,
