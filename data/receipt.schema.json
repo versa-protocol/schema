@@ -597,10 +597,9 @@
       "required": [
         "check_in",
         "check_out",
-        "items",
-        "location",
         "invoice_level_adjustments",
-        "items"
+        "items",
+        "location"
       ],
       "properties": {
         "check_in": {
