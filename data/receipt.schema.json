@@ -1241,10 +1241,15 @@
             "$ref": "#/$defs/item_metadata"
           }
         },
-        "product_image_asset_id": {
-          "type": [
-            "string",
-            "null"
+        "product_image": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
           ]
         },
         "group": {

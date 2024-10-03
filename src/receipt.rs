@@ -179,7 +179,7 @@ pub struct ItemElement {
   pub description: String,
   pub group: Option<String>,
   pub metadata: Option<Vec<MetadatumElement>>,
-  pub product_image_asset_id: Option<String>,
+  pub product_image: Option<String>,
   pub quantity: Option<f64>,
   pub subtotal: i64,
   pub taxes: Option<Vec<TaxElement>>,
