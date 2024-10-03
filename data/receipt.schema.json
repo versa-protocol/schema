@@ -20,151 +20,7 @@
       "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$"
     },
     "header": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "invoice_number",
-        "currency",
-        "total",
-        "subtotal",
-        "paid",
-        "invoiced_at",
-        "mcc",
-        "third_party",
-        "customer",
-        "location"
-      ],
-      "properties": {
-        "invoice_number": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "currency": {
-          "description": "ISO 4217 currency code",
-          "type": "string",
-          "enum": [
-            "usd",
-            "eur",
-            "jpy",
-            "gbp",
-            "aud",
-            "cad",
-            "chf",
-            "cnh"
-          ]
-        },
-        "total": {
-          "type": "integer"
-        },
-        "subtotal": {
-          "type": "integer"
-        },
-        "paid": {
-          "type": "integer"
-        },
-        "invoiced_at": {
-          "type": "integer"
-        },
-        "mcc": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "third_party": {
-          "type": [
-            "object",
-            "null"
-          ],
-          "additionalProperties": false,
-          "required": [
-            "first_party_relation",
-            "make_primary",
-            "merchant"
-          ],
-          "properties": {
-            "first_party_relation": {
-              "type": "string",
-              "enum": [
-                "bnpl",
-                "delivery_service",
-                "marketplace",
-                "payment_processor",
-                "platform",
-                "point_of_sale"
-              ]
-            },
-            "make_primary": {
-              "description": "Determines whether the merchant or third party gets top billing on the receipt",
-              "type": "boolean"
-            },
-            "merchant": {
-              "$ref": "#/$defs/org"
-            }
-          }
-        },
-        "customer": {
-          "type": [
-            "object",
-            "null"
-          ],
-          "required": [
-            "name",
-            "email",
-            "address",
-            "phone",
-            "metadata"
-          ],
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "email",
-              "minLength": 6,
-              "maxLength": 127
-            },
-            "address": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/$defs/address"
-                }
-              ]
-            },
-            "phone": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "metadata": {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/item_metadata"
-              }
-            }
-          }
-        },
-        "location": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/place"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      }
+      "$ref": "#/$defs/header"
     },
     "itemization": {
       "$ref": "#/$defs/itemization"
@@ -405,6 +261,165 @@
           "type": [
             "null",
             "string"
+          ]
+        }
+      }
+    },
+    "header": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invoice_number",
+        "currency",
+        "total",
+        "subtotal",
+        "paid",
+        "invoiced_at",
+        "mcc",
+        "third_party",
+        "customer",
+        "location"
+      ],
+      "properties": {
+        "invoice_number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currency": {
+          "description": "ISO 4217 currency code",
+          "type": "string",
+          "enum": [
+            "usd",
+            "eur",
+            "jpy",
+            "gbp",
+            "aud",
+            "cad",
+            "chf",
+            "cnh"
+          ]
+        },
+        "total": {
+          "type": "integer"
+        },
+        "subtotal": {
+          "type": "integer"
+        },
+        "paid": {
+          "type": "integer"
+        },
+        "invoiced_at": {
+          "type": "integer"
+        },
+        "mcc": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "third_party": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "first_party_relation",
+            "make_primary",
+            "merchant"
+          ],
+          "properties": {
+            "first_party_relation": {
+              "type": "string",
+              "enum": [
+                "bnpl",
+                "delivery_service",
+                "marketplace",
+                "payment_processor",
+                "platform",
+                "point_of_sale"
+              ]
+            },
+            "make_primary": {
+              "description": "Determines whether the merchant or third party gets top billing on the receipt",
+              "type": "boolean"
+            },
+            "merchant": {
+              "$ref": "#/$defs/org"
+            }
+          }
+        },
+        "customer": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "name",
+            "email",
+            "address",
+            "phone",
+            "metadata"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "email",
+              "minLength": 6,
+              "maxLength": 127
+            },
+            "address": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/address"
+                }
+              ]
+            },
+            "phone": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "metadata": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/item_metadata"
+              }
+            }
+          }
+        },
+        "location": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/place"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "invoice_asset_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "receipt_asset_id": {
+          "type": [
+            "string",
+            "null"
           ]
         }
       }
@@ -1226,15 +1241,10 @@
             "$ref": "#/$defs/item_metadata"
           }
         },
-        "product_image": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "format": "uri"
-            }
+        "product_image_asset_id": {
+          "type": [
+            "string",
+            "null"
           ]
         },
         "group": {
