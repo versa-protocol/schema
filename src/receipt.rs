@@ -34,11 +34,13 @@ pub struct Header {
   /// ISO 4217 currency code
   pub currency: Currency,
   pub customer: Option<Customer>,
+  pub invoice_asset_id: Option<String>,
   pub invoice_number: Option<String>,
   pub invoiced_at: i64,
   pub location: Option<ReceiptSchema>,
   pub mcc: Option<String>,
   pub paid: i64,
+  pub receipt_asset_id: Option<String>,
   pub subtotal: i64,
   pub third_party: Option<ThirdParty>,
   pub total: i64,
