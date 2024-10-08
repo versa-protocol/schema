@@ -119,3 +119,10 @@ pub struct Checkout {
   pub sender: Option<Sender>,
   pub handles: TransactionHandles,
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Envelope {
+  pub encrypted: String,
+  pub hash: Option<u64>,
+  pub nonce: String,
+}

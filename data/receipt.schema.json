@@ -395,7 +395,7 @@
             "metadata": {
               "type": "array",
               "items": {
-                "$ref": "#/$defs/item_metadata"
+                "$ref": "#/$defs/metadatum"
               }
             }
           }
@@ -648,7 +648,7 @@
         "metadata": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/item_metadata"
+            "$ref": "#/$defs/metadatum"
           }
         },
         "invoice_level_adjustments": {
@@ -812,6 +812,8 @@
       }
     },
     "place": {
+      "title": "Place",
+      "description": "The physical or online location where a transaction occurred",
       "type": "object",
       "required": [
         "name",
@@ -874,7 +876,8 @@
         }
       }
     },
-    "item_metadata": {
+    "metadatum": {
+      "title": "Metadatum",
       "type": "object",
       "required": [
         "key",
@@ -890,6 +893,7 @@
       }
     },
     "adjustment": {
+      "title": "Adjustment",
       "type": "object",
       "required": [
         "amount",
@@ -1019,7 +1023,7 @@
               "metadata": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/item_metadata"
+                  "$ref": "#/$defs/metadatum"
                 }
               },
               "adjustments": {
@@ -1040,6 +1044,7 @@
       }
     },
     "tax": {
+      "title": "Tax",
       "type": "object",
       "required": [
         "amount",
@@ -1128,6 +1133,12 @@
                   }
                 ]
               },
+              "adjustments": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/adjustment"
+                }
+              },
               "taxes": {
                 "type": "array",
                 "items": {
@@ -1137,7 +1148,7 @@
               "metadata": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/item_metadata"
+                  "$ref": "#/$defs/metadatum"
                 }
               },
               "fare": {
@@ -1177,6 +1188,7 @@
       }
     },
     "item": {
+      "title": "Line Item",
       "type": "object",
       "required": [
         "description",
@@ -1238,7 +1250,7 @@
         "metadata": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/item_metadata"
+            "$ref": "#/$defs/metadatum"
           }
         },
         "product_image": {
@@ -1278,6 +1290,7 @@
       }
     },
     "payment": {
+      "title": "Payment",
       "type": "object",
       "required": [
         "amount",
