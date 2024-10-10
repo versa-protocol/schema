@@ -1,7 +1,0 @@
-[hooks]
-pre-commit = "bash build.sh"
-pre-push = "cargo check"
-post-commit = "echo Commit Successful"
-
-[logging]
-verbose = true

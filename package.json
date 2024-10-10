@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "json-schema-to-typescript": "^14.0.5",
     "typescript": "^5.4.5"
   }
 }
