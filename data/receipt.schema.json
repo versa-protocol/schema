@@ -28,20 +28,7 @@
     "actions": {
       "type": "array",
       "items": {
-        "type": "object",
-        "required": [
-          "name",
-          "url"
-        ],
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string",
-            "format": "uri"
-          }
-        }
+        "$ref": "#/$defs/action"
       }
     },
     "payments": {
@@ -52,7 +39,25 @@
     }
   },
   "$defs": {
+    "action": {
+      "title": "Action",
+      "type": "object",
+      "required": [
+        "name",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
     "car_rental": {
+      "title": "CarRental",
       "type": "object",
       "required": [
         "rental_at",
@@ -269,16 +274,11 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "invoice_number",
         "currency",
         "total",
         "subtotal",
         "paid",
-        "invoiced_at",
-        "mcc",
-        "third_party",
-        "customer",
-        "location"
+        "invoiced_at"
       ],
       "properties": {
         "invoice_number": {
@@ -288,6 +288,7 @@
           ]
         },
         "currency": {
+          "title": "Currency",
           "description": "ISO 4217 currency code",
           "type": "string",
           "enum": [
@@ -352,53 +353,14 @@
           }
         },
         "customer": {
-          "type": [
-            "object",
-            "null"
-          ],
-          "required": [
-            "name",
-            "email",
-            "address",
-            "phone",
-            "metadata"
-          ],
-          "properties": {
-            "name": {
-              "type": "string"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/customer"
             },
-            "email": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "format": "email",
-              "minLength": 6,
-              "maxLength": 127
-            },
-            "address": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/$defs/address"
-                }
-              ]
-            },
-            "phone": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "metadata": {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/metadatum"
-              }
+            {
+              "type": "null"
             }
-          }
+          ]
         },
         "location": {
           "oneOf": [
@@ -475,6 +437,53 @@
               "type": "null"
             }
           ]
+        },
+        "customer": {
+          "title": "Customer",
+          "type": "object",
+          "required": [
+            "name",
+            "email",
+            "address",
+            "phone",
+            "metadata"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "email",
+              "minLength": 6,
+              "maxLength": 127
+            },
+            "address": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/address"
+                }
+              ]
+            },
+            "phone": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "metadata": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          }
         },
         "transit_route": {
           "oneOf": [
