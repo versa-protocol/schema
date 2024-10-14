@@ -921,6 +921,7 @@
           ]
         },
         "adjustment_type": {
+          "title": "AdjustmentType",
           "type": "string",
           "enum": [
             "discount",
@@ -968,6 +969,7 @@
                 "type": "integer"
               },
               "subscription_type": {
+                "title": "SubscriptionType",
                 "type": "string",
                 "enum": [
                   "one_time",
@@ -983,6 +985,7 @@
                     "type": "null"
                   },
                   {
+                    "title": "Interval",
                     "type": "string",
                     "enum": [
                       "day",
