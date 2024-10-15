@@ -14,6 +14,7 @@
   ],
   "properties": {
     "schema_version": {
+      "title": "SchemaVersion",
       "type": "string",
       "minLength": 5,
       "maxLength": 14,
@@ -727,6 +728,76 @@
         }
       }
     },
+    "subscription_item": {
+      "title": "SubscriptionItem",
+      "type": "object",
+      "required": [
+        "subscription_type",
+        "description",
+        "taxes",
+        "metadata",
+        "adjustments",
+        "subtotal"
+      ],
+      "properties": {
+        "subtotal": {
+          "type": "integer"
+        },
+        "subscription_type": {
+          "title": "SubscriptionType",
+          "type": "string",
+          "enum": ["one_time", "recurring"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "interval": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "title": "Interval",
+              "type": "string",
+              "enum": ["day", "week", "month", "year"]
+            }
+          ]
+        },
+        "interval_count": {
+          "type": ["integer", "null"]
+        },
+        "current_period_start": {
+          "type": ["integer", "null"]
+        },
+        "current_period_end": {
+          "type": ["integer", "null"]
+        },
+        "quantity": {
+          "type": ["number", "null"]
+        },
+        "unit_cost": {
+          "type": ["number", "null"]
+        },
+        "taxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tax"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
+          }
+        },
+        "adjustments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
+        }
+      }
+    },
     "metadatum": {
       "title": "Metadatum",
       "type": "object",
@@ -770,79 +841,7 @@
           "type": "array",
           "minItems": 1,
           "items": {
-            "type": "object",
-            "required": [
-              "subscription_type",
-              "description",
-              "interval",
-              "interval_count",
-              "current_period_start",
-              "current_period_end",
-              "quantity",
-              "unit_cost",
-              "taxes",
-              "metadata",
-              "adjustments",
-              "subtotal"
-            ],
-            "properties": {
-              "subtotal": {
-                "type": "integer"
-              },
-              "subscription_type": {
-                "title": "SubscriptionType",
-                "type": "string",
-                "enum": ["one_time", "recurring"]
-              },
-              "description": {
-                "type": "string"
-              },
-              "interval": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "title": "Interval",
-                    "type": "string",
-                    "enum": ["day", "week", "month", "year"]
-                  }
-                ]
-              },
-              "interval_count": {
-                "type": ["integer", "null"]
-              },
-              "current_period_start": {
-                "type": ["integer", "null"]
-              },
-              "current_period_end": {
-                "type": ["integer", "null"]
-              },
-              "quantity": {
-                "type": ["number", "null"]
-              },
-              "unit_cost": {
-                "type": ["number", "null"]
-              },
-              "taxes": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/tax"
-                }
-              },
-              "metadata": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/metadatum"
-                }
-              },
-              "adjustments": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/adjustment"
-                }
-              }
-            }
+            "$ref": "#/$defs/subscription_item"
           }
         },
         "invoice_level_adjustments": {
