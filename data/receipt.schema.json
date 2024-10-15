@@ -131,6 +131,7 @@
       }
     },
     "flight": {
+      "title": "Flight",
       "type": "object",
       "required": [
         "tickets",
@@ -160,6 +161,7 @@
       }
     },
     "flight_segment": {
+      "title": "FlightSegment",
       "type": "object",
       "required": [
         "fare",
@@ -235,6 +237,7 @@
       }
     },
     "flight_ticket": {
+      "title": "FlightTicket",
       "type": "object",
       "required": [
         "segments",
@@ -271,6 +274,7 @@
       }
     },
     "header": {
+      "title": "Header",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -387,16 +391,9 @@
       }
     },
     "itemization": {
+      "title": "Itemization",
       "type": "object",
-      "required": [
-        "general",
-        "lodging",
-        "ecommerce",
-        "car_rental",
-        "transit_route",
-        "subscription",
-        "flight"
-      ],
+      "required": [],
       "properties": {
         "general": {
           "oneOf": [
@@ -518,6 +515,7 @@
       }
     },
     "ecommerce": {
+      "title": "Ecommerce",
       "type": "object",
       "required": [
         "shipments",
@@ -595,6 +593,7 @@
       }
     },
     "general_itemization": {
+      "title": "GeneralItemization",
       "type": "object",
       "required": [
         "line_items",
@@ -617,6 +616,7 @@
       }
     },
     "lodging": {
+      "title": "Lodging",
       "type": "object",
       "required": [
         "check_in",
@@ -669,15 +669,10 @@
       }
     },
     "org": {
+      "title": "Org",
       "type": "object",
       "required": [
-        "name",
-        "brand_color",
-        "legal_name",
-        "logo",
-        "website",
-        "vat_number",
-        "address"
+        "name"
       ],
       "properties": {
         "name": {
@@ -734,6 +729,7 @@
       }
     },
     "address": {
+      "title": "Address",
       "type": "object",
       "required": [
         "street_address",
@@ -939,6 +935,7 @@
       }
     },
     "subscription": {
+      "title": "Subscription",
       "type": "object",
       "required": [
         "subscription_items",
@@ -1079,6 +1076,7 @@
       }
     },
     "transit_route": {
+      "title": "TransitRoute",
       "type": "object",
       "required": [
         "transit_route_items",
@@ -1089,106 +1087,7 @@
           "type": "array",
           "minItems": 1,
           "items": {
-            "type": "object",
-            "required": [
-              "departure_location",
-              "arrival_location",
-              "departure_at",
-              "arrival_at",
-              "fare",
-              "passenger",
-              "polyline",
-              "taxes",
-              "metadata",
-              "adjustments"
-            ],
-            "properties": {
-              "departure_location": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/place"
-                  }
-                ]
-              },
-              "arrival_location": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/place"
-                  }
-                ]
-              },
-              "departure_at": {
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              },
-              "arrival_at": {
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              },
-              "polyline": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "adjustments": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/adjustment"
-                }
-              },
-              "taxes": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/tax"
-                }
-              },
-              "metadata": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/metadatum"
-                }
-              },
-              "fare": {
-                "type": [
-                  "integer"
-                ]
-              },
-              "passenger": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "mode": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "enum": [
-                  "car",
-                  "taxi",
-                  "rail",
-                  "bus",
-                  "ferry",
-                  "other"
-                ]
-              }
-            }
+            "$ref": "#/$defs/transit_route_item"
           }
         },
         "invoice_level_adjustments": {
@@ -1199,8 +1098,105 @@
         }
       }
     },
+    "transit_route_item": {
+      "title": "TransitRouteItem",
+      "type": "object",
+      "required": [
+        "fare",
+        "taxes",
+        "metadata",
+        "adjustments"
+      ],
+      "properties": {
+        "departure_location": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/place"
+            }
+          ]
+        },
+        "arrival_location": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/place"
+            }
+          ]
+        },
+        "departure_at": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "arrival_at": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "polyline": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "adjustments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/adjustment"
+          }
+        },
+        "taxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tax"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
+          }
+        },
+        "fare": {
+          "type": [
+            "integer"
+          ]
+        },
+        "passenger": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "car",
+            "taxi",
+            "rail",
+            "bus",
+            "ferry",
+            "other"
+          ]
+        }
+      }
+    },
     "item": {
-      "title": "Line Item",
+      "title": "LineItem",
       "type": "object",
       "required": [
         "description",
@@ -1307,9 +1303,7 @@
       "required": [
         "amount",
         "paid_at",
-        "payment_type",
-        "card_payment",
-        "ach_payment"
+        "payment_type"
       ],
       "properties": {
         "amount": {
@@ -1348,6 +1342,7 @@
       }
     },
     "card_payment": {
+      "title": "CardPayment",
       "type": "object",
       "required": [
         "last_four",
@@ -1376,6 +1371,7 @@
       }
     },
     "ach_payment": {
+      "title": "AchPayment",
       "type": "object",
       "required": [
         "routing_number"
@@ -1387,6 +1383,7 @@
       }
     },
     "doc": {
+      "title": "Doc",
       "type": "object",
       "required": [
         "title",
