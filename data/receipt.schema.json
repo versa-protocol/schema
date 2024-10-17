@@ -62,7 +62,6 @@
         "return_at",
         "rental_location",
         "return_location",
-        "vehicle",
         "driver_name",
         "odometer_reading_in",
         "odometer_reading_out",
@@ -157,7 +156,7 @@
     "flight": {
       "title": "Flight",
       "type": "object",
-      "required": ["tickets", "itinerary_locator", "invoice_level_adjustments"],
+      "required": ["tickets", "invoice_level_adjustments"],
       "properties": {
         "tickets": {
           "type": "array",
@@ -238,7 +237,7 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
-      "required": ["segments", "number", "record_locator", "passenger"],
+      "required": ["segments"],
       "properties": {
         "segments": {
           "type": "array",
@@ -430,43 +429,7 @@
         "shipments": {
           "type": "array",
           "items": {
-            "type": "object",
-            "required": [
-              "items",
-              "tracking_number",
-              "expected_delivery_at",
-              "shipment_status",
-              "destination_address"
-            ],
-            "properties": {
-              "items": {
-                "type": "array",
-                "minItems": 1,
-                "items": {
-                  "$ref": "#/$defs/item"
-                }
-              },
-              "tracking_number": {
-                "type": ["string", "null"]
-              },
-              "expected_delivery_at": {
-                "type": ["integer", "null"]
-              },
-              "shipment_status": {
-                "type": ["string", "null"],
-                "enum": ["prep", "in_transit", "delivered"]
-              },
-              "destination_address": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/address"
-                  }
-                ]
-              }
-            }
+            "$ref": "#/$defs/shipment"
           }
         },
         "invoice_level_line_items": {
@@ -829,6 +792,42 @@
         },
         "rate": {
           "type": ["null", "number"]
+        }
+      }
+    },
+    "shipment": {
+      "title": "Shipment",
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "tracking_number": {
+          "type": ["string", "null"]
+        },
+        "expected_delivery_at": {
+          "type": ["integer", "null"]
+        },
+        "shipment_status": {
+          "type": ["string", "null"],
+          "enum": ["prep", "in_transit", "delivered"]
+        },
+        "destination_address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
         }
       }
     },
