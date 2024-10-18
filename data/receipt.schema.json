@@ -959,11 +959,7 @@
       }
     },
     "item": {
-<<<<<<< HEAD
       "title": "Item",
-=======
-      "title": "LineItem",
->>>>>>> main
       "type": "object",
       "required": ["description", "subtotal"],
       "properties": {
