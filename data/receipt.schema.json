@@ -959,7 +959,7 @@
       }
     },
     "item": {
-      "title": "LineItem",
+      "title": "Item",
       "type": "object",
       "required": ["description", "subtotal"],
       "properties": {
