@@ -466,7 +466,7 @@
     "general_itemization": {
       "title": "GeneralItemization",
       "type": "object",
-      "required": ["line_items", "invoice_level_adjustments"],
+      "required": ["items", "invoice_level_adjustments"],
       "properties": {
         "items": {
           "type": "array",
