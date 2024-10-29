@@ -66,7 +66,8 @@
         "odometer_reading_in",
         "odometer_reading_out",
         "items",
-        "invoice_level_adjustments"
+        "invoice_level_adjustments",
+        "metadata"
       ],
       "properties": {
         "rental_at": {
@@ -114,6 +115,12 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/adjustment"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
           }
         }
       }
@@ -183,13 +190,8 @@
         "fare",
         "departure_airport_code",
         "arrival_airport_code",
-        "departure_at",
-        "arrival_at",
-        "departure_tz",
-        "arrival_tz",
-        "flight_number",
-        "class_of_service",
         "taxes",
+        "metadata",
         "adjustments"
       ],
       "properties": {
@@ -217,6 +219,9 @@
         "flight_number": {
           "type": ["null", "string"]
         },
+        "seat": {
+          "type": ["null", "string"]
+        },
         "class_of_service": {
           "type": ["null", "string"]
         },
@@ -224,6 +229,12 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/tax"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
           }
         },
         "adjustments": {
@@ -237,7 +248,7 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
-      "required": ["segments"],
+      "required": ["segments", "metadata"],
       "properties": {
         "segments": {
           "type": "array",
@@ -254,6 +265,12 @@
         },
         "passenger": {
           "type": ["null", "string"]
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
+          }
         }
       }
     },
@@ -451,7 +468,7 @@
       "type": "object",
       "required": ["line_items", "invoice_level_adjustments"],
       "properties": {
-        "line_items": {
+        "items": {
           "type": "array",
           "minItems": 1,
           "items": {
@@ -562,16 +579,7 @@
     "address": {
       "title": "Address",
       "type": "object",
-      "required": [
-        "street_address",
-        "city",
-        "region",
-        "country",
-        "postal_code",
-        "lat",
-        "lon",
-        "tz"
-      ],
+      "required": [],
       "properties": {
         "street_address": {
           "type": ["string", "null"]
@@ -700,10 +708,10 @@
         "taxes",
         "metadata",
         "adjustments",
-        "subtotal"
+        "amount"
       ],
       "properties": {
-        "subtotal": {
+        "amount": {
           "type": "integer"
         },
         "subscription_type": {
@@ -961,7 +969,7 @@
     "item": {
       "title": "Item",
       "type": "object",
-      "required": ["description", "subtotal"],
+      "required": ["description", "amount"],
       "properties": {
         "date": {
           "oneOf": [
@@ -977,7 +985,7 @@
         "description": {
           "type": "string"
         },
-        "subtotal": {
+        "amount": {
           "type": "integer"
         },
         "quantity": {
@@ -1012,14 +1020,13 @@
             "$ref": "#/$defs/metadatum"
           }
         },
-        "product_image": {
+        "product_image_asset_id": {
           "oneOf": [
             {
               "type": "null"
             },
             {
-              "type": "string",
-              "format": "uri"
+              "type": "string"
             }
           ]
         },
