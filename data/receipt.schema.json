@@ -5,13 +5,7 @@
   "description": "A Versa itemized receipt",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "schema_version",
-    "header",
-    "itemization",
-    "payments",
-    "footer"
-  ],
+  "required": ["schema_version", "header", "itemization", "payments", "footer"],
   "properties": {
     "schema_version": {
       "title": "SchemaVersion",
@@ -803,9 +797,7 @@
     "shipment": {
       "title": "Shipment",
       "type": "object",
-      "required": [
-        "items"
-      ],
+      "required": ["items"],
       "properties": {
         "items": {
           "type": "array",
