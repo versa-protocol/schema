@@ -4,12 +4,19 @@
   "private": true,
   "description": "JSON schemas for Versa Protocol data structures",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "husky",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,css,md,yml,json,html}": "prettier --write"
   },
   "repository": "https://github.com/versa-protocol/schema",
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
   }
 }
