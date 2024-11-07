@@ -9,8 +9,8 @@
     "schema_version",
     "header",
     "itemization",
-    "actions",
-    "payments"
+    "payments",
+    "footer"
   ],
   "properties": {
     "schema_version": {
@@ -26,17 +26,14 @@
     "itemization": {
       "$ref": "#/$defs/itemization"
     },
-    "actions": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/action"
-      }
-    },
     "payments": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/payment"
       }
+    },
+    "footer": {
+      "$ref": "#/$defs/footer"
     }
   },
   "$defs": {
@@ -128,7 +125,7 @@
     "customer": {
       "title": "Customer",
       "type": "object",
-      "required": ["name", "email", "address", "phone", "metadata"],
+      "required": ["name", "metadata"],
       "properties": {
         "name": {
           "type": "string"
@@ -785,7 +782,7 @@
     "adjustment": {
       "title": "Adjustment",
       "type": "object",
-      "required": ["amount", "name", "adjustment_type", "rate"],
+      "required": ["amount", "adjustment_type"],
       "properties": {
         "amount": {
           "type": "integer"
@@ -1132,6 +1129,22 @@
         },
         "body": {
           "type": "string"
+        }
+      }
+    },
+    "footer": {
+      "title": "Footer",
+      "type": "object",
+      "required": ["actions"],
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        },
+        "supplemental_text": {
+          "type": ["string", "null"]
         }
       }
     }
