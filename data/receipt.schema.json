@@ -195,6 +195,9 @@
         "arrival_airport_code": {
           "type": "string"
         },
+        "aircraft_type": {
+          "type": ["null", "string"]
+        },
         "departure_at": {
           "type": ["null", "integer"]
         },
