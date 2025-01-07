@@ -178,7 +178,6 @@
       "title": "FlightSegment",
       "type": "object",
       "required": [
-        "fare",
         "departure_airport_code",
         "arrival_airport_code",
         "taxes",
@@ -187,7 +186,7 @@
       ],
       "properties": {
         "fare": {
-          "type": "integer"
+          "type": ["null", "integer"]
         },
         "departure_airport_code": {
           "type": "string"
@@ -242,7 +241,7 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
-      "required": ["segments", "metadata"],
+      "required": ["segments", "metadata", "taxes"],
       "properties": {
         "segments": {
           "type": "array",
@@ -250,6 +249,10 @@
           "items": {
             "$ref": "#/$defs/flight_segment"
           }
+        },
+        "fare": {
+          "description": "Total fare for the ticket; should be used *only* if the fare is not broken down by segment",
+          "type": ["null", "integer"]
         },
         "number": {
           "type": ["null", "string"]
@@ -259,6 +262,12 @@
         },
         "passenger": {
           "type": ["null", "string"]
+        },
+        "taxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tax"
+          }
         },
         "metadata": {
           "type": "array",
