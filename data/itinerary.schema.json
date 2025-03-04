@@ -30,26 +30,10 @@
     }
   },
   "$defs": {
-    "action": {
-      "title": "Action",
-      "type": "object",
-      "required": [
-        "name",
-        "url"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
     "car_rental": {
       "title": "CarRental",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "rental_at",
         "return_at",
@@ -123,6 +107,7 @@
     "customer": {
       "title": "Customer",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "name",
         "metadata"
@@ -167,6 +152,7 @@
     "flight": {
       "title": "Flight",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "tickets"
       ],
@@ -189,6 +175,7 @@
     "flight_segment": {
       "title": "FlightSegment",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "departure_airport_code",
         "arrival_airport_code",
@@ -260,6 +247,7 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "segments",
         "metadata"
@@ -351,6 +339,7 @@
     "itemization": {
       "title": "Itemization",
       "type": "object",
+      "additionalProperties": false,
       "required": [],
       "properties": {
         "lodging": {
@@ -398,6 +387,7 @@
     "lodging": {
       "title": "Lodging",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "check_in",
         "check_out",
@@ -444,6 +434,7 @@
     "org": {
       "title": "Org",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "name"
       ],
@@ -504,6 +495,7 @@
     "address": {
       "title": "Address",
       "type": "object",
+      "additionalProperties": false,
       "required": [],
       "properties": {
         "street_address": {
@@ -648,6 +640,7 @@
     "metadatum": {
       "title": "Metadatum",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "key",
         "value"
@@ -664,6 +657,7 @@
     "transit_route": {
       "title": "TransitRoute",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "transit_route_items"
       ],
@@ -680,6 +674,7 @@
     "transit_route_item": {
       "title": "TransitRouteItem",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "metadata"
       ],
@@ -757,6 +752,7 @@
     "item": {
       "title": "Item",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "description"
       ],
@@ -836,6 +832,7 @@
     "doc": {
       "title": "Doc",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "title",
         "body"
@@ -852,6 +849,7 @@
     "footer": {
       "title": "Footer",
       "type": "object",
+      "additionalProperties": false,
       "required": [],
       "properties": {
         "supplemental_text": {
