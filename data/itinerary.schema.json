@@ -304,12 +304,6 @@
       "additionalProperties": false,
       "required": [],
       "properties": {
-        "mcc": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "third_party": {
           "type": [
             "object",
@@ -346,16 +340,6 @@
           "oneOf": [
             {
               "$ref": "#/$defs/customer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "location": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/place"
             },
             {
               "type": "null"
@@ -868,16 +852,8 @@
     "footer": {
       "title": "Footer",
       "type": "object",
-      "required": [
-        "actions"
-      ],
+      "required": [],
       "properties": {
-        "actions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/action"
-          }
-        },
         "supplemental_text": {
           "type": [
             "string",
