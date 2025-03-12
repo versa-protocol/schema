@@ -310,9 +310,9 @@
         "third_party": {
           "type": ["object", "null"],
           "additionalProperties": false,
-          "required": ["first_party_relation", "make_primary", "merchant"],
+          "required": ["relation", "make_primary"],
           "properties": {
-            "first_party_relation": {
+            "relation": {
               "type": "string",
               "enum": [
                 "bnpl",
@@ -328,7 +328,14 @@
               "type": "boolean"
             },
             "merchant": {
-              "$ref": "#/$defs/org"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/org"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           }
         },
