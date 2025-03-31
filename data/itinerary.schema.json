@@ -734,17 +734,14 @@
           ]
         },
         "mode": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "car",
-            "taxi",
-            "rail",
-            "bus",
-            "ferry",
-            "other"
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": ["car", "taxi", "rail", "bus", "ferry", "other"]
+            }
           ]
         }
       }

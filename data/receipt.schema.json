@@ -832,8 +832,15 @@
           "type": ["integer", "null"]
         },
         "shipment_status": {
-          "type": ["string", "null"],
-          "enum": ["prep", "in_transit", "delivered"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": ["prep", "in_transit", "delivered"]
+            }
+          ]
         },
         "destination_address": {
           "oneOf": [
@@ -969,8 +976,15 @@
           "type": ["string", "null"]
         },
         "mode": {
-          "type": ["string", "null"],
-          "enum": ["car", "taxi", "rail", "bus", "ferry", "other"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": ["car", "taxi", "rail", "bus", "ferry", "other"]
+            }
+          ]
         }
       }
     },
@@ -1063,7 +1077,7 @@
     "payment": {
       "title": "Payment",
       "type": "object",
-      "required": ["amount", "paid_at", "payment_type"],
+      "required": ["amount", "paid_at"],
       "properties": {
         "amount": {
           "type": "integer"
@@ -1072,8 +1086,15 @@
           "type": "integer"
         },
         "payment_type": {
-          "type": "string",
-          "enum": ["card", "ach"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": ["card", "ach"]
+            }
+          ]
         },
         "card_payment": {
           "oneOf": [
@@ -1100,22 +1121,29 @@
     "card_payment": {
       "title": "CardPayment",
       "type": "object",
-      "required": ["last_four", "network"],
+      "required": ["last_four"],
       "properties": {
         "last_four": {
           "type": "string"
         },
         "network": {
-          "type": ["string", "null"],
-          "enum": [
-            "amex",
-            "diners",
-            "discover",
-            "eftpos_au",
-            "jcb",
-            "mastercard",
-            "unionpay",
-            "visa"
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "amex",
+                "diners",
+                "discover",
+                "eftpos_au",
+                "jcb",
+                "mastercard",
+                "unionpay",
+                "visa"
+              ]
+            }
           ]
         }
       }
