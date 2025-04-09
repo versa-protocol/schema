@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "./scripts",
+    "typeRoots": ["./node_modules/is-json-schema-subset/dist/*.d.ts"],
+    "lib": ["dom", "ES2015", "esnext"]
+  }
+}
