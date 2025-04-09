@@ -1,12 +1,14 @@
 {
   "name": "@versaprotocol/json-schema",
   "version": "1.2.0",
+  "packageManager": "pnpm@10.7.0",
   "private": true,
   "description": "JSON schemas for Versa Protocol data structures",
   "scripts": {
     "build": "tsc",
     "prepare": "husky",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "verify_subschema": "ts-node ./scripts/verify_subschema.ts"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,css,md,yml,json,html}": "prettier --write"
@@ -17,6 +19,7 @@
   "devDependencies": {
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2"
   }
 }
