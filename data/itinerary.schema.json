@@ -4,13 +4,8 @@
   "title": "Itinerary",
   "description": "A Versa itinerary",
   "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "schema_version",
-    "header",
-    "itemization",
-    "footer"
-  ],
+
+  "required": ["schema_version", "header", "itemization", "footer"],
   "properties": {
     "schema_version": {
       "title": "SchemaVersion",
@@ -33,7 +28,7 @@
     "car_rental": {
       "title": "CarRental",
       "type": "object",
-      "additionalProperties": false,
+
       "required": [
         "rental_at",
         "return_at",
@@ -59,23 +54,14 @@
           "$ref": "#/$defs/place"
         },
         "vehicle": {
-          "type": [
-            "object",
-            "null"
-          ],
-          "required": [
-            "description",
-            "image"
-          ],
+          "type": ["object", "null"],
+          "required": ["description", "image"],
           "properties": {
             "description": {
               "type": "string"
             },
             "image": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": ["string", "null"],
               "format": "uri"
             }
           }
@@ -107,20 +93,14 @@
     "customer": {
       "title": "Customer",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "name",
-        "metadata"
-      ],
+
+      "required": ["name", "metadata"],
       "properties": {
         "name": {
           "type": "string"
         },
         "email": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "email",
           "minLength": 6,
           "maxLength": 127
@@ -136,10 +116,7 @@
           ]
         },
         "phone": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "metadata": {
           "type": "array",
@@ -152,10 +129,8 @@
     "flight": {
       "title": "Flight",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "tickets"
-      ],
+
+      "required": ["tickets"],
       "properties": {
         "tickets": {
           "type": "array",
@@ -165,17 +140,14 @@
           }
         },
         "itinerary_locator": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         }
       }
     },
     "flight_segment": {
       "title": "FlightSegment",
       "type": "object",
-      "additionalProperties": false,
+
       "required": [
         "departure_airport_code",
         "arrival_airport_code",
@@ -189,52 +161,28 @@
           "type": "string"
         },
         "aircraft_type": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "departure_at": {
-          "type": [
-            "null",
-            "integer"
-          ]
+          "type": ["null", "integer"]
         },
         "arrival_at": {
-          "type": [
-            "null",
-            "integer"
-          ]
+          "type": ["null", "integer"]
         },
         "departure_tz": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "arrival_tz": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "flight_number": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "seat": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "class_of_service": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "metadata": {
           "type": "array",
@@ -247,11 +195,8 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "segments",
-        "metadata"
-      ],
+
+      "required": ["segments", "metadata"],
       "properties": {
         "segments": {
           "type": "array",
@@ -261,22 +206,13 @@
           }
         },
         "number": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "record_locator": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "passenger": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "metadata": {
           "type": "array",
@@ -289,12 +225,12 @@
     "header": {
       "title": "Header",
       "type": "object",
-      "additionalProperties": false,
+
       "required": [],
       "properties": {
         "third_party": {
           "type": ["object", "null"],
-          "additionalProperties": false,
+
           "required": ["relation", "make_primary"],
           "properties": {
             "relation": {
@@ -339,7 +275,7 @@
     "itemization": {
       "title": "Itemization",
       "type": "object",
-      "additionalProperties": false,
+
       "required": [],
       "properties": {
         "lodging": {
@@ -387,13 +323,8 @@
     "lodging": {
       "title": "Lodging",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "check_in",
-        "check_out",
-        "items",
-        "location"
-      ],
+
+      "required": ["check_in", "check_out", "items", "location"],
       "properties": {
         "check_in": {
           "type": "integer"
@@ -412,16 +343,10 @@
           }
         },
         "room": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "guests": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "metadata": {
           "type": "array",
@@ -434,10 +359,8 @@
     "org": {
       "title": "Org",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "name"
-      ],
+
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string"
@@ -455,30 +378,18 @@
           ]
         },
         "legal_name": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "logo": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "uri"
         },
         "website": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "hostname"
         },
         "vat_number": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "address": {
           "oneOf": [
@@ -495,20 +406,13 @@
     "address": {
       "title": "Address",
       "type": "object",
-      "additionalProperties": false,
       "required": [],
       "properties": {
         "street_address": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "city": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "region": {
           "oneOf": [
@@ -535,10 +439,7 @@
           ]
         },
         "postal_code": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "lat": {
           "oneOf": [
@@ -565,10 +466,7 @@
           ]
         },
         "tz": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       }
     },
@@ -586,10 +484,7 @@
       ],
       "properties": {
         "name": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "address": {
           "oneOf": [
@@ -602,10 +497,7 @@
           ]
         },
         "phone": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "url": {
           "oneOf": [
@@ -619,10 +511,7 @@
           ]
         },
         "google_place_id": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "image": {
           "oneOf": [
@@ -640,11 +529,8 @@
     "metadatum": {
       "title": "Metadatum",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "key",
-        "value"
-      ],
+
+      "required": ["key", "value"],
       "properties": {
         "key": {
           "type": "string"
@@ -657,10 +543,8 @@
     "transit_route": {
       "title": "TransitRoute",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "transit_route_items"
-      ],
+
+      "required": ["transit_route_items"],
       "properties": {
         "transit_route_items": {
           "type": "array",
@@ -674,10 +558,8 @@
     "transit_route_item": {
       "title": "TransitRouteItem",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "metadata"
-      ],
+
+      "required": ["metadata"],
       "properties": {
         "departure_location": {
           "oneOf": [
@@ -700,16 +582,10 @@
           ]
         },
         "departure_at": {
-          "type": [
-            "integer",
-            "null"
-          ]
+          "type": ["integer", "null"]
         },
         "arrival_at": {
-          "type": [
-            "integer",
-            "null"
-          ]
+          "type": ["integer", "null"]
         },
         "polyline": {
           "oneOf": [
@@ -728,10 +604,7 @@
           }
         },
         "passenger": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "mode": {
           "oneOf": [
@@ -749,10 +622,8 @@
     "item": {
       "title": "Item",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "description"
-      ],
+
+      "required": ["description"],
       "properties": {
         "date": {
           "oneOf": [
@@ -769,16 +640,10 @@
           "type": "string"
         },
         "quantity": {
-          "type": [
-            "null",
-            "number"
-          ]
+          "type": ["null", "number"]
         },
         "unit": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "unspsc": {
           "oneOf": [
@@ -808,10 +673,7 @@
           ]
         },
         "group": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "url": {
           "oneOf": [
@@ -829,11 +691,8 @@
     "doc": {
       "title": "Doc",
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "title",
-        "body"
-      ],
+
+      "required": ["title", "body"],
       "properties": {
         "title": {
           "type": "string"
@@ -846,14 +705,11 @@
     "footer": {
       "title": "Footer",
       "type": "object",
-      "additionalProperties": false,
+
       "required": [],
       "properties": {
         "supplemental_text": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       }
     }
