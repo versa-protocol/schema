@@ -5,7 +5,12 @@
   "description": "A Versa itinerary",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "header", "itemization", "footer"],
+  "required": [
+    "schema_version",
+    "header",
+    "itemization",
+    "footer"
+  ],
   "properties": {
     "schema_version": {
       "title": "SchemaVersion",
@@ -54,20 +59,35 @@
           "$ref": "#/$defs/place"
         },
         "vehicle": {
-          "type": ["object", "null"],
-          "required": ["description", "image"],
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "description",
+            "image"
+          ],
           "properties": {
             "description": {
               "type": "string"
             },
             "license_plate_number": {
-              "type": ["string", "null"]
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "vehicle_class": {
-              "type": ["string", "null"]
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "image": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri"
             }
           }
@@ -100,13 +120,19 @@
       "title": "Customer",
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "metadata"],
+      "required": [
+        "name",
+        "metadata"
+      ],
       "properties": {
         "name": {
           "type": "string"
         },
         "email": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "email",
           "minLength": 6,
           "maxLength": 127
@@ -122,7 +148,10 @@
           ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "metadata": {
           "type": "array",
@@ -136,7 +165,9 @@
       "title": "Flight",
       "type": "object",
       "additionalProperties": false,
-      "required": ["tickets"],
+      "required": [
+        "tickets"
+      ],
       "properties": {
         "tickets": {
           "type": "array",
@@ -146,7 +177,10 @@
           }
         },
         "itinerary_locator": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         }
       }
     },
@@ -167,28 +201,52 @@
           "type": "string"
         },
         "aircraft_type": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "departure_at": {
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "arrival_at": {
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "departure_tz": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "arrival_tz": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "flight_number": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "seat": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "class_of_service": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "metadata": {
           "type": "array",
@@ -198,11 +256,14 @@
         }
       }
     },
+
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
       "additionalProperties": false,
-      "required": ["segments"],
+      "required": [
+        "segments"
+      ],
       "properties": {
         "segments": {
           "type": "array",
@@ -212,10 +273,16 @@
           }
         },
         "number": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "record_locator": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "passenger": {
           "oneOf": [
@@ -236,9 +303,15 @@
       "required": [],
       "properties": {
         "third_party": {
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "additionalProperties": false,
-          "required": ["relation", "make_primary"],
+          "required": [
+            "relation",
+            "make_primary"
+          ],
           "properties": {
             "relation": {
               "type": "string",
@@ -331,7 +404,12 @@
       "title": "Lodging",
       "type": "object",
       "additionalProperties": false,
-      "required": ["check_in", "check_out", "items", "location"],
+      "required": [
+        "check_in",
+        "check_out",
+        "items",
+        "location"
+      ],
       "properties": {
         "check_in": {
           "type": "integer"
@@ -350,10 +428,16 @@
           }
         },
         "room": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "guests": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "metadata": {
           "type": "array",
@@ -367,7 +451,9 @@
       "title": "Org",
       "type": "object",
       "additionalProperties": false,
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "type": "string"
@@ -385,18 +471,30 @@
           ]
         },
         "legal_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "logo": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "uri"
         },
         "website": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "hostname"
         },
         "vat_number": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "address": {
           "oneOf": [
@@ -417,10 +515,16 @@
       "required": [],
       "properties": {
         "street_address": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "city": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "region": {
           "oneOf": [
@@ -447,7 +551,10 @@
           ]
         },
         "postal_code": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "lat": {
           "oneOf": [
@@ -474,29 +581,49 @@
           ]
         },
         "tz": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },
     "person": {
       "title": "Person",
       "type": "object",
-      "required": ["metadata"],
+      "required": [
+        "metadata"
+      ],
       "properties": {
         "first_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "last_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "preferred_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "email": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "metadata": {
           "type": "array",
@@ -513,7 +640,10 @@
       "required": [],
       "properties": {
         "name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "address": {
           "oneOf": [
@@ -526,7 +656,10 @@
           ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "url": {
           "oneOf": [
@@ -540,7 +673,10 @@
           ]
         },
         "google_place_id": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "image": {
           "oneOf": [
@@ -559,7 +695,10 @@
       "title": "Metadatum",
       "type": "object",
       "additionalProperties": false,
-      "required": ["key", "value"],
+      "required": [
+        "key",
+        "value"
+      ],
       "properties": {
         "key": {
           "type": "string"
@@ -573,7 +712,9 @@
       "title": "TransitRoute",
       "type": "object",
       "additionalProperties": false,
-      "required": ["transit_route_items"],
+      "required": [
+        "transit_route_items"
+      ],
       "properties": {
         "transit_route_items": {
           "type": "array",
@@ -588,7 +729,9 @@
       "title": "TransitRouteItem",
       "type": "object",
       "additionalProperties": false,
-      "required": ["metadata"],
+      "required": [
+        "metadata"
+      ],
       "properties": {
         "departure_location": {
           "oneOf": [
@@ -611,10 +754,16 @@
           ]
         },
         "departure_at": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "arrival_at": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "polyline": {
           "oneOf": [
@@ -649,7 +798,14 @@
             },
             {
               "type": "string",
-              "enum": ["car", "taxi", "rail", "bus", "ferry", "other"]
+              "enum": [
+                "car",
+                "taxi",
+                "rail",
+                "bus",
+                "ferry",
+                "other"
+              ]
             }
           ]
         }
@@ -659,7 +815,9 @@
       "title": "Item",
       "type": "object",
       "additionalProperties": false,
-      "required": ["description"],
+      "required": [
+        "description"
+      ],
       "properties": {
         "date": {
           "oneOf": [
@@ -676,10 +834,16 @@
           "type": "string"
         },
         "quantity": {
-          "type": ["null", "number"]
+          "type": [
+            "null",
+            "number"
+          ]
         },
         "unit": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "unspsc": {
           "oneOf": [
@@ -709,7 +873,10 @@
           ]
         },
         "group": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "url": {
           "oneOf": [
@@ -728,7 +895,10 @@
       "title": "Doc",
       "type": "object",
       "additionalProperties": false,
-      "required": ["title", "body"],
+      "required": [
+        "title",
+        "body"
+      ],
       "properties": {
         "title": {
           "type": "string"
@@ -745,7 +915,10 @@
       "required": [],
       "properties": {
         "supplemental_text": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     }

@@ -5,7 +5,13 @@
   "description": "A Versa itemized receipt",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "header", "itemization", "payments", "footer"],
+  "required": [
+    "schema_version",
+    "header",
+    "itemization",
+    "payments",
+    "footer"
+  ],
   "properties": {
     "schema_version": {
       "title": "SchemaVersion",
@@ -34,7 +40,10 @@
     "action": {
       "title": "Action",
       "type": "object",
-      "required": ["name", "url"],
+      "required": [
+        "name",
+        "url"
+      ],
       "properties": {
         "name": {
           "type": "string"
@@ -74,20 +83,35 @@
           "$ref": "#/$defs/place"
         },
         "vehicle": {
-          "type": ["object", "null"],
-          "required": ["description", "image"],
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "description",
+            "image"
+          ],
           "properties": {
             "description": {
               "type": "string"
             },
             "license_plate_number": {
-              "type": ["string", "null"]
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "vehicle_class": {
-              "type": ["string", "null"]
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "image": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri"
             }
           }
@@ -125,13 +149,19 @@
     "customer": {
       "title": "Customer",
       "type": "object",
-      "required": ["name", "metadata"],
+      "required": [
+        "name",
+        "metadata"
+      ],
       "properties": {
         "name": {
           "type": "string"
         },
         "email": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "email",
           "minLength": 6,
           "maxLength": 127
@@ -147,7 +177,10 @@
           ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "metadata": {
           "type": "array",
@@ -160,7 +193,10 @@
     "flight": {
       "title": "Flight",
       "type": "object",
-      "required": ["tickets", "invoice_level_adjustments"],
+      "required": [
+        "tickets",
+        "invoice_level_adjustments"
+      ],
       "properties": {
         "tickets": {
           "type": "array",
@@ -170,7 +206,10 @@
           }
         },
         "itinerary_locator": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "invoice_level_adjustments": {
           "type": "array",
@@ -192,7 +231,10 @@
       ],
       "properties": {
         "fare": {
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "departure_airport_code": {
           "type": "string"
@@ -201,28 +243,52 @@
           "type": "string"
         },
         "aircraft_type": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "departure_at": {
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "arrival_at": {
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "departure_tz": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "arrival_tz": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "flight_number": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "seat": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "class_of_service": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "taxes": {
           "type": "array",
@@ -244,10 +310,14 @@
         }
       }
     },
+
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
-      "required": ["segments", "taxes"],
+      "required": [
+        "segments",
+        "taxes"
+      ],
       "properties": {
         "segments": {
           "type": "array",
@@ -258,13 +328,22 @@
         },
         "fare": {
           "description": "Total fare for the ticket; should be used *only* if the fare is not broken down by segment",
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "number": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "record_locator": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "passenger": {
           "oneOf": [
@@ -288,16 +367,34 @@
       "title": "Header",
       "type": "object",
       "additionalProperties": false,
-      "required": ["currency", "total", "subtotal", "paid", "invoiced_at"],
+      "required": [
+        "currency",
+        "total",
+        "subtotal",
+        "paid",
+        "invoiced_at"
+      ],
       "properties": {
         "invoice_number": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "currency": {
           "title": "Currency",
           "description": "ISO 4217 currency code",
           "type": "string",
-          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cny"]
+          "enum": [
+            "usd",
+            "eur",
+            "jpy",
+            "gbp",
+            "aud",
+            "cad",
+            "chf",
+            "cny"
+          ]
         },
         "total": {
           "type": "integer"
@@ -312,12 +409,21 @@
           "type": "integer"
         },
         "mcc": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "third_party": {
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "additionalProperties": false,
-          "required": ["relation", "make_primary"],
+          "required": [
+            "relation",
+            "make_primary"
+          ],
           "properties": {
             "relation": {
               "type": "string",
@@ -367,10 +473,16 @@
           ]
         },
         "invoice_asset_id": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "receipt_asset_id": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },
@@ -483,7 +595,10 @@
     "general_itemization": {
       "title": "GeneralItemization",
       "type": "object",
-      "required": ["items", "invoice_level_adjustments"],
+      "required": [
+        "items",
+        "invoice_level_adjustments"
+      ],
       "properties": {
         "items": {
           "type": "array",
@@ -528,10 +643,16 @@
           }
         },
         "room": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "guests": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "metadata": {
           "type": "array",
@@ -550,7 +671,9 @@
     "org": {
       "title": "Org",
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "type": "string"
@@ -568,18 +691,30 @@
           ]
         },
         "legal_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "logo": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "uri"
         },
         "website": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "hostname"
         },
         "vat_number": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "address": {
           "oneOf": [
@@ -599,10 +734,16 @@
       "required": [],
       "properties": {
         "street_address": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "city": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "region": {
           "oneOf": [
@@ -629,7 +770,10 @@
           ]
         },
         "postal_code": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "lat": {
           "oneOf": [
@@ -656,29 +800,49 @@
           ]
         },
         "tz": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },
     "person": {
       "title": "Person",
       "type": "object",
-      "required": ["metadata"],
+      "required": [
+        "metadata"
+      ],
       "properties": {
         "first_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "last_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "preferred_name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "email": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "metadata": {
           "type": "array",
@@ -695,7 +859,10 @@
       "required": [],
       "properties": {
         "name": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "address": {
           "oneOf": [
@@ -708,7 +875,10 @@
           ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "url": {
           "oneOf": [
@@ -722,7 +892,10 @@
           ]
         },
         "google_place_id": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "image": {
           "oneOf": [
@@ -755,7 +928,10 @@
         "subscription_type": {
           "title": "SubscriptionType",
           "type": "string",
-          "enum": ["one_time", "recurring"]
+          "enum": [
+            "one_time",
+            "recurring"
+          ]
         },
         "description": {
           "type": "string"
@@ -768,24 +944,44 @@
             {
               "title": "Interval",
               "type": "string",
-              "enum": ["day", "week", "month", "year"]
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ]
             }
           ]
         },
         "interval_count": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "current_period_start": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "current_period_end": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "quantity": {
-          "type": ["number", "null"]
+          "type": [
+            "number",
+            "null"
+          ]
         },
         "unit_cost": {
-          "type": ["number", "null"]
+          "type": [
+            "number",
+            "null"
+          ]
         },
         "taxes": {
           "type": "array",
@@ -810,7 +1006,10 @@
     "metadatum": {
       "title": "Metadatum",
       "type": "object",
-      "required": ["key", "value"],
+      "required": [
+        "key",
+        "value"
+      ],
       "properties": {
         "key": {
           "type": "string"
@@ -823,28 +1022,45 @@
     "adjustment": {
       "title": "Adjustment",
       "type": "object",
-      "required": ["amount", "adjustment_type"],
+      "required": [
+        "amount",
+        "adjustment_type"
+      ],
       "properties": {
         "amount": {
           "type": "integer"
         },
         "name": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "adjustment_type": {
           "title": "AdjustmentType",
           "type": "string",
-          "enum": ["add_on", "discount", "fee", "other", "tip"]
+          "enum": [
+            "add_on",
+            "discount",
+            "fee",
+            "other",
+            "tip"
+          ]
         },
         "rate": {
-          "type": ["null", "number"]
+          "type": [
+            "null",
+            "number"
+          ]
         }
       }
     },
     "shipment": {
       "title": "Shipment",
       "type": "object",
-      "required": ["items"],
+      "required": [
+        "items"
+      ],
       "properties": {
         "items": {
           "type": "array",
@@ -854,10 +1070,16 @@
           }
         },
         "tracking_number": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "expected_delivery_at": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "shipment_status": {
           "oneOf": [
@@ -866,7 +1088,11 @@
             },
             {
               "type": "string",
-              "enum": ["prep", "in_transit", "delivered"]
+              "enum": [
+                "prep",
+                "in_transit",
+                "delivered"
+              ]
             }
           ]
         },
@@ -885,7 +1111,10 @@
     "subscription": {
       "title": "Subscription",
       "type": "object",
-      "required": ["subscription_items", "invoice_level_adjustments"],
+      "required": [
+        "subscription_items",
+        "invoice_level_adjustments"
+      ],
       "properties": {
         "subscription_items": {
           "type": "array",
@@ -905,13 +1134,20 @@
     "tax": {
       "title": "Tax",
       "type": "object",
-      "required": ["amount", "rate", "name"],
+      "required": [
+        "amount",
+        "rate",
+        "name"
+      ],
       "properties": {
         "amount": {
           "type": "integer"
         },
         "rate": {
-          "type": ["number", "null"]
+          "type": [
+            "number",
+            "null"
+          ]
         },
         "name": {
           "type": "string"
@@ -921,7 +1157,10 @@
     "transit_route": {
       "title": "TransitRoute",
       "type": "object",
-      "required": ["transit_route_items", "invoice_level_adjustments"],
+      "required": [
+        "transit_route_items",
+        "invoice_level_adjustments"
+      ],
       "properties": {
         "transit_route_items": {
           "type": "array",
@@ -941,7 +1180,12 @@
     "transit_route_item": {
       "title": "TransitRouteItem",
       "type": "object",
-      "required": ["fare", "taxes", "metadata", "adjustments"],
+      "required": [
+        "fare",
+        "taxes",
+        "metadata",
+        "adjustments"
+      ],
       "properties": {
         "departure_location": {
           "oneOf": [
@@ -964,10 +1208,16 @@
           ]
         },
         "departure_at": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "arrival_at": {
-          "type": ["integer", "null"]
+          "type": [
+            "integer",
+            "null"
+          ]
         },
         "polyline": {
           "oneOf": [
@@ -998,7 +1248,9 @@
           }
         },
         "fare": {
-          "type": ["integer"]
+          "type": [
+            "integer"
+          ]
         },
         "passenger": {
           "oneOf": [
@@ -1017,7 +1269,14 @@
             },
             {
               "type": "string",
-              "enum": ["car", "taxi", "rail", "bus", "ferry", "other"]
+              "enum": [
+                "car",
+                "taxi",
+                "rail",
+                "bus",
+                "ferry",
+                "other"
+              ]
             }
           ]
         }
@@ -1026,7 +1285,10 @@
     "item": {
       "title": "Item",
       "type": "object",
-      "required": ["description", "amount"],
+      "required": [
+        "description",
+        "amount"
+      ],
       "properties": {
         "date": {
           "oneOf": [
@@ -1046,13 +1308,22 @@
           "type": "integer"
         },
         "quantity": {
-          "type": ["null", "number"]
+          "type": [
+            "null",
+            "number"
+          ]
         },
         "unit_cost": {
-          "type": ["null", "integer"]
+          "type": [
+            "null",
+            "integer"
+          ]
         },
         "unit": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "unspsc": {
           "oneOf": [
@@ -1088,7 +1359,10 @@
           ]
         },
         "group": {
-          "type": ["null", "string"]
+          "type": [
+            "null",
+            "string"
+          ]
         },
         "url": {
           "oneOf": [
@@ -1112,7 +1386,10 @@
     "payment": {
       "title": "Payment",
       "type": "object",
-      "required": ["amount", "paid_at"],
+      "required": [
+        "amount",
+        "paid_at"
+      ],
       "properties": {
         "amount": {
           "type": "integer"
@@ -1127,7 +1404,10 @@
             },
             {
               "type": "string",
-              "enum": ["card", "ach"]
+              "enum": [
+                "card",
+                "ach"
+              ]
             }
           ]
         },
@@ -1156,7 +1436,9 @@
     "card_payment": {
       "title": "CardPayment",
       "type": "object",
-      "required": ["last_four"],
+      "required": [
+        "last_four"
+      ],
       "properties": {
         "last_four": {
           "type": "string"
@@ -1186,7 +1468,9 @@
     "ach_payment": {
       "title": "AchPayment",
       "type": "object",
-      "required": ["routing_number"],
+      "required": [
+        "routing_number"
+      ],
       "properties": {
         "routing_number": {
           "type": "string"
@@ -1196,7 +1480,10 @@
     "doc": {
       "title": "Doc",
       "type": "object",
-      "required": ["title", "body"],
+      "required": [
+        "title",
+        "body"
+      ],
       "properties": {
         "title": {
           "type": "string"
@@ -1209,7 +1496,9 @@
     "footer": {
       "title": "Footer",
       "type": "object",
-      "required": ["actions"],
+      "required": [
+        "actions"
+      ],
       "properties": {
         "actions": {
           "type": "array",
@@ -1218,7 +1507,10 @@
           }
         },
         "supplemental_text": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     }
