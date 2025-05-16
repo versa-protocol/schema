@@ -80,6 +80,12 @@
             "description": {
               "type": "string"
             },
+            "license_plate_number": {
+              "type": ["string", "null"]
+            },
+            "vehicle_class": {
+              "type": ["string", "null"]
+            },
             "image": {
               "type": ["string", "null"],
               "format": "uri"
