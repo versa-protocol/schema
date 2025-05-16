@@ -247,7 +247,7 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
-      "required": ["segments", "metadata", "taxes"],
+      "required": ["segments", "taxes"],
       "properties": {
         "segments": {
           "type": "array",
