@@ -212,13 +212,14 @@
           "type": ["null", "string"]
         },
         "passenger": {
-          "type": ["null", "string"]
-        },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
         }
       }
     },
@@ -471,6 +472,34 @@
         }
       }
     },
+    "person": {
+      "title": "Person",
+      "type": "object",
+      "required": ["metadata"],
+      "properties": {
+        "first_name": {
+          "type": ["string", "null"]
+        },
+        "last_name": {
+          "type": ["string", "null"]
+        },
+        "preferred_name": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
+          }
+        }
+      }
+    },
     "place": {
       "title": "Place",
       "description": "The physical or online location where a transaction occurred",
@@ -598,7 +627,14 @@
           }
         },
         "passenger": {
-          "type": ["string", "null"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
         },
         "mode": {
           "oneOf": [

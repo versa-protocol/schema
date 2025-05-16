@@ -261,18 +261,19 @@
           "type": ["null", "string"]
         },
         "passenger": {
-          "type": ["null", "string"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
         },
         "taxes": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/tax"
-          }
-        },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
           }
         }
       }
@@ -653,6 +654,34 @@
         }
       }
     },
+    "person": {
+      "title": "Person",
+      "type": "object",
+      "required": ["metadata"],
+      "properties": {
+        "first_name": {
+          "type": ["string", "null"]
+        },
+        "last_name": {
+          "type": ["string", "null"]
+        },
+        "preferred_name": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
+          }
+        }
+      }
+    },
     "place": {
       "title": "Place",
       "description": "The physical or online location where a transaction occurred",
@@ -799,7 +828,7 @@
         "adjustment_type": {
           "title": "AdjustmentType",
           "type": "string",
-          "enum": ["discount", "tip", "fee", "other"]
+          "enum": ["add_on", "discount", "fee", "other", "tip"]
         },
         "rate": {
           "type": ["null", "number"]
@@ -966,7 +995,14 @@
           "type": ["integer"]
         },
         "passenger": {
-          "type": ["string", "null"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
         },
         "mode": {
           "oneOf": [
