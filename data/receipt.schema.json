@@ -657,14 +657,7 @@
       "title": "Place",
       "description": "The physical or online location where a transaction occurred",
       "type": "object",
-      "required": [
-        "name",
-        "address",
-        "phone",
-        "url",
-        "google_place_id",
-        "image"
-      ],
+      "required": [],
       "properties": {
         "name": {
           "type": ["string", "null"]
