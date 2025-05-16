@@ -290,7 +290,7 @@
           "title": "Currency",
           "description": "ISO 4217 currency code",
           "type": "string",
-          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cnh"]
+          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cny"]
         },
         "total": {
           "type": "integer"
