@@ -136,6 +136,10 @@
           "minLength": 6,
           "maxLength": 127
         },
+        "website": {
+          "type": ["string", "null"],
+          "format": "hostname"
+        },
         "address": {
           "oneOf": [
             {
