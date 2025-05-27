@@ -675,7 +675,7 @@
         "last_name": {
           "type": ["string", "null"]
         },
-        "preferred_name": {
+        "preferred_first_name": {
           "type": ["string", "null"]
         },
         "email": {
