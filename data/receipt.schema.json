@@ -75,7 +75,7 @@
         },
         "vehicle": {
           "type": ["object", "null"],
-          "required": ["description", "image"],
+          "required": ["description"],
           "properties": {
             "description": {
               "type": "string"
