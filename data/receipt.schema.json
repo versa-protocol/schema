@@ -75,10 +75,16 @@
         },
         "vehicle": {
           "type": ["object", "null"],
-          "required": ["description", "image"],
+          "required": ["description"],
           "properties": {
             "description": {
               "type": "string"
+            },
+            "license_plate_number": {
+              "type": ["string", "null"]
+            },
+            "vehicle_class": {
+              "type": ["string", "null"]
             },
             "image": {
               "type": ["string", "null"],
@@ -129,6 +135,10 @@
           "format": "email",
           "minLength": 6,
           "maxLength": 127
+        },
+        "website": {
+          "type": ["string", "null"],
+          "format": "hostname"
         },
         "address": {
           "oneOf": [
@@ -241,7 +251,7 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
-      "required": ["segments", "metadata", "taxes"],
+      "required": ["segments", "taxes"],
       "properties": {
         "segments": {
           "type": "array",
@@ -261,18 +271,19 @@
           "type": ["null", "string"]
         },
         "passenger": {
-          "type": ["null", "string"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
         },
         "taxes": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/tax"
-          }
-        },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
           }
         }
       }
@@ -290,7 +301,7 @@
           "title": "Currency",
           "description": "ISO 4217 currency code",
           "type": "string",
-          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cnh"]
+          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cny"]
         },
         "total": {
           "type": "integer"
@@ -653,18 +664,39 @@
         }
       }
     },
+    "person": {
+      "title": "Person",
+      "type": "object",
+      "required": ["metadata"],
+      "properties": {
+        "first_name": {
+          "type": ["string", "null"]
+        },
+        "last_name": {
+          "type": ["string", "null"]
+        },
+        "preferred_first_name": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metadatum"
+          }
+        }
+      }
+    },
     "place": {
       "title": "Place",
       "description": "The physical or online location where a transaction occurred",
       "type": "object",
-      "required": [
-        "name",
-        "address",
-        "phone",
-        "url",
-        "google_place_id",
-        "image"
-      ],
+      "required": [],
       "properties": {
         "name": {
           "type": ["string", "null"]
@@ -806,7 +838,7 @@
         "adjustment_type": {
           "title": "AdjustmentType",
           "type": "string",
-          "enum": ["discount", "tip", "fee", "other"]
+          "enum": ["add_on", "discount", "fee", "other", "tip"]
         },
         "rate": {
           "type": ["null", "number"]
@@ -973,7 +1005,14 @@
           "type": ["integer"]
         },
         "passenger": {
-          "type": ["string", "null"]
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
         },
         "mode": {
           "oneOf": [
