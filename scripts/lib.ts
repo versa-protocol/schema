@@ -4,9 +4,6 @@ export const isObjectSubset = (
   strict = false,
 ): boolean => {
   for (const key of Object.keys(subObject)) {
-    if (key == "additionalProperties") {
-      continue;
-    }
     if (!Object.hasOwn(superObject, key)) {
       console.log("missing", key);
       return false;
