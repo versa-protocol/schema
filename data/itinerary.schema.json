@@ -55,6 +55,7 @@
         },
         "vehicle": {
           "type": ["object", "null"],
+          "additionalProperties": false,
           "required": ["description"],
           "properties": {
             "description": {
@@ -485,6 +486,7 @@
     "person": {
       "title": "Person",
       "type": "object",
+      "additionalProperties": false,
       "required": ["metadata"],
       "properties": {
         "first_name": {
@@ -514,6 +516,7 @@
       "title": "Place",
       "description": "The physical or online location where a transaction occurred",
       "type": "object",
+      "additionalProperties": false,
       "required": [],
       "properties": {
         "name": {

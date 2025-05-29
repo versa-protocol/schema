@@ -34,6 +34,7 @@
     "action": {
       "title": "Action",
       "type": "object",
+      "additionalProperties": false,
       "required": ["name", "url"],
       "properties": {
         "name": {
@@ -48,6 +49,7 @@
     "car_rental": {
       "title": "CarRental",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "rental_at",
         "return_at",
@@ -75,6 +77,7 @@
         },
         "vehicle": {
           "type": ["object", "null"],
+          "additionalProperties": false,
           "required": ["description"],
           "properties": {
             "description": {
@@ -125,6 +128,7 @@
     "customer": {
       "title": "Customer",
       "type": "object",
+      "additionalProperties": false,
       "required": ["name", "metadata"],
       "properties": {
         "name": {
@@ -164,6 +168,7 @@
     "flight": {
       "title": "Flight",
       "type": "object",
+      "additionalProperties": false,
       "required": ["tickets", "invoice_level_adjustments"],
       "properties": {
         "tickets": {
@@ -187,6 +192,7 @@
     "flight_segment": {
       "title": "FlightSegment",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "departure_airport_code",
         "arrival_airport_code",
@@ -251,6 +257,7 @@
     "flight_ticket": {
       "title": "FlightTicket",
       "type": "object",
+      "additionalProperties": false,
       "required": ["segments", "taxes"],
       "properties": {
         "segments": {
@@ -381,6 +388,7 @@
     "itemization": {
       "title": "Itemization",
       "type": "object",
+      "additionalProperties": false,
       "required": [],
       "properties": {
         "general": {
@@ -458,6 +466,7 @@
     "ecommerce": {
       "title": "Ecommerce",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "shipments",
         "invoice_level_line_items",
@@ -487,6 +496,7 @@
     "general_itemization": {
       "title": "GeneralItemization",
       "type": "object",
+      "additionalProperties": false,
       "required": ["items", "invoice_level_adjustments"],
       "properties": {
         "items": {
@@ -507,6 +517,7 @@
     "lodging": {
       "title": "Lodging",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "check_in",
         "check_out",
@@ -554,6 +565,7 @@
     "org": {
       "title": "Org",
       "type": "object",
+      "additionalProperties": false,
       "required": ["name"],
       "properties": {
         "name": {
@@ -600,6 +612,7 @@
     "address": {
       "title": "Address",
       "type": "object",
+      "additionalProperties": false,
       "required": [],
       "properties": {
         "street_address": {
@@ -667,6 +680,7 @@
     "person": {
       "title": "Person",
       "type": "object",
+      "additionalProperties": false,
       "required": ["metadata"],
       "properties": {
         "first_name": {
@@ -696,6 +710,7 @@
       "title": "Place",
       "description": "The physical or online location where a transaction occurred",
       "type": "object",
+      "additionalProperties": false,
       "required": [],
       "properties": {
         "name": {
@@ -744,6 +759,7 @@
     "subscription_item": {
       "title": "SubscriptionItem",
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "subscription_type",
         "description",
@@ -814,6 +830,7 @@
     "metadatum": {
       "title": "Metadatum",
       "type": "object",
+      "additionalProperties": false,
       "required": ["key", "value"],
       "properties": {
         "key": {
@@ -827,6 +844,7 @@
     "adjustment": {
       "title": "Adjustment",
       "type": "object",
+      "additionalProperties": false,
       "required": ["amount", "adjustment_type"],
       "properties": {
         "amount": {
@@ -848,6 +866,7 @@
     "shipment": {
       "title": "Shipment",
       "type": "object",
+      "additionalProperties": false,
       "required": ["items"],
       "properties": {
         "items": {
@@ -889,6 +908,7 @@
     "subscription": {
       "title": "Subscription",
       "type": "object",
+      "additionalProperties": false,
       "required": ["subscription_items", "invoice_level_adjustments"],
       "properties": {
         "subscription_items": {
@@ -909,6 +929,7 @@
     "tax": {
       "title": "Tax",
       "type": "object",
+      "additionalProperties": false,
       "required": ["amount", "rate", "name"],
       "properties": {
         "amount": {
@@ -925,6 +946,7 @@
     "transit_route": {
       "title": "TransitRoute",
       "type": "object",
+      "additionalProperties": false,
       "required": ["transit_route_items", "invoice_level_adjustments"],
       "properties": {
         "transit_route_items": {
@@ -945,6 +967,7 @@
     "transit_route_item": {
       "title": "TransitRouteItem",
       "type": "object",
+      "additionalProperties": false,
       "required": ["fare", "taxes", "metadata", "adjustments"],
       "properties": {
         "departure_location": {
@@ -1030,6 +1053,7 @@
     "item": {
       "title": "Item",
       "type": "object",
+      "additionalProperties": false,
       "required": ["description", "amount"],
       "properties": {
         "date": {
@@ -1116,6 +1140,7 @@
     "payment": {
       "title": "Payment",
       "type": "object",
+      "additionalProperties": false,
       "required": ["amount", "paid_at"],
       "properties": {
         "amount": {
@@ -1160,6 +1185,7 @@
     "card_payment": {
       "title": "CardPayment",
       "type": "object",
+      "additionalProperties": false,
       "required": ["last_four"],
       "properties": {
         "last_four": {
@@ -1190,6 +1216,7 @@
     "ach_payment": {
       "title": "AchPayment",
       "type": "object",
+      "additionalProperties": false,
       "required": ["routing_number"],
       "properties": {
         "routing_number": {
@@ -1200,6 +1227,7 @@
     "doc": {
       "title": "Doc",
       "type": "object",
+      "additionalProperties": false,
       "required": ["title", "body"],
       "properties": {
         "title": {
@@ -1213,6 +1241,7 @@
     "footer": {
       "title": "Footer",
       "type": "object",
+      "additionalProperties": false,
       "required": ["actions"],
       "properties": {
         "actions": {
