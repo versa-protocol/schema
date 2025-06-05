@@ -42,10 +42,14 @@
       ],
       "properties": {
         "rental_at": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3153600000
         },
         "return_at": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3153600000
         },
         "rental_location": {
           "$ref": "#/$defs/place"
@@ -176,13 +180,18 @@
           "pattern": "^[a-zA-Z]{3}$"
         },
         "aircraft_type": {
-          "type": ["null", "string"]
+          "type": ["null", "string"],
+          "pattern": "^[a-zA-Z0-9]{2,4}$"
         },
         "departure_at": {
-          "type": ["null", "integer"]
+          "type": ["null", "integer"],
+          "minimum": 0,
+          "maximum": 3153600000
         },
         "arrival_at": {
-          "type": ["null", "integer"]
+          "type": ["null", "integer"],
+          "minimum": 0,
+          "maximum": 3153600000
         },
         "departure_tz": {
           "type": ["null", "string"]
@@ -362,7 +371,10 @@
           "type": ["null", "string"]
         },
         "guests": {
-          "type": ["null", "string"]
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/person"
+          }
         },
         "metadata": {
           "type": "array",
@@ -495,7 +507,10 @@
           "type": ["string", "null"]
         },
         "email": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "format": "email",
+          "minLength": 6,
+          "maxLength": 127
         },
         "phone": {
           "type": ["string", "null"],
@@ -616,10 +631,14 @@
           ]
         },
         "departure_at": {
-          "type": ["integer", "null"]
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 3153600000
         },
         "arrival_at": {
-          "type": ["integer", "null"]
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 3153600000
         },
         "polyline": {
           "oneOf": [
