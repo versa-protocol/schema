@@ -17,7 +17,13 @@ export const isObjectSubset = (
     }
     if (key === "pattern" && !!subValue) {
       if (subValue !== superValue) {
-        console.log("pattern mismatch", key, superValue, subValue);
+        console.log("pattern mismatch", superValue, subValue);
+        return false;
+      }
+    }
+    if (key === "type" && !!subValue) {
+      if (subValue.toString() !== superValue.toString()) {
+        console.log("type mismatch", superValue, subValue);
         return false;
       }
     }
