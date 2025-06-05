@@ -65,7 +65,8 @@
               "type": ["string", "null"]
             },
             "vehicle_class": {
-              "type": ["string", "null"]
+              "type": ["string", "null"],
+              "pattern": "^[A-Z]{4}$"
             },
             "image": {
               "type": ["string", "null"],
@@ -127,7 +128,8 @@
           ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "metadata": {
           "type": "array",
@@ -166,10 +168,12 @@
       ],
       "properties": {
         "departure_airport_code": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
         },
         "arrival_airport_code": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
         },
         "aircraft_type": {
           "type": ["null", "string"]
@@ -187,7 +191,8 @@
           "type": ["null", "string"]
         },
         "flight_number": {
-          "type": ["null", "string"]
+          "type": ["null", "string"],
+          "pattern": "^[A-Z]{2,3}\\d{1,4}$"
         },
         "seat": {
           "type": ["null", "string"]
@@ -502,7 +507,8 @@
           "type": ["string", "null"]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "metadata": {
           "type": "array",
@@ -533,7 +539,8 @@
           ]
         },
         "phone": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "url": {
           "oneOf": [
