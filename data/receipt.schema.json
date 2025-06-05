@@ -88,7 +88,7 @@
             },
             "vehicle_class": {
               "type": ["string", "null"],
-              "pattern": "^[A-Z]{4}$"
+              "pattern": "^[a-zA-Z]{4}$"
             },
             "image": {
               "type": ["string", "null"],
@@ -181,8 +181,7 @@
           }
         },
         "itinerary_locator": {
-          "type": ["null", "string"],
-          "pattern": "^[A-Z0-9]{6}$"
+          "type": ["null", "string"]
         },
         "invoice_level_adjustments": {
           "type": "array",
@@ -209,11 +208,11 @@
         },
         "departure_airport_code": {
           "type": "string",
-          "pattern": "^[A-Z]{3}$"
+          "pattern": "^[a-zA-Z]{3}$"
         },
         "arrival_airport_code": {
           "type": "string",
-          "pattern": "^[A-Z]{3}$"
+          "pattern": "^[a-zA-Z]{3}$"
         },
         "aircraft_type": {
           "type": ["null", "string"]
@@ -231,8 +230,7 @@
           "type": ["null", "string"]
         },
         "flight_number": {
-          "type": ["null", "string"],
-          "pattern": "^[A-Z]{2,3}\\d{1,4}$"
+          "type": ["null", "string"]
         },
         "seat": {
           "type": ["null", "string"]
@@ -281,8 +279,7 @@
           "type": ["null", "string"]
         },
         "record_locator": {
-          "type": ["null", "string"],
-          "pattern": "^[A-Z0-9]{6}$"
+          "type": ["null", "string"]
         },
         "passenger": {
           "oneOf": [
@@ -579,17 +576,10 @@
         "name": {
           "type": "string"
         },
-        "brand_color": {
-          "oneOf": [
-            {
+        "brand_color":{
               "description": "Hex color",
-              "type": "string",
+              "type": ["string", "null"],
               "pattern": "^#?([a-f0-9]{6}|[a-f0-9]{3})$"
-            },
-            {
-              "type": "null"
-            }
-          ]
         },
         "legal_name": {
           "type": ["string", "null"]
@@ -636,8 +626,7 @@
             },
             {
               "type": "string",
-              "minLength": 2,
-              "maxLength": 2
+              "pattern": "^[a-zA-Z0-9]{1,3}$"
             }
           ]
         },

@@ -15,6 +15,12 @@ export const isObjectSubset = (
         return false;
       }
     }
+    if (key === "pattern") {
+      if (subValue !== superValue) {
+        console.log("pattern mismatch", key, superValue, subValue);
+        return false;
+      }
+    }
   }
   return true;
 };
