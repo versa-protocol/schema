@@ -383,7 +383,7 @@
         },
         "brand_color": {
           "description": "Hex color",
-          "type": "string",
+          "type": ["string", "null"],
           "pattern": "^#?([a-f0-9]{6}|[a-f0-9]{3})$"
         },
         "legal_name": {
