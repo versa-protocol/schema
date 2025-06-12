@@ -66,12 +66,12 @@
         "rental_at": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "return_at": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "rental_location": {
           "$ref": "#/$defs/place"
@@ -225,12 +225,12 @@
         "departure_at": {
           "type": ["null", "integer"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "arrival_at": {
           "type": ["null", "integer"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "departure_tz": {
           "type": ["null", "string"]
@@ -335,7 +335,7 @@
         "invoiced_at": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "mcc": {
           "type": ["string", "null"],
@@ -814,12 +814,12 @@
         "current_period_start_at": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "current_period_end_at": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "quantity": {
           "type": ["number", "null"]
@@ -902,7 +902,7 @@
         "expected_delivery_at": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "shipment_status": {
           "oneOf": [
@@ -1015,12 +1015,12 @@
         "departure_at": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "arrival_at": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "polyline": {
           "oneOf": [
@@ -1175,7 +1175,7 @@
         "paid_at": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "payment_type": {
           "oneOf": [

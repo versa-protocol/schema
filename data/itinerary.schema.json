@@ -44,12 +44,12 @@
         "rental_at": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "return_at": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "rental_location": {
           "$ref": "#/$defs/place"
@@ -186,12 +186,12 @@
         "departure_at": {
           "type": ["null", "integer"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "arrival_at": {
           "type": ["null", "integer"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "departure_tz": {
           "type": ["null", "string"]
@@ -633,12 +633,12 @@
         "departure_at": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "arrival_at": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 3153600000
+          "maximum": 4102462800
         },
         "polyline": {
           "oneOf": [
