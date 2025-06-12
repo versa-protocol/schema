@@ -8,6 +8,7 @@
     "build": "tsc",
     "prepare": "husky",
     "pre-commit": "lint-staged && pnpm verify_subschema",
+    "test": "pnpm verify_subschema",
     "verify_subschema": "ts-node ./scripts/verify_subschema.ts"
   },
   "lint-staged": {
