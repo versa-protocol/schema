@@ -115,7 +115,7 @@
           "type": ["string", "null"],
           "format": "email",
           "minLength": 6,
-          "maxLength": 127
+          "maxLength": 254
         },
         "website": {
           "type": ["string", "null"],
@@ -510,7 +510,7 @@
           "type": ["string", "null"],
           "format": "email",
           "minLength": 6,
-          "maxLength": 127
+          "maxLength": 254
         },
         "phone": {
           "type": ["string", "null"],
