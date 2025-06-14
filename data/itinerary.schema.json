@@ -349,7 +349,7 @@
       "title": "Lodging",
       "type": "object",
       "additionalProperties": false,
-      "required": ["check_in", "check_out", "items", "location"],
+      "required": ["check_in", "check_out", "items", "location", "guests"],
       "properties": {
         "check_in": {
           "type": "integer"

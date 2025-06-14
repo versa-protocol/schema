@@ -539,7 +539,8 @@
         "check_out",
         "invoice_level_adjustments",
         "items",
-        "location"
+        "location",
+        "guests"
       ],
       "properties": {
         "check_in": {
