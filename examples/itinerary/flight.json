@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.9.0",
+  "schema_version": "2.0.0",
   "header": {
     "third_party": null,
     "customer": null
@@ -67,7 +67,14 @@
           ],
           "number": "0062698215636",
           "record_locator": "CU9GEF",
-          "passenger": "Susy Smith",
+          "passenger": {
+            "first_name": "Susy",
+            "last_name": "Smith",
+            "preferred_first_name": null,
+            "email": null,
+            "phone": null,
+            "metadata": []
+          },
           "metadata": [
             {
               "key": "AAdvantage #",
@@ -132,7 +139,14 @@
           ],
           "number": "0062698215637",
           "record_locator": "CU9GEF",
-          "passenger": "John Smith",
+          "passenger": {
+            "first_name": "John",
+            "last_name": "Smith",
+            "preferred_first_name": null,
+            "email": null,
+            "phone": null,
+            "metadata": []
+          },
           "metadata": [
             {
               "key": "AAdvantage #",

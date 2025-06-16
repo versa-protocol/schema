@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.9.0",
+  "schema_version": "2.0.0",
   "header": {
     "third_party": null,
     "customer": null
@@ -45,7 +45,14 @@
             "image": null
           },
           "mode": "rail",
-          "passenger": "Honora Doe",
+          "passenger": {
+            "first_name": "Honora",
+            "last_name": "Doe",
+            "preferred_first_name": null,
+            "email": null,
+            "phone": null,
+            "metadata": []
+          },
           "departure_at": 1726854999,
           "arrival_at": 1726867959,
           "polyline": null,
@@ -91,7 +98,14 @@
             "image": null
           },
           "mode": "rail",
-          "passenger": "Ted Doe",
+          "passenger": {
+            "first_name": "Ted",
+            "last_name": "Doe",
+            "preferred_first_name": null,
+            "email": null,
+            "phone": null,
+            "metadata": []
+          },
           "departure_at": 1726854999,
           "arrival_at": 1726867959,
           "polyline": null,
@@ -137,7 +151,14 @@
             "image": null
           },
           "mode": "rail",
-          "passenger": "Rita Doe",
+          "passenger": {
+            "first_name": "Rita",
+            "last_name": "Doe",
+            "preferred_first_name": null,
+            "email": null,
+            "phone": null,
+            "metadata": []
+          },
           "departure_at": 1726854999,
           "arrival_at": 1726867959,
           "polyline": null,
