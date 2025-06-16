@@ -29,5 +29,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Check top-level fields
+        run: pnpm require_top_level_fields
+
       - name: Run metavalidation script
         run: pnpm verify_subschema

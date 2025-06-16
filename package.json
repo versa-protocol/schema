@@ -10,7 +10,8 @@
     "pre-commit": "lint-staged && pnpm verify_subschema",
     "test": "pnpm verify_subschema",
     "verify_subschema": "ts-node ./scripts/verify_subschema.ts",
-    "validate:examples": "ts-node ./scripts/validate_examples.ts"
+    "validate:examples": "ts-node ./scripts/validate_examples.ts",
+    "require_top_level_fields": "ts-node ./scripts/require_top_level_fields.ts"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,css,md,yml,json,html}": "prettier --write"
