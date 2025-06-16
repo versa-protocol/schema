@@ -58,9 +58,7 @@
         "driver_name",
         "odometer_reading_in",
         "odometer_reading_out",
-        "items",
-        "invoice_level_adjustments",
-        "metadata"
+        "items"
       ],
       "properties": {
         "rental_at": {
@@ -117,16 +115,30 @@
           }
         },
         "invoice_level_adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -134,7 +146,7 @@
       "title": "Customer",
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "metadata"],
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string"
@@ -164,10 +176,17 @@
           "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -175,7 +194,7 @@
       "title": "Flight",
       "type": "object",
       "additionalProperties": false,
-      "required": ["tickets", "invoice_level_adjustments"],
+      "required": ["tickets"],
       "properties": {
         "tickets": {
           "type": "array",
@@ -188,10 +207,17 @@
           "type": ["null", "string"]
         },
         "invoice_level_adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -199,13 +225,7 @@
       "title": "FlightSegment",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "departure_airport_code",
-        "arrival_airport_code",
-        "taxes",
-        "metadata",
-        "adjustments"
-      ],
+      "required": ["departure_airport_code", "arrival_airport_code"],
       "properties": {
         "fare": {
           "type": ["null", "integer"]
@@ -248,22 +268,43 @@
           "type": ["null", "string"]
         },
         "taxes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/tax"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         },
         "adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -271,7 +312,7 @@
       "title": "FlightTicket",
       "type": "object",
       "additionalProperties": false,
-      "required": ["segments", "taxes"],
+      "required": ["segments"],
       "properties": {
         "segments": {
           "type": "array",
@@ -483,11 +524,7 @@
       "title": "Ecommerce",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "shipments",
-        "invoice_level_line_items",
-        "invoice_level_adjustments"
-      ],
+      "required": ["shipments"],
       "properties": {
         "shipments": {
           "type": "array",
@@ -496,16 +533,30 @@
           }
         },
         "invoice_level_line_items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/item"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/item"
+              }
+            }
+          ]
         },
         "invoice_level_adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -513,7 +564,7 @@
       "title": "GeneralItemization",
       "type": "object",
       "additionalProperties": false,
-      "required": ["items", "invoice_level_adjustments"],
+      "required": ["items"],
       "properties": {
         "items": {
           "type": "array",
@@ -523,10 +574,17 @@
           }
         },
         "invoice_level_adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -534,14 +592,7 @@
       "title": "Lodging",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "check_in",
-        "check_out",
-        "invoice_level_adjustments",
-        "items",
-        "location",
-        "guests"
-      ],
+      "required": ["check_in", "check_out", "items", "location"],
       "properties": {
         "check_in": {
           "type": "integer"
@@ -563,22 +614,43 @@
           "type": ["null", "string"]
         },
         "guests": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/person"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/person"
+              }
+            }
+          ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         },
         "invoice_level_adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -693,7 +765,7 @@
       "title": "Person",
       "type": "object",
       "additionalProperties": false,
-      "required": ["metadata"],
+      "required": [],
       "properties": {
         "first_name": {
           "type": ["string", "null"]
@@ -715,10 +787,17 @@
           "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -777,14 +856,7 @@
       "title": "SubscriptionItem",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "subscription_type",
-        "description",
-        "taxes",
-        "metadata",
-        "adjustments",
-        "amount"
-      ],
+      "required": ["subscription_type", "description", "amount"],
       "properties": {
         "amount": {
           "type": "integer"
@@ -829,22 +901,43 @@
           "type": ["number", "null"]
         },
         "taxes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/tax"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         },
         "adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -932,7 +1025,7 @@
       "title": "Subscription",
       "type": "object",
       "additionalProperties": false,
-      "required": ["subscription_items", "invoice_level_adjustments"],
+      "required": ["subscription_items"],
       "properties": {
         "subscription_items": {
           "type": "array",
@@ -942,10 +1035,17 @@
           }
         },
         "invoice_level_adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -970,7 +1070,7 @@
       "title": "TransitRoute",
       "type": "object",
       "additionalProperties": false,
-      "required": ["transit_route_items", "invoice_level_adjustments"],
+      "required": ["transit_route_items"],
       "properties": {
         "transit_route_items": {
           "type": "array",
@@ -980,10 +1080,17 @@
           }
         },
         "invoice_level_adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -991,7 +1098,7 @@
       "title": "TransitRouteItem",
       "type": "object",
       "additionalProperties": false,
-      "required": ["fare", "taxes", "metadata", "adjustments"],
+      "required": ["fare"],
       "properties": {
         "departure_location": {
           "oneOf": [
@@ -1034,22 +1141,43 @@
           ]
         },
         "adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         },
         "taxes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/tax"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         },
         "fare": {
           "type": ["integer"]
@@ -1121,16 +1249,30 @@
           ]
         },
         "taxes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/tax"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         },
         "product_image_asset_id": {
           "oneOf": [
@@ -1157,10 +1299,17 @@
           ]
         },
         "adjustments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/adjustment"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
         }
       }
     },
@@ -1273,13 +1422,20 @@
       "title": "Footer",
       "type": "object",
       "additionalProperties": false,
-      "required": ["actions"],
+      "required": [],
       "properties": {
         "actions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/action"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/action"
+              }
+            }
+          ]
         },
         "supplemental_text": {
           "type": ["string", "null"]

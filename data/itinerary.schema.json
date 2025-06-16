@@ -37,8 +37,7 @@
         "driver_name",
         "odometer_reading_in",
         "odometer_reading_out",
-        "items",
-        "metadata"
+        "items"
       ],
       "properties": {
         "rental_at": {
@@ -95,10 +94,17 @@
           }
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -106,7 +112,7 @@
       "title": "Customer",
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "metadata"],
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string"
@@ -136,10 +142,17 @@
           "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -165,11 +178,7 @@
       "title": "FlightSegment",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "departure_airport_code",
-        "arrival_airport_code",
-        "metadata"
-      ],
+      "required": ["departure_airport_code", "arrival_airport_code"],
       "properties": {
         "departure_airport_code": {
           "type": "string",
@@ -209,10 +218,17 @@
           "type": ["null", "string"]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -349,7 +365,7 @@
       "title": "Lodging",
       "type": "object",
       "additionalProperties": false,
-      "required": ["check_in", "check_out", "items", "location", "guests"],
+      "required": ["check_in", "check_out", "items", "location"],
       "properties": {
         "check_in": {
           "type": "integer"
@@ -371,16 +387,30 @@
           "type": ["null", "string"]
         },
         "guests": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/person"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/person"
+              }
+            }
+          ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -495,7 +525,7 @@
       "title": "Person",
       "type": "object",
       "additionalProperties": false,
-      "required": ["metadata"],
+      "required": [],
       "properties": {
         "first_name": {
           "type": ["string", "null"]
@@ -517,10 +547,17 @@
           "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         }
       }
     },
@@ -608,7 +645,7 @@
       "title": "TransitRouteItem",
       "type": "object",
       "additionalProperties": false,
-      "required": ["metadata"],
+      "required": [],
       "properties": {
         "departure_location": {
           "oneOf": [
@@ -651,10 +688,17 @@
           ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         },
         "passenger": {
           "oneOf": [
@@ -717,10 +761,17 @@
           ]
         },
         "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metadatum"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
         },
         "product_image_asset_id": {
           "oneOf": [
