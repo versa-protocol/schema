@@ -1,0 +1,148 @@
+{
+  "schema_version": "2.0.0",
+  "header": {
+    "currency": "usd",
+    "subtotal": 14997,
+    "total": 14997,
+    "paid": 14997,
+    "invoiced_at": 1719849600,
+    "invoice_number": "SUB-2024-07-001",
+    "mcc": "7372",
+    "third_party": null,
+    "customer": {
+      "name": "Tech Startup Inc.",
+      "email": "billing@techstartup.example",
+      "website": "techstartup.example",
+      "address": {
+        "street_address": "456 Innovation Drive",
+        "city": "Austin",
+        "region": "TX",
+        "country": "US",
+        "postal_code": "78701",
+        "lat": null,
+        "lon": null,
+        "tz": "America/Chicago"
+      },
+      "phone": "+15125551234",
+      "metadata": [
+        {
+          "key": "Account ID",
+          "value": "ACC-789456"
+        },
+        {
+          "key": "Tax ID",
+          "value": "12-3456789"
+        }
+      ]
+    },
+    "location": null,
+    "invoice_asset_id": null,
+    "receipt_asset_id": null
+  },
+  "itemization": {
+    "general": null,
+    "car_rental": null,
+    "ecommerce": null,
+    "flight": null,
+    "lodging": null,
+    "subscription": {
+      "subscription_items": [
+        {
+          "subscription_type": "recurring",
+          "description": "Cloud Hosting - Pro Plan",
+          "amount": 9999,
+          "interval": "month",
+          "interval_count": 1,
+          "current_period_start_at": 1719849600,
+          "current_period_end_at": 1722528000,
+          "quantity": 1,
+          "unit_cost": 9999,
+          "taxes": [],
+          "metadata": [
+            {
+              "key": "Plan",
+              "value": "PRO"
+            },
+            {
+              "key": "Servers",
+              "value": "5"
+            }
+          ],
+          "adjustments": []
+        },
+        {
+          "subscription_type": "recurring",
+          "description": "Database Hosting - 100GB",
+          "amount": 2999,
+          "interval": "month",
+          "interval_count": 1,
+          "current_period_start_at": 1719849600,
+          "current_period_end_at": 1722528000,
+          "quantity": 2,
+          "unit_cost": 1499,
+          "taxes": [],
+          "metadata": [
+            {
+              "key": "Storage",
+              "value": "100GB"
+            },
+            {
+              "key": "Type",
+              "value": "PostgreSQL"
+            }
+          ],
+          "adjustments": []
+        },
+        {
+          "subscription_type": "one_time",
+          "description": "SSL Certificate Setup",
+          "amount": 1999,
+          "interval": null,
+          "interval_count": null,
+          "current_period_start_at": null,
+          "current_period_end_at": null,
+          "quantity": 1,
+          "unit_cost": 1999,
+          "taxes": [],
+          "metadata": [
+            {
+              "key": "Certificate Type",
+              "value": "Wildcard SSL"
+            }
+          ],
+          "adjustments": []
+        }
+      ],
+      "invoice_level_adjustments": []
+    },
+    "transit_route": null
+  },
+  "payments": [
+    {
+      "amount": 14997,
+      "paid_at": 1719849600,
+      "payment_type": "ach",
+      "card_payment": null,
+      "ach_payment": {
+        "routing_number": "123456789"
+      }
+    }
+  ],
+  "footer": {
+    "actions": [
+      {
+        "name": "Manage Subscription",
+        "url": "https://billing.cloudprovider.com/manage"
+      },
+      {
+        "name": "View Usage",
+        "url": "https://billing.cloudprovider.com/usage/2024-07"
+      },
+      {
+        "name": "Download Invoice",
+        "url": "https://billing.cloudprovider.com/invoices/SUB-2024-07-001.pdf"
+      }
+    ],
+    "supplemental_text": "This invoice is for services rendered during the billing period. For questions about your bill, please contact support@cloudprovider.com"
+  }
+}

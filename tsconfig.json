@@ -8,7 +8,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./scripts",
-    "typeRoots": ["./node_modules/is-json-schema-subset/dist/*.d.ts"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/is-json-schema-subset/dist/*.d.ts"
+    ],
+    "types": ["node"],
     "lib": ["dom", "ES2015", "esnext"]
   }
 }

@@ -74,13 +74,7 @@
             "email": null,
             "phone": null,
             "metadata": []
-          },
-          "metadata": [
-            {
-              "key": "AAdvantage #",
-              "value": "TH4700"
-            }
-          ]
+          }
         },
         {
           "segments": [
@@ -146,13 +140,7 @@
             "email": null,
             "phone": null,
             "metadata": []
-          },
-          "metadata": [
-            {
-              "key": "AAdvantage #",
-              "value": "TH4703"
-            }
-          ]
+          }
         }
       ],
       "itinerary_locator": "1122337694093"

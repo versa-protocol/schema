@@ -1,0 +1,107 @@
+{
+  "schema_version": "2.0.0",
+  "header": {
+    "currency": "usd",
+    "subtotal": 89600,
+    "total": 98560,
+    "paid": 98560,
+    "invoiced_at": 1719849600,
+    "invoice_number": "DL-2024-123456",
+    "mcc": "3000",
+    "third_party": null,
+    "customer": {
+      "name": "Sarah Johnson",
+      "email": "sarah.johnson@example.com",
+      "website": null,
+      "address": null,
+      "phone": "+14155551234",
+      "metadata": []
+    },
+    "location": null,
+    "invoice_asset_id": null,
+    "receipt_asset_id": null
+  },
+  "itemization": {
+    "general": null,
+    "car_rental": null,
+    "ecommerce": null,
+    "flight": {
+      "tickets": [
+        {
+          "segments": [
+            {
+              "departure_airport_code": "JFK",
+              "arrival_airport_code": "LAX",
+              "fare": 44800,
+              "taxes": [
+                {
+                  "amount": 4480,
+                  "name": "Federal Tax",
+                  "rate": 0.075
+                }
+              ],
+              "departure_at": 1720454400,
+              "arrival_at": 1720468800,
+              "departure_tz": "America/New_York",
+              "arrival_tz": "America/Los_Angeles",
+              "flight_number": "DL123",
+              "class_of_service": "Economy",
+              "seat": "24A",
+              "aircraft_type": "B738",
+              "metadata": [],
+              "adjustments": []
+            }
+          ],
+          "number": "0145678901234",
+          "record_locator": "ABC123",
+          "passenger": {
+            "first_name": "Sarah",
+            "last_name": "Johnson",
+            "preferred_first_name": null,
+            "email": "sarah.johnson@example.com",
+            "phone": "+14155551234",
+            "metadata": []
+          },
+          "fare": 44800,
+          "taxes": [
+            {
+              "amount": 4480,
+              "name": "Federal Tax",
+              "rate": 0.075
+            }
+          ]
+        }
+      ],
+      "itinerary_locator": "DL2024123456",
+      "invoice_level_adjustments": []
+    },
+    "lodging": null,
+    "subscription": null,
+    "transit_route": null
+  },
+  "payments": [
+    {
+      "amount": 98560,
+      "paid_at": 1719849600,
+      "payment_type": "card",
+      "card_payment": {
+        "last_four": "4242",
+        "network": "visa"
+      },
+      "ach_payment": null
+    }
+  ],
+  "footer": {
+    "actions": [
+      {
+        "name": "Manage Booking",
+        "url": "https://www.delta.com/manage/ABC123"
+      },
+      {
+        "name": "Check In",
+        "url": "https://www.delta.com/checkin/ABC123"
+      }
+    ],
+    "supplemental_text": "Thank you for flying with Delta Airlines. For changes or cancellations, please visit our website or call customer service."
+  }
+}

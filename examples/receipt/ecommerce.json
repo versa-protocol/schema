@@ -1,0 +1,176 @@
+{
+  "schema_version": "2.0.0",
+  "header": {
+    "currency": "usd",
+    "subtotal": 12997,
+    "total": 14122,
+    "paid": 14122,
+    "invoiced_at": 1719936000,
+    "invoice_number": "INV-2024-789012",
+    "mcc": "5411",
+    "third_party": null,
+    "customer": {
+      "name": "Michael Chen",
+      "email": "michael.chen@example.com",
+      "website": null,
+      "address": {
+        "street_address": "123 Main Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "country": "US",
+        "postal_code": "94105",
+        "lat": null,
+        "lon": null,
+        "tz": "America/Los_Angeles"
+      },
+      "phone": "+14155559876",
+      "metadata": [
+        {
+          "key": "Customer ID",
+          "value": "CUST-456789"
+        }
+      ]
+    },
+    "location": null,
+    "invoice_asset_id": null,
+    "receipt_asset_id": null
+  },
+  "itemization": {
+    "general": null,
+    "car_rental": null,
+    "ecommerce": {
+      "invoice_level_line_items": [],
+      "shipments": [
+        {
+          "items": [
+            {
+              "description": "Organic Fair Trade Coffee Beans - 1lb",
+              "amount": 1899,
+              "quantity": 2,
+              "unit_cost": 949,
+              "unit": null,
+              "product_image_asset_id": null,
+              "group": "Beverages",
+              "unspsc": null,
+              "url": "https://shop.example.com/coffee/organic-beans",
+              "date": null,
+              "taxes": [],
+              "metadata": [
+                {
+                  "key": "SKU",
+                  "value": "COF-ORG-001"
+                },
+                {
+                  "key": "Roast",
+                  "value": "Medium"
+                }
+              ],
+              "adjustments": []
+            },
+            {
+              "description": "Reusable Coffee Filter",
+              "amount": 1299,
+              "quantity": 1,
+              "unit_cost": 1299,
+              "unit": null,
+              "product_image_asset_id": null,
+              "group": "Accessories",
+              "unspsc": null,
+              "url": "https://shop.example.com/accessories/coffee-filter",
+              "date": null,
+              "taxes": [],
+              "metadata": [
+                {
+                  "key": "SKU",
+                  "value": "ACC-FIL-002"
+                }
+              ],
+              "adjustments": []
+            },
+            {
+              "description": "Coffee Grinder - Manual",
+              "amount": 7999,
+              "quantity": 1,
+              "unit_cost": 7999,
+              "unit": null,
+              "product_image_asset_id": null,
+              "group": "Equipment",
+              "unspsc": null,
+              "url": "https://shop.example.com/equipment/manual-grinder",
+              "date": null,
+              "taxes": [],
+              "metadata": [
+                {
+                  "key": "SKU",
+                  "value": "EQP-GRN-003"
+                }
+              ],
+              "adjustments": [
+                {
+                  "amount": -800,
+                  "adjustment_type": "discount",
+                  "name": "10% Off Equipment",
+                  "rate": 0.1
+                }
+              ]
+            }
+          ],
+          "tracking_number": "1Z999AA10123456784",
+          "expected_delivery_at": 1720281600,
+          "shipment_status": "in_transit",
+          "destination_address": {
+            "street_address": "123 Main Street",
+            "city": "San Francisco",
+            "region": "CA",
+            "country": "US",
+            "postal_code": "94105",
+            "lat": null,
+            "lon": null,
+            "tz": "America/Los_Angeles"
+          }
+        }
+      ],
+      "invoice_level_adjustments": [
+        {
+          "amount": 1125,
+          "adjustment_type": "fee",
+          "name": "Sales Tax",
+          "rate": 0.0875
+        }
+      ]
+    },
+    "flight": null,
+    "lodging": null,
+    "subscription": null,
+    "transit_route": null
+  },
+  "payments": [
+    {
+      "amount": 14122,
+      "paid_at": 1719936000,
+      "payment_type": "card",
+      "card_payment": {
+        "last_four": "1234",
+        "network": "mastercard"
+      },
+      "ach_payment": null
+    }
+  ],
+  "footer": {
+    "actions": [
+      {
+        "name": "Track Shipment",
+        "url": "https://track.example.com/1Z999AA10123456784"
+      },
+      {
+        "name": "Return Items",
+        "url": "https://shop.example.com/returns/INV-2024-789012"
+      },
+      {
+        "name": "Contact Support",
+        "url": "https://shop.example.com/support"
+      }
+    ],
+    "supplemental_text": "Free returns within 30 days. Visit our website for more information on our return policy."
+  }
+}

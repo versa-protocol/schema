@@ -9,7 +9,8 @@
     "prepare": "husky",
     "pre-commit": "lint-staged && pnpm verify_subschema",
     "test": "pnpm verify_subschema",
-    "verify_subschema": "ts-node ./scripts/verify_subschema.ts"
+    "verify_subschema": "ts-node ./scripts/verify_subschema.ts",
+    "validate:examples": "ts-node ./scripts/validate_examples.ts"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,css,md,yml,json,html}": "prettier --write"
@@ -18,6 +19,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^24.0.3",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
