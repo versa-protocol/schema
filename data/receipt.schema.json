@@ -342,10 +342,17 @@
           ]
         },
         "taxes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/tax"
-          }
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
         }
       }
     },
