@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "data/transit_route.status.updated",
+  "title": "TransitRouteStatusUpdated",
+  "description": "Event payload for transit route status updates",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["transaction_id", "status", "updated_at"],
+  "properties": {
+    "transaction_id": {
+      "type": "string",
+      "description": "Reference to the original transaction"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["departed", "arrived"],
+      "description": "Updated status of the transit route"
+    },
+    "transit_route_item_index": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Index of the transit route item being updated"
+    },
+    "updated_at": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4102462800,
+      "description": "Unix timestamp of when the status was updated"
+    }
+  }
+}
