@@ -836,14 +836,7 @@
           ]
         },
         "product_image_asset_id": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "type": ["string", "null"]
         },
         "group": {
           "type": ["null", "string"]
