@@ -626,6 +626,55 @@
         }
       }
     },
+    "service": {
+      "title": "Service",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service_items"],
+      "properties": {
+        "service_items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/service_item"
+          }
+        }
+      }
+    },
+    "service_item": {
+      "title": "ServiceItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "current_period_start_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "current_period_end_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        }
+      }
+    },
     "transit_route": {
       "title": "TransitRoute",
       "type": "object",

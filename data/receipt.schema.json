@@ -505,6 +505,16 @@
             }
           ]
         },
+        "service": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/service"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "subscription": {
           "oneOf": [
             {
@@ -859,6 +869,93 @@
         }
       }
     },
+    "service_item": {
+      "title": "ServiceItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recurring", "description", "amount"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "recurring": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "interval": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "title": "Interval",
+              "type": "string",
+              "enum": ["day", "week", "month", "year"]
+            }
+          ]
+        },
+        "interval_count": {
+          "type": ["integer", "null"]
+        },
+        "current_period_start_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "current_period_end_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "quantity": {
+          "type": ["number", "null"]
+        },
+        "unit_cost": {
+          "type": ["number", "null"]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        },
+        "adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
     "subscription_item": {
       "title": "SubscriptionItem",
       "type": "object",
@@ -1023,6 +1120,34 @@
             },
             {
               "$ref": "#/$defs/address"
+            }
+          ]
+        }
+      }
+    },
+    "service": {
+      "title": "Service",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service_items"],
+      "properties": {
+        "service_items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/service_item"
+          }
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
             }
           ]
         }
