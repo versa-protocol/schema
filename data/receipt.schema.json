@@ -692,6 +692,9 @@
           "type": ["string", "null"],
           "format": "uri"
         },
+        "logo_asset_id": {
+          "type": ["string", "null"]
+        },
         "website": {
           "type": ["string", "null"],
           "format": "hostname"
@@ -877,6 +880,16 @@
       "properties": {
         "amount": {
           "type": "integer"
+        },
+        "service_location": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/place"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "recurring": {
           "type": "boolean"
@@ -1093,6 +1106,9 @@
           "items": {
             "$ref": "#/$defs/item"
           }
+        },
+        "carrier": {
+          "type": ["string", "null"]
         },
         "tracking_number": {
           "type": ["string", "null"]

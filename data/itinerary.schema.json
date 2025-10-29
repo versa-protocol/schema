@@ -435,6 +435,9 @@
           "type": ["string", "null"],
           "format": "uri"
         },
+        "logo_asset_id": {
+          "type": ["string", "null"]
+        },
         "website": {
           "type": ["string", "null"],
           "format": "hostname"
@@ -649,6 +652,16 @@
       "properties": {
         "description": {
           "type": "string"
+        },
+        "service_location": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/place"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "current_period_start_at": {
           "type": ["integer", "null"],
