@@ -683,7 +683,7 @@
         "brand_color": {
           "description": "Hex color",
           "type": ["string", "null"],
-          "pattern": "^#?([a-f0-9]{6}|[a-f0-9]{3})$"
+          "pattern": "^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
         },
         "legal_name": {
           "type": ["string", "null"]
