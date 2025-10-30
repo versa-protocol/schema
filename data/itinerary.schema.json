@@ -339,6 +339,16 @@
             }
           ]
         },
+        "service": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/service"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "transit_route": {
           "oneOf": [
             {

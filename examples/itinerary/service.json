@@ -1,0 +1,54 @@
+{
+  "schema_version": "2.0.0",
+  "header": {
+    "third_party": null,
+    "customer": null
+  },
+  "itemization": {
+    "lodging": null,
+    "car_rental": null,
+    "transit_route": null,
+    "flight": null,
+    "service": {
+      "service_items": [
+        {
+          "description": "Airport parking",
+          "service_location": {
+            "google_place_id": null,
+            "name": "LAX Long-Term Parking Lot C",
+            "url": "https://www.flylax.com/parking",
+            "address": {
+              "street_address": "5800 West Century Boulevard",
+              "city": "Los Angeles",
+              "region": "CA",
+              "country": "US",
+              "postal_code": "90045",
+              "lat": 33.94524,
+              "lon": -118.38629,
+              "tz": "America/Los_Angeles"
+            },
+            "phone": "+13106465252",
+            "image": null
+          },
+          "current_period_start_at": 1713196492,
+          "current_period_end_at": 1713415500,
+          "metadata": [
+            {
+              "key": "vehicle_plate",
+              "value": "7ABC123"
+            },
+            {
+              "key": "parking_spot",
+              "value": "C-142"
+            },
+            {
+              "key": "entry_gate",
+              "value": "North Entrance"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "footer": {}
+}
