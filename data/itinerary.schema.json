@@ -34,7 +34,6 @@
         "return_at",
         "rental_location",
         "return_location",
-        "driver_name",
         "odometer_reading_in",
         "odometer_reading_out",
         "items"
@@ -77,8 +76,18 @@
             }
           }
         },
-        "driver_name": {
-          "type": "string"
+        "drivers": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/person"
+              }
+            }
+          ]
         },
         "odometer_reading_in": {
           "type": "integer"

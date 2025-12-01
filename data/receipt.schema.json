@@ -55,7 +55,6 @@
         "return_at",
         "rental_location",
         "return_location",
-        "driver_name",
         "odometer_reading_in",
         "odometer_reading_out",
         "items"
@@ -98,8 +97,18 @@
             }
           }
         },
-        "driver_name": {
-          "type": "string"
+        "drivers": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/person"
+              }
+            }
+          ]
         },
         "odometer_reading_in": {
           "type": "integer"
@@ -369,7 +378,7 @@
           "title": "Currency",
           "description": "ISO 4217 currency code",
           "type": "string",
-          "enum": ["usd", "eur", "jpy", "gbp", "aud", "cad", "chf", "cny"]
+          "pattern": "^[a-z]{3}$"
         },
         "total": {
           "type": "integer"
@@ -1201,7 +1210,7 @@
       "title": "Tax",
       "type": "object",
       "additionalProperties": false,
-      "required": ["amount", "rate", "name"],
+      "required": ["amount", "name"],
       "properties": {
         "amount": {
           "type": "integer"

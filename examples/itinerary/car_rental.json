@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.1.0",
+  "schema_version": "2.1.1",
   "header": {
     "third_party": null,
     "customer": null
@@ -47,7 +47,12 @@
         "description": "Polestar 2",
         "image": "https://versa.org/temp_demo_assets/hertz/polestar2.png"
       },
-      "driver_name": "Henry Ford",
+      "drivers": [
+        {
+          "first_name": "Henry",
+          "last_name": "Ford"
+        }
+      ],
       "odometer_reading_in": 100,
       "odometer_reading_out": 210,
       "metadata": [],
