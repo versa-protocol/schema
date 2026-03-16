@@ -116,6 +116,15 @@
         "odometer_reading_out": {
           "type": "integer"
         },
+        "confirmation_number": {
+          "type": ["string", "null"]
+        },
+        "record_locator": {
+          "type": ["string", "null"]
+        },
+        "vendor_code": {
+          "type": ["string", "null"]
+        },
         "items": {
           "type": "array",
           "minItems": 1,
@@ -183,6 +192,16 @@
         "phone": {
           "type": ["string", "null"],
           "pattern": "^\\+?[1-9]\\d{1,14}$"
+        },
+        "booker": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
         },
         "metadata": {
           "oneOf": [
@@ -625,6 +644,19 @@
         },
         "check_out": {
           "type": "integer"
+        },
+        "confirmation_number": {
+          "type": ["string", "null"]
+        },
+        "chain_code": {
+          "type": ["string", "null"]
+        },
+        "property_id": {
+          "type": ["string", "null"],
+          "pattern": "^(gds\\.[a-z]+|chain\\.[a-z]+|giata):[a-zA-Z0-9]+$"
+        },
+        "record_locator": {
+          "type": ["string", "null"]
         },
         "location": {
           "$ref": "#/$defs/place"
