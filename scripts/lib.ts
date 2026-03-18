@@ -16,27 +16,28 @@ export const isObjectSubset = (
         return false;
       }
     }
-    // The following two clauses don't really belong here;
-    // generally this verification process should be improved to ensure
-    // all formatting patterns, mins, and maxes are uniform between schemas
     if (key === "pattern") {
-      if (!!superValue && !subValue) {
-        console.log("pattern must always be defined for", parentKey);
-      }
       if (!!subValue && subValue !== superValue) {
         console.log("pattern mismatch for", parentKey, superValue, subValue);
         return false;
       }
     }
     if (key === "type") {
-      if (!!superValue && !subValue) {
-        console.log("type must always be defined for", parentKey);
-      }
       if (subValue.toString() !== superValue.toString()) {
         console.log("type mismatch for", parentKey, superValue, subValue);
         return false;
       }
     }
   }
+
+  // Check for keys in superObject that must also exist in subObject
+  const mustMatchKeys = ["pattern", "type"];
+  for (const key of mustMatchKeys) {
+    if (Object.hasOwn(superObject, key) && !Object.hasOwn(subObject, key)) {
+      console.log(`${key} missing in sub-schema for`, parentKey);
+      return false;
+    }
+  }
+
   return true;
 };
