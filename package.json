@@ -20,12 +20,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^24.0.3",
-    "ajv": "^8.17.1",
+    "@types/node": "^24.12.2",
+    "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.8.1",
     "ts-node": "^10.9.2"
   }
 }
