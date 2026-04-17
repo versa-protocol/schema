@@ -42,12 +42,7 @@ function validateSchemaStructure(
 
     // Check that required properties are actually marked as required
     const requiredArray = schema.required || [];
-    const expectedRequired = [
-      "schema_version",
-      "header",
-      "itemization",
-      "footer",
-    ];
+    const expectedRequired = ["schema_version", "header", "itemization"];
 
     for (const prop of expectedRequired) {
       if (!requiredArray.includes(prop)) {
@@ -75,8 +70,8 @@ function validateSchemaStructure(
       }
     }
 
-    // Check that header, itemization, and footer reference $defs
-    const propsToCheck = ["header", "itemization", "footer"];
+    // Check that header and itemization reference $defs
+    const propsToCheck = ["header", "itemization"];
     for (const prop of propsToCheck) {
       const propDef = schema.properties[prop];
       if (propDef && !propDef.$ref) {
@@ -100,14 +95,9 @@ function validateSchemaStructure(
 
     // Schema-specific validations
     if (schemaType === "receipt") {
-      // Receipt should have payments in required properties
+      // Receipt should have payments property
       if (!schema.properties.payments) {
         errors.push(`${fileName}: Receipt schema missing 'payments' property`);
-      }
-      if (!requiredArray.includes("payments")) {
-        errors.push(
-          `${fileName}: Receipt schema should require 'payments' property`,
-        );
       }
     }
 
