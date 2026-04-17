@@ -5,7 +5,7 @@
   "description": "A Versa itinerary",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "header", "itemization", "footer"],
+  "required": ["schema_version", "header", "itemization"],
   "properties": {
     "schema_version": {
       "title": "SchemaVersion",
@@ -21,7 +21,14 @@
       "$ref": "#/$defs/itemization"
     },
     "footer": {
-      "$ref": "#/$defs/footer"
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/footer"
+        }
+      ]
     },
     "trip": {
       "oneOf": [

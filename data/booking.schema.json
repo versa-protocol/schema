@@ -5,7 +5,7 @@
   "description": "A Versa itemized booking",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "header", "itemization", "payments", "footer"],
+  "required": ["schema_version", "header", "itemization"],
   "properties": {
     "schema_version": {
       "title": "SchemaVersion",
@@ -21,13 +21,27 @@
       "$ref": "#/$defs/itemization"
     },
     "payments": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/payment"
-      }
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/payment"
+          }
+        }
+      ]
     },
     "footer": {
-      "$ref": "#/$defs/footer"
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/footer"
+        }
+      ]
     },
     "trip": {
       "oneOf": [
