@@ -28,6 +28,18 @@
     },
     "footer": {
       "$ref": "#/$defs/footer"
+    },
+    "lifecycle_status": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "title": "LifecycleStatus",
+          "type": "string",
+          "enum": ["active", "canceled", "refunded"]
+        }
+      ]
     }
   },
   "$defs": {
