@@ -34,8 +34,6 @@
         "return_at",
         "rental_location",
         "return_location",
-        "odometer_reading_in",
-        "odometer_reading_out",
         "items"
       ],
       "properties": {
@@ -90,10 +88,10 @@
           ]
         },
         "odometer_reading_in": {
-          "type": "integer"
+          "type": ["integer", "null"]
         },
         "odometer_reading_out": {
-          "type": "integer"
+          "type": ["integer", "null"]
         },
         "confirmation_number": {
           "type": ["string", "null"]
