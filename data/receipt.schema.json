@@ -29,6 +29,21 @@
     "footer": {
       "$ref": "#/$defs/footer"
     },
+    "trip": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/trip"
+        }
+      ]
+    },
+    "booked_at": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 4102462800
+    },
     "lifecycle_status": {
       "oneOf": [
         {
@@ -43,6 +58,23 @@
     }
   },
   "$defs": {
+    "trip": {
+      "title": "Trip",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "id": {
+          "type": ["string", "null"]
+        },
+        "name": {
+          "type": ["string", "null"]
+        },
+        "description": {
+          "type": ["string", "null"]
+        }
+      }
+    },
     "action": {
       "title": "Action",
       "type": "object",
