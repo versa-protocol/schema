@@ -399,7 +399,7 @@
       "title": "Header",
       "type": "object",
       "additionalProperties": false,
-      "required": ["currency", "total", "subtotal", "paid", "invoiced_at"],
+      "required": ["currency", "total"],
       "properties": {
         "invoice_number": {
           "type": ["string", "null"]
@@ -414,13 +414,13 @@
           "type": "integer"
         },
         "subtotal": {
-          "type": "integer"
+          "type": ["integer", "null"]
         },
         "paid": {
-          "type": "integer"
+          "type": ["integer", "null"]
         },
         "invoiced_at": {
-          "type": "integer",
+          "type": ["integer", "null"],
           "minimum": 0,
           "maximum": 4102462800
         },
