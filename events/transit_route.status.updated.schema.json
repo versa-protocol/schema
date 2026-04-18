@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "data/transit_route.status.updated",
+  "$id": "events/transit_route.status.updated",
   "title": "TransitRouteStatusUpdated",
   "description": "Event payload for transit route status updates",
   "type": "object",

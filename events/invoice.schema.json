@@ -1,0 +1,1686 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "events/invoice",
+  "title": "Invoice",
+  "description": "A Versa itemized invoice; note that this is an exact clone of the receipt event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "header", "itemization"],
+  "properties": {
+    "schema_version": {
+      "title": "SchemaVersion",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 14,
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$"
+    },
+    "header": {
+      "$ref": "#/$defs/header"
+    },
+    "itemization": {
+      "$ref": "#/$defs/itemization"
+    },
+    "payments": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/payment"
+          }
+        }
+      ]
+    },
+    "footer": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/footer"
+        }
+      ]
+    },
+    "trip": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/trip"
+        }
+      ]
+    },
+    "booked_at": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 4102462800
+    },
+    "lifecycle_status": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "title": "LifecycleStatus",
+          "type": "string",
+          "enum": ["active", "canceled", "refunded"]
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "trip": {
+      "title": "Trip",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "id": {
+          "type": ["string", "null"]
+        },
+        "name": {
+          "type": ["string", "null"]
+        },
+        "description": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "action": {
+      "title": "Action",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "url"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "car_rental": {
+      "title": "CarRental",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rental_at",
+        "return_at",
+        "rental_location",
+        "return_location",
+        "items"
+      ],
+      "properties": {
+        "rental_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "return_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "rental_location": {
+          "$ref": "#/$defs/place"
+        },
+        "return_location": {
+          "$ref": "#/$defs/place"
+        },
+        "vehicle": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["description"],
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "license_plate_number": {
+              "type": ["string", "null"]
+            },
+            "vehicle_class": {
+              "type": ["string", "null"],
+              "pattern": "^[a-zA-Z]{4}$"
+            },
+            "image": {
+              "type": ["string", "null"],
+              "format": "uri"
+            }
+          }
+        },
+        "drivers": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/person"
+              }
+            }
+          ]
+        },
+        "odometer_reading_in": {
+          "type": ["integer", "null"]
+        },
+        "odometer_reading_out": {
+          "type": ["integer", "null"]
+        },
+        "confirmation_number": {
+          "type": ["string", "null"]
+        },
+        "record_locator": {
+          "type": ["string", "null"]
+        },
+        "vendor_code": {
+          "type": ["string", "null"],
+          "pattern": "^[A-Z]{2}$"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "customer": {
+      "title": "Customer",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": ["string", "null"],
+          "format": "email",
+          "minLength": 6,
+          "maxLength": 254
+        },
+        "website": {
+          "type": ["string", "null"],
+          "format": "hostname"
+        },
+        "address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
+        },
+        "phone": {
+          "type": ["string", "null"],
+          "pattern": "^\\+?[1-9]\\d{1,14}$"
+        },
+        "booker": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "flight": {
+      "title": "Flight",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tickets"],
+      "properties": {
+        "tickets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flight_ticket"
+          }
+        },
+        "itinerary_locator": {
+          "type": ["null", "string"]
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "flight_segment": {
+      "title": "FlightSegment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["departure_airport_code", "arrival_airport_code"],
+      "properties": {
+        "fare": {
+          "type": ["null", "integer"]
+        },
+        "departure_airport_code": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{3}$"
+        },
+        "arrival_airport_code": {
+          "type": "string",
+          "pattern": "^[a-zA-Z]{3}$"
+        },
+        "aircraft_type": {
+          "type": ["null", "string"],
+          "pattern": "^[a-zA-Z0-9]{2,4}$"
+        },
+        "departure_at": {
+          "type": ["null", "integer"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "arrival_at": {
+          "type": ["null", "integer"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "departure_tz": {
+          "type": ["null", "string"]
+        },
+        "arrival_tz": {
+          "type": ["null", "string"]
+        },
+        "flight_number": {
+          "type": ["null", "string"]
+        },
+        "seat": {
+          "type": ["null", "string"]
+        },
+        "class_of_service": {
+          "type": ["null", "string"]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        },
+        "adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "flight_ticket": {
+      "title": "FlightTicket",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["segments"],
+      "properties": {
+        "segments": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flight_segment"
+          }
+        },
+        "fare": {
+          "description": "Total fare for the ticket; should be used *only* if the fare is not broken down by segment",
+          "type": ["null", "integer"]
+        },
+        "number": {
+          "type": ["null", "string"]
+        },
+        "record_locator": {
+          "type": ["null", "string"]
+        },
+        "passenger": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "header": {
+      "title": "Header",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "total", "subtotal", "paid", "invoiced_at"],
+      "properties": {
+        "invoice_number": {
+          "type": ["string", "null"]
+        },
+        "currency": {
+          "title": "Currency",
+          "description": "ISO 4217 currency code",
+          "type": "string",
+          "pattern": "^[a-z]{3}$"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "subtotal": {
+          "type": "integer"
+        },
+        "paid": {
+          "type": "integer"
+        },
+        "invoiced_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "mcc": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{4}$"
+        },
+        "third_party": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["relation", "make_primary"],
+          "properties": {
+            "relation": {
+              "type": "string",
+              "enum": [
+                "bnpl",
+                "delivery_service",
+                "marketplace",
+                "payment_processor",
+                "platform",
+                "point_of_sale"
+              ]
+            },
+            "make_primary": {
+              "description": "Determines whether the merchant or third party gets top billing on the receipt",
+              "type": "boolean"
+            },
+            "merchant": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/org"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "customer": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/customer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "location": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/place"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "invoice_asset_id": {
+          "type": ["string", "null"]
+        },
+        "receipt_asset_id": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "itemization": {
+      "title": "Itemization",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "general": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/general_itemization"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lodging": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/lodging"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ecommerce": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ecommerce"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "car_rental": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/car_rental"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transit_route": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/transit_route"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "service": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/service"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subscription": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/subscription"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "flight": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/flight"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "ecommerce": {
+      "title": "Ecommerce",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shipments"],
+      "properties": {
+        "shipments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shipment"
+          }
+        },
+        "invoice_level_line_items": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/item"
+              }
+            }
+          ]
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "general_itemization": {
+      "title": "GeneralItemization",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["items"],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "lodging": {
+      "title": "Lodging",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["check_in", "check_out", "items", "location"],
+      "properties": {
+        "check_in": {
+          "type": "integer"
+        },
+        "check_out": {
+          "type": "integer"
+        },
+        "confirmation_number": {
+          "type": ["string", "null"]
+        },
+        "chain_code": {
+          "type": ["string", "null"],
+          "pattern": "^[A-Z]{2}$"
+        },
+        "property_id": {
+          "type": ["string", "null"],
+          "pattern": "^(gds\\.[a-z]+|chain\\.[a-z]+|giata):[a-zA-Z0-9]+$"
+        },
+        "record_locator": {
+          "type": ["string", "null"]
+        },
+        "location": {
+          "$ref": "#/$defs/place"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "room": {
+          "type": ["null", "string"]
+        },
+        "guests": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/person"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "org": {
+      "title": "Org",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "brand_color": {
+          "description": "Hex color",
+          "type": ["string", "null"],
+          "pattern": "^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+        },
+        "legal_name": {
+          "type": ["string", "null"]
+        },
+        "logo": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "logo_asset_id": {
+          "type": ["string", "null"]
+        },
+        "website": {
+          "type": ["string", "null"],
+          "format": "hostname"
+        },
+        "vat_number": {
+          "type": ["string", "null"]
+        },
+        "address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
+        }
+      }
+    },
+    "address": {
+      "title": "Address",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "street_address": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "region": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]{1,3}$"
+            }
+          ]
+        },
+        "country": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          ]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "lat": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lon": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tz": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "person": {
+      "title": "Person",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "first_name": {
+          "type": ["string", "null"]
+        },
+        "last_name": {
+          "type": ["string", "null"]
+        },
+        "preferred_first_name": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"],
+          "format": "email",
+          "minLength": 6,
+          "maxLength": 254
+        },
+        "phone": {
+          "type": ["string", "null"],
+          "pattern": "^\\+?[1-9]\\d{1,14}$"
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "place": {
+      "title": "Place",
+      "description": "The physical or online location where a transaction occurred",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
+        },
+        "phone": {
+          "type": ["string", "null"],
+          "pattern": "^\\+?[1-9]\\d{1,14}$"
+        },
+        "url": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        },
+        "google_place_id": {
+          "type": ["string", "null"]
+        },
+        "image": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        }
+      }
+    },
+    "service_item": {
+      "title": "ServiceItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recurring", "description", "amount"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "service_location": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/place"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recurring": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "interval": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "title": "Interval",
+              "type": "string",
+              "enum": ["day", "week", "month", "year"]
+            }
+          ]
+        },
+        "interval_count": {
+          "type": ["integer", "null"]
+        },
+        "current_period_start_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "current_period_end_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "quantity": {
+          "type": ["number", "null"]
+        },
+        "unit_cost": {
+          "type": ["number", "null"]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        },
+        "adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "subscription_item": {
+      "title": "SubscriptionItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subscription_type", "description", "amount"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "subscription_type": {
+          "title": "SubscriptionType",
+          "type": "string",
+          "enum": ["one_time", "recurring"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "interval": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "title": "Interval",
+              "type": "string",
+              "enum": ["day", "week", "month", "year"]
+            }
+          ]
+        },
+        "interval_count": {
+          "type": ["integer", "null"]
+        },
+        "current_period_start_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "current_period_end_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "quantity": {
+          "type": ["number", "null"]
+        },
+        "unit_cost": {
+          "type": ["number", "null"]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        },
+        "adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "metadatum": {
+      "title": "Metadatum",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "value"],
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "adjustment": {
+      "title": "Adjustment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "adjustment_type"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "name": {
+          "type": ["null", "string"]
+        },
+        "adjustment_type": {
+          "title": "AdjustmentType",
+          "type": "string",
+          "enum": ["add_on", "discount", "fee", "other", "tip"]
+        },
+        "rate": {
+          "type": ["null", "number"]
+        }
+      }
+    },
+    "shipment": {
+      "title": "Shipment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["items"],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "carrier": {
+          "type": ["string", "null"]
+        },
+        "tracking_number": {
+          "type": ["string", "null"]
+        },
+        "expected_delivery_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "shipment_status": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": ["prep", "in_transit", "delivered"]
+            }
+          ]
+        },
+        "destination_address": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/address"
+            }
+          ]
+        }
+      }
+    },
+    "service": {
+      "title": "Service",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service_items"],
+      "properties": {
+        "service_items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/service_item"
+          }
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "subscription": {
+      "title": "Subscription",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subscription_items"],
+      "properties": {
+        "subscription_items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/subscription_item"
+          }
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "tax": {
+      "title": "Tax",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "name"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "rate": {
+          "type": ["number", "null"]
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "transit_route": {
+      "title": "TransitRoute",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transit_route_items"],
+      "properties": {
+        "transit_route_items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/transit_route_item"
+          }
+        },
+        "invoice_level_adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "transit_route_item": {
+      "title": "TransitRouteItem",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fare"],
+      "properties": {
+        "departure_location": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/place"
+            }
+          ]
+        },
+        "arrival_location": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/place"
+            }
+          ]
+        },
+        "departure_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "arrival_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "polyline": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        },
+        "fare": {
+          "type": ["integer"]
+        },
+        "passenger": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/person"
+            }
+          ]
+        },
+        "mode": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": ["car", "taxi", "rail", "bus", "ferry", "other"]
+            }
+          ]
+        }
+      }
+    },
+    "item": {
+      "title": "Item",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "amount"],
+      "properties": {
+        "date": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            }
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "quantity": {
+          "type": ["null", "number"]
+        },
+        "unit_cost": {
+          "type": ["null", "integer"]
+        },
+        "unit": {
+          "type": ["null", "string"]
+        },
+        "unspsc": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\d{8}$"
+            }
+          ]
+        },
+        "taxes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/tax"
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/metadatum"
+              }
+            }
+          ]
+        },
+        "product_image_asset_id": {
+          "type": ["string", "null"]
+        },
+        "group": {
+          "type": ["null", "string"]
+        },
+        "url": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        },
+        "adjustments": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/adjustment"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "payment": {
+      "title": "Payment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "paid_at"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "paid_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4102462800
+        },
+        "payment_type": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": ["card", "ach"]
+            }
+          ]
+        },
+        "card_payment": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/card_payment"
+            }
+          ]
+        },
+        "ach_payment": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ach_payment"
+            }
+          ]
+        }
+      }
+    },
+    "card_payment": {
+      "title": "CardPayment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["last_four"],
+      "properties": {
+        "last_four": {
+          "type": "string",
+          "pattern": "^\\d{4}$"
+        },
+        "network": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "amex",
+                "diners",
+                "discover",
+                "eftpos_au",
+                "jcb",
+                "mastercard",
+                "unionpay",
+                "visa"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ach_payment": {
+      "title": "AchPayment",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["routing_number"],
+      "properties": {
+        "routing_number": {
+          "type": "string",
+          "pattern": "^\\d{9}$"
+        }
+      }
+    },
+    "doc": {
+      "title": "Doc",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "body"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "footer": {
+      "title": "Footer",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "actions": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/action"
+              }
+            }
+          ]
+        },
+        "supplemental_text": {
+          "type": ["string", "null"]
+        }
+      }
+    }
+  }
+}

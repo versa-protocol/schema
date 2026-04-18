@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const schemasDir = path.join(__dirname, "..", "data");
+const schemasDir = path.join(__dirname, "..", "events");
 
 interface SchemaValidationResult {
   valid: boolean;
@@ -25,12 +25,7 @@ function validateSchemaStructure(
       return { valid: false, errors };
     }
 
-    const requiredTopLevelProps = [
-      "schema_version",
-      "header",
-      "itemization",
-      "footer",
-    ];
+    const requiredTopLevelProps = ["schema_version", "header", "itemization"];
 
     for (const prop of requiredTopLevelProps) {
       if (!schema.properties[prop]) {

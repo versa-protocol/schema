@@ -32,5 +32,5 @@ jobs:
       - name: Check top-level fields
         run: pnpm require_top_level_fields
 
-      - name: Run metavalidation script
-        run: pnpm verify_subschema
+      - name: Run metavalidation scripts
+        run: pnpm verify_subschema && pnpm verify_booking_relaxes_requirements && pnpm verify_invoice_is_alias

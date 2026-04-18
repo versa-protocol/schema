@@ -7,7 +7,7 @@ const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 
 const examplesBaseDir = path.join(__dirname, "..", "examples");
-const schemasDir = path.join(__dirname, "..", "data");
+const schemasDir = path.join(__dirname, "..", "events");
 
 // Load and compile schemas
 const itinerarySchema = JSON.parse(

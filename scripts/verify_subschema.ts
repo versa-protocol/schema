@@ -1,8 +1,8 @@
 // @ts-ignore
 import { isObjectSubset } from "./lib";
 
-import itinerarySchema from "../data/itinerary.schema.json";
-import receiptSchema from "../data/receipt.schema.json";
+import itinerarySchema from "../events/itinerary.schema.json";
+import receiptSchema from "../events/receipt.schema.json";
 
 function check() {
   if (isObjectSubset(itinerarySchema, receiptSchema)) {

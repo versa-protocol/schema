@@ -1,5 +1,5 @@
 {
-  "name": "@versaprotocol/json-schema",
+  "name": "@versa/json-schema",
   "version": "1.2.0",
   "packageManager": "pnpm@10.7.0",
   "private": true,
@@ -7,9 +7,11 @@
   "scripts": {
     "build": "tsc",
     "prepare": "husky",
-    "pre-commit": "lint-staged && pnpm verify_subschema",
-    "test": "pnpm verify_subschema",
+    "pre-commit": "lint-staged && pnpm test",
+    "test": "pnpm verify_subschema && pnpm verify_invoice_is_alias && pnpm verify_booking_relaxes_requirements",
     "verify_subschema": "ts-node ./scripts/verify_subschema.ts",
+    "verify_invoice_is_alias": "ts-node ./scripts/verify_invoice_is_alias.ts",
+    "verify_booking_relaxes_requirements": "ts-node ./scripts/verify_booking_relaxes_requirements.ts",
     "validate:examples": "ts-node ./scripts/validate_examples.ts",
     "require_top_level_fields": "ts-node ./scripts/require_top_level_fields.ts"
   },
@@ -25,7 +27,7 @@
     "ajv-formats": "^3.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.3",
     "ts-node": "^10.9.2"
   }
 }
