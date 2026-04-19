@@ -42,33 +42,6 @@
           "$ref": "#/$defs/footer"
         }
       ]
-    },
-    "trip": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "$ref": "#/$defs/trip"
-        }
-      ]
-    },
-    "booked_at": {
-      "type": ["integer", "null"],
-      "minimum": 0,
-      "maximum": 4102462800
-    },
-    "lifecycle_status": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "title": "LifecycleStatus",
-          "type": "string",
-          "enum": ["active", "canceled", "refunded"]
-        }
-      ]
     }
   },
   "$defs": {
@@ -465,6 +438,11 @@
         "paid": {
           "type": ["integer", "null"]
         },
+        "booked_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
         "invoiced_at": {
           "type": ["integer", "null"],
           "minimum": 0,
@@ -531,6 +509,28 @@
         },
         "receipt_asset_id": {
           "type": ["string", "null"]
+        },
+        "trip": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/trip"
+            }
+          ]
+        },
+        "lifecycle_status": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "title": "LifecycleStatus",
+              "type": "string",
+              "enum": ["active", "canceled", "refunded"]
+            }
+          ]
         }
       }
     },

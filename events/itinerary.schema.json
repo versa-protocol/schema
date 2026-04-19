@@ -29,33 +29,6 @@
           "$ref": "#/$defs/footer"
         }
       ]
-    },
-    "trip": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "$ref": "#/$defs/trip"
-        }
-      ]
-    },
-    "booked_at": {
-      "type": ["integer", "null"],
-      "minimum": 0,
-      "maximum": 4102462800
-    },
-    "lifecycle_status": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "title": "LifecycleStatus",
-          "type": "string",
-          "enum": ["active", "canceled", "refunded"]
-        }
-      ]
     }
   },
   "$defs": {
@@ -347,6 +320,11 @@
       "additionalProperties": false,
       "required": [],
       "properties": {
+        "booked_at": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 4102462800
+        },
         "third_party": {
           "type": ["object", "null"],
           "additionalProperties": false,
@@ -386,6 +364,28 @@
             },
             {
               "type": "null"
+            }
+          ]
+        },
+        "trip": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/trip"
+            }
+          ]
+        },
+        "lifecycle_status": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "title": "LifecycleStatus",
+              "type": "string",
+              "enum": ["active", "canceled", "refunded"]
             }
           ]
         }
