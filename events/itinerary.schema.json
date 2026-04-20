@@ -469,8 +469,7 @@
           "pattern": "^[A-Z]{2}$"
         },
         "property_id": {
-          "type": ["string", "null"],
-          "pattern": "^(gds\\.[a-z]+|chain\\.[a-z]+|giata):[a-zA-Z0-9]+$"
+          "type": ["string", "null"]
         },
         "record_locator": {
           "type": ["string", "null"]
